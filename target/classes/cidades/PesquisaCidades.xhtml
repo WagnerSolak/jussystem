@@ -1,0 +1,72 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa: cidades</ui:define>
+
+	<ui:define name="corpo">
+		<h:form>
+			<h1>Pesquisa cidades</h1>
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar" id="botaoPesquisar" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/cidades/CadastroCidade" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="painel"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Código" for="cod" />
+				<p:inputText id="cod" size="20" />
+
+				<p:outputLabel value="Nome" for="nome" />
+				<p:inputText id="nome" size="60" />
+
+			</p:panelGrid>
+
+			<p:dataTable id="cidadesTable" var="cidade"
+				style="margin-top: 20px" emptyMessage="Nenhum produto encontrado."
+				rows="20" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom">
+
+				<p:column headerText="Código"
+					style="text-align: center; width: 100px">
+					<h:outputText value="1" />
+				</p:column>
+
+				<p:column headerText="Nome">
+					<h:outputText value="Ponta Grossa" />
+				</p:column>
+				
+				<p:column headerText="Estado"
+				style="width: 80px">
+					<h:outputText value="PR" />
+				</p:column>
+
+
+				<p:column style="text-align: center">
+					<p:button icon="ui-icon-pencil" title="Editar" />
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+					oncomplete="confirmacaoExclusao.show(); " />
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog header="Exclusão de cidade"
+				message="Deseja realmente excluir a cidade?"
+				widgetVar="confirmacaoExclusao">
+				<p:button value="Não"
+					onclick="confirmacaoExclusao.hide(); return false" />
+				<p:commandButton value="Sim" oncomplete="confirmacaoExclusao.hide()" />
+
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
