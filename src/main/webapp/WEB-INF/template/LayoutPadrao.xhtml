@@ -23,9 +23,47 @@
 	</p:ajaxStatus>
 
 	<header>
-	<div>
-		<h:graphicImage library="images" name="jusSys.png" style="margin-top: 2px; margin-left:10px"/>
+	<div style="float: left">
+		<h:link outcome="/Home">
+			<h:graphicImage library="images" name="jusSys.png"
+				style="margin-top: 2px; margin-left:10px" />
+		</h:link>
 	</div>
+
+	<div style="float: right; margin-right: 110px">
+		<span
+			style="float: left; height: 30px; line-height: 30px; margin-right: 60px; margin-top: 5px">
+			Olá Usuário! 
+			</span>
+
+		<h:form style="display: inline-block">
+			<p:menubar styleClass="menu-sistema">
+				<p:submenu label="Cadastros">
+					<p:menuitem value="Pessoas" outcome="/pessoas/PesquisaPessoas" />
+					<p:menuitem value="Usuários" outcome="/usuarios/PesquisaUsuarios" />
+					<p:separator />
+					<p:menuitem value="Categorias" />
+					<p:menuitem value="Produtos" outcome="/produtos/PesquisaProdutos" />
+					<p:separator />
+					<p:menuitem value="Cidades" outcome="/cidades/PesquisaCidades" />
+					<p:menuitem value="Estados" outcome="/estados/PesquisaEstados" />
+				</p:submenu>
+
+				<p:submenu label="Pedidos">
+					<p:menuitem value="Novo Pedido" />
+					<p:menuitem value="Pesquisa Pedido" />
+				</p:submenu>
+				
+				<p:submenu label="Relatórios">
+					<p:menuitem value="Compra" />
+					
+				</p:submenu>
+
+				<p:menuitem value="Sair" />
+			</p:menubar>
+		</h:form>
+	</div>
+	<div style="clear: both"></div>
 	</header>
 
 	<div id="conteudo">
@@ -34,21 +72,20 @@
 
 	<p:separator style="margin-top: 20px" />
 
-	<footer>SGJ - Sistema de Gerenciamento Jurídico.
-	</footer>
-	
-	<script>
-	function configurarMoeda() {
-		$(".moeda").maskMoney({
-			decimal : ",",
-			thousands : ".",
-			allowZero : true
-		});
-	}
-	$(document).ready(function() {
-		configurarMoeda();
+	<footer>SGJ - Sistema de Gerenciamento Jurídico. </footer>
 
-	});
+	<script>
+		function configurarMoeda() {
+			$(".moeda").maskMoney({
+				decimal : ",",
+				thousands : ".",
+				allowZero : true
+			});
+		}
+		$(document).ready(function() {
+			configurarMoeda();
+
+		});
 	</script>
 </h:body>
 </html>
