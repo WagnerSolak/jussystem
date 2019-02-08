@@ -2,20 +2,32 @@ package com.jussystem.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
+@Entity
 public class Pessoa implements Serializable{
 
 
 	private static final long serialVersionUID = 1L;
+	
 	
 	private Long id;
 	private String nome;
 	private String email;
 	private String documentoReceitaFederal;
 	private TipoPessoa tipo;
+	private String sexo;
+	private Date dataNascimento;
 	private List<Endereco>enderecos = new ArrayList<>();
 	
+	@Id
+	@GeneratedValue
 	public Long getId() {
 		return id;
 	}
@@ -41,6 +53,7 @@ public class Pessoa implements Serializable{
 		this.documentoReceitaFederal = documentoReceitaFederal;
 	}
 	
+	@Transient
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
@@ -57,6 +70,21 @@ public class Pessoa implements Serializable{
 		return tipo;
 	}
 	
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+	
+	public String getSexo() {
+		return sexo;
+	}
+	
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+	
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
 	
 	@Override
 	public int hashCode() {

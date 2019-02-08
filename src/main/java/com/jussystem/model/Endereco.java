@@ -2,6 +2,11 @@ package com.jussystem.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Endereco implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -10,11 +15,19 @@ public class Endereco implements Serializable {
 	private String logradouro;
 	private String numero;
 	private String complemento;
-	/* private Cidade cidade; */
+	private Cidade cidade;
 	private String cep;
 	private Pessoa pessoa;
 	
-	
+	@Id
+	@GeneratedValue
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 	
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -23,13 +36,7 @@ public class Endereco implements Serializable {
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 
 	public String getLogradouro() {
 		return logradouro;
@@ -61,6 +68,14 @@ public class Endereco implements Serializable {
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+	
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+	
+	public Cidade getCidade() {
+		return cidade;
 	}
 
 	@Override
