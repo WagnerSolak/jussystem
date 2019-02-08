@@ -15,6 +15,8 @@ import javax.faces.event.ExceptionQueuedEventContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.jusystem.service.NegocioException;
+
 public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 
 	private static Log log = LogFactory.getLog(JsfExceptionHandler.class);
@@ -39,13 +41,17 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 			ExceptionQueuedEventContext context = (ExceptionQueuedEventContext) event.getSource();
 
 			Throwable exception = context.getException();
-
+			NegocioException negocioException = getNegocioException(exception);
+			
 			boolean handled = false;
 
 			try {
 				if (exception instanceof ViewExpiredException) {
 					handled = true;
 					redirect("/");
+				}else if(negocioException != null) {
+					handled = true;
+					FacesUtil.addErrorMessage(negocioException.getMessage());
 				}else {
 					handled = true;
 					log.error("Erro de sistema: " + exception.getMessage(), exception);
@@ -61,6 +67,15 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 		getWrapped().handle();
 	}
 
+	private NegocioException getNegocioException(Throwable exception) {
+		if(exception instanceof NegocioException) {
+			return (NegocioException) exception;
+		}else if(exception.getCause() != null) {
+			return getNegocioException(exception.getCause());
+		}
+		return null;
+	}
+	
 	private void redirect(String page) {
 		try {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
