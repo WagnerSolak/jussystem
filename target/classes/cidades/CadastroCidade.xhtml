@@ -24,14 +24,13 @@
     
     <p:panelGrid columns="2" id="painel" style="widht: 100%; margin-top: 20px"
     columnClasses="rotulo, campo">
-    <p:outputLabel value="Código" for="cod"/>
-    <p:inputText id="cod" size="20" maxlength="20" readonly="true"/>
+
     
     <p:outputLabel value="Nome" for="nome"/>
-    <p:inputText id="nome" size="60" maxlength="80"/>
+    <p:inputText id="nome" size="60" maxlength="80" value="#{cadastroCidadeBean.cidade.nome}"/>
     
     <p:outputLabel value="Estado" for="estado"/>
-    <p:selectOneMenu id="estado">
+    <p:selectOneMenu id="estado" value="#{cadastroCidadeBean.cidade.estado}">
     <f:selectItem itemLabel="Selecione o estado"/>
     </p:selectOneMenu>
     

@@ -8,6 +8,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Usuario implements Serializable{
@@ -31,6 +32,7 @@ public class Usuario implements Serializable{
 		this.id = id;
 	}
 	
+	@NotNull
 	@Column(nullable = false, length = 80)
 	public String getNome() {
 		return nome;
@@ -39,6 +41,7 @@ public class Usuario implements Serializable{
 		this.nome = nome;
 	}
 	
+	@NotNull
 	@Column(nullable = false, length = 80)
 	public String getEmail() {
 		return email;
@@ -47,6 +50,7 @@ public class Usuario implements Serializable{
 		this.email = email;
 	}
 	
+	@NotNull
 	@Column(nullable = false, length = 32)
 	public String getSenha() {
 		return senha;

@@ -13,6 +13,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 
 @Entity
@@ -41,6 +44,7 @@ public class Pessoa implements Serializable{
 		this.id = id;
 	}
 	
+	@NotNull
 	@Column(nullable = false, length = 100)
 	public String getNome() {
 		return nome;
@@ -49,6 +53,7 @@ public class Pessoa implements Serializable{
 		this.nome = nome;
 	}
 	
+	@NotNull
 	@Column(unique = true, length = 50)
 	public String getEmail() {
 		return email;
@@ -57,6 +62,7 @@ public class Pessoa implements Serializable{
 		this.email = email;
 	}
 	
+	@NotNull
 	@Column(nullable = false, length = 20)
 	public String getDocumentoReceitaFederal() {
 		return documentoReceitaFederal;
@@ -78,6 +84,7 @@ public class Pessoa implements Serializable{
 		this.tipo = tipo;
 	}
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 8)
 	public TipoPessoa getTipo() {

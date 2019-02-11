@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Endereco implements Serializable {
@@ -32,6 +33,7 @@ public class Endereco implements Serializable {
 		this.id = id;
 	}
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "pessoa_id", nullable = false)
 	public Pessoa getPessoa() {
@@ -42,6 +44,7 @@ public class Endereco implements Serializable {
 		this.pessoa = pessoa;
 	}
 	
+	@NotNull
 	@Column(nullable = false, length = 100)
 	public String getLogradouro() {
 		return logradouro;
@@ -51,6 +54,7 @@ public class Endereco implements Serializable {
 		this.logradouro = logradouro;
 	}
 
+	@NotNull
 	@Column(nullable = false, length = 20)
 	public String getNumero() {
 		return numero;
@@ -69,6 +73,7 @@ public class Endereco implements Serializable {
 		this.complemento = complemento;
 	}
 
+	@NotNull
 	@Column(nullable = false, length = 10)
 	public String getCep() {
 		return cep;
@@ -82,6 +87,7 @@ public class Endereco implements Serializable {
 		this.cidade = cidade;
 	}
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "cidade_id", nullable = false)
 	public Cidade getCidade() {

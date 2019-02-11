@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Pedido implements Serializable{
@@ -29,6 +30,7 @@ public class Pedido implements Serializable{
 	private Date dataCriacao;
 	private String observacao;
 	private Date dataEmissao;
+	private Date dataCancelamento;
 	private BigDecimal valorFrete;
 	private BigDecimal valorDesconto;
 	private BigDecimal valorTotal;
@@ -47,6 +49,17 @@ public class Pedido implements Serializable{
 		this.id = id;
 	}
 	
+	public void setDataCancelamento(Date dataCancelamento) {
+		this.dataCancelamento = dataCancelamento;
+	}
+	
+	@Column
+	@Temporal(TemporalType.DATE)
+	public Date getDataCancelamento() {
+		return dataCancelamento;
+	}
+	
+	@NotNull
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getDataCriacao() {
@@ -65,7 +78,7 @@ public class Pedido implements Serializable{
 		this.observacao = observacao;
 	}
 	
-	@Column(nullable = false)
+	@Column
 	@Temporal(TemporalType.DATE)
 	public Date getDataEmissao() {
 		return dataEmissao;
@@ -74,7 +87,8 @@ public class Pedido implements Serializable{
 		this.dataEmissao = dataEmissao;
 	}
 	
-	@Column(precision = 10, scale = 2)
+	@NotNull
+	@Column(precision = 10, scale = 2, nullable = false)
 	public BigDecimal getValorFrete() {
 		return valorFrete;
 	}
@@ -82,7 +96,8 @@ public class Pedido implements Serializable{
 		this.valorFrete = valorFrete;
 	}
 	
-	@Column(precision = 10, scale = 2)
+	@NotNull
+	@Column(precision = 10, scale = 2, nullable = false)
 	public BigDecimal getValorDesconto() {
 		return valorDesconto;
 	}
@@ -90,7 +105,8 @@ public class Pedido implements Serializable{
 		this.valorDesconto = valorDesconto;
 	}
 	
-	@Column(precision = 10, scale = 2)
+	@NotNull
+	@Column(precision = 10, scale = 2, nullable = false)
 	public BigDecimal getValorTotal() {
 		return valorTotal;
 	}
@@ -98,6 +114,7 @@ public class Pedido implements Serializable{
 		this.valorTotal = valorTotal;
 	}
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 20)
 	public StatusPedido getStatus() {
@@ -107,6 +124,7 @@ public class Pedido implements Serializable{
 		this.status = status;
 	}
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 20)
 	public FormaPagamento getFormaPagamento() {
@@ -115,8 +133,10 @@ public class Pedido implements Serializable{
 	public void setFormaPagamento(FormaPagamento formaPagamento) {
 		this.formaPagamento = formaPagamento;
 	}
+	
+	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "comprador_id")
+	@JoinColumn(name = "comprador_id", nullable = false)
 	public Usuario getComprador() {
 		return comprador;
 	}
@@ -124,6 +144,7 @@ public class Pedido implements Serializable{
 		this.comprador = comprador;
 	}
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(nullable = false, name = "fornecedor_id")
 	public Pessoa getFornecedor() {
