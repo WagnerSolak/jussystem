@@ -5,10 +5,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.OneToMany;
+
 
 @Entity
 public class Pessoa implements Serializable{
@@ -24,6 +29,7 @@ public class Pessoa implements Serializable{
 	private TipoPessoa tipo;
 	private String sexo;
 	private Date dataNascimento;
+	private StatusTipoPessoa status;
 	private List<Endereco>enderecos = new ArrayList<>();
 	
 	@Id
@@ -34,18 +40,24 @@ public class Pessoa implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	@Column(nullable = false, length = 100)
 	public String getNome() {
 		return nome;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	@Column(unique = true, length = 50)
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	@Column(nullable = false, length = 20)
 	public String getDocumentoReceitaFederal() {
 		return documentoReceitaFederal;
 	}
@@ -53,7 +65,7 @@ public class Pessoa implements Serializable{
 		this.documentoReceitaFederal = documentoReceitaFederal;
 	}
 	
-	@Transient
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
@@ -66,6 +78,8 @@ public class Pessoa implements Serializable{
 		this.tipo = tipo;
 	}
 	
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 8)
 	public TipoPessoa getTipo() {
 		return tipo;
 	}
@@ -84,6 +98,15 @@ public class Pessoa implements Serializable{
 	
 	public Date getDataNascimento() {
 		return dataNascimento;
+	}
+	
+	public void setStatus(StatusTipoPessoa status) {
+		this.status = status;
+	}
+	
+	@Enumerated(EnumType.STRING)
+	public StatusTipoPessoa getStatus() {
+		return status;
 	}
 	
 	@Override

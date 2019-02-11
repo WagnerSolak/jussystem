@@ -6,6 +6,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
 public class Pedido implements Serializable{
 
 	
@@ -24,73 +38,102 @@ public class Pedido implements Serializable{
 	private Pessoa fornecedor;
 	private List<ItemPedido>itens = new ArrayList<>();
 	
-	
+	@Id
+	@GeneratedValue
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	@Column(nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getDataCriacao() {
 		return dataCriacao;
 	}
+	
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
+	
+	@Column(columnDefinition = "text")
 	public String getObservacao() {
 		return observacao;
 	}
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
+	
+	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
 	public Date getDataEmissao() {
 		return dataEmissao;
 	}
 	public void setDataEmissao(Date dataEmissao) {
 		this.dataEmissao = dataEmissao;
 	}
+	
+	@Column(precision = 10, scale = 2)
 	public BigDecimal getValorFrete() {
 		return valorFrete;
 	}
 	public void setValorFrete(BigDecimal valorFrete) {
 		this.valorFrete = valorFrete;
 	}
+	
+	@Column(precision = 10, scale = 2)
 	public BigDecimal getValorDesconto() {
 		return valorDesconto;
 	}
 	public void setValorDesconto(BigDecimal valorDesconto) {
 		this.valorDesconto = valorDesconto;
 	}
+	
+	@Column(precision = 10, scale = 2)
 	public BigDecimal getValorTotal() {
 		return valorTotal;
 	}
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}
+	
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 20)
 	public StatusPedido getStatus() {
 		return status;
 	}
 	public void setStatus(StatusPedido status) {
 		this.status = status;
 	}
+	
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 20)
 	public FormaPagamento getFormaPagamento() {
 		return formaPagamento;
 	}
 	public void setFormaPagamento(FormaPagamento formaPagamento) {
 		this.formaPagamento = formaPagamento;
 	}
+	@ManyToOne
+	@JoinColumn(name = "comprador_id")
 	public Usuario getComprador() {
 		return comprador;
 	}
 	public void setComprador(Usuario comprador) {
 		this.comprador = comprador;
 	}
+	
+	@ManyToOne
+	@JoinColumn(nullable = false, name = "fornecedor_id")
 	public Pessoa getFornecedor() {
 		return fornecedor;
 	}
 	public void setFornecedor(Pessoa fornecedor) {
 		this.fornecedor = fornecedor;
 	}
+	
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<ItemPedido> getItens() {
 		return itens;
 	}

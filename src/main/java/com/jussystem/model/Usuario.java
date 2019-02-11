@@ -2,6 +2,14 @@ package com.jussystem.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Usuario implements Serializable{
 
 
@@ -11,33 +19,52 @@ public class Usuario implements Serializable{
 	private String nome;
 	private String email;
 	private String senha;
+	private StatusTipoUsuario status;
 	
 	
-	
+	@Id
+	@GeneratedValue
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	@Column(nullable = false, length = 80)
 	public String getNome() {
 		return nome;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	@Column(nullable = false, length = 80)
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	@Column(nullable = false, length = 32)
 	public String getSenha() {
 		return senha;
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+	public void setStatus(StatusTipoUsuario status) {
+		this.status = status;
+	}
+	
+	@Enumerated(EnumType.STRING)
+	public StatusTipoUsuario getStatus() {
+		return status;
+	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

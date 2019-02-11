@@ -3,7 +3,13 @@ package com.jussystem.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+
+@Entity
 public class Produto implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -11,33 +17,39 @@ public class Produto implements Serializable{
 	private Long id;
 	private String nome;
 	private BigDecimal valorUnitario;
-	private String estoque;
+	private Short estoque;
 	
 	private Categoria categoria;
 	
-	
+	@Id
+	@GeneratedValue
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	@Column(nullable = false, length = 80)
 	public String getNome() {
 		return nome;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	@Column(nullable = false, precision = 10, scale = 2)
 	public BigDecimal getValorUnitario() {
 		return valorUnitario;
 	}
 	public void setValorUnitario(BigDecimal valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
-	public String getEstoque() {
+	@Column(nullable = false)
+	public Short getEstoque() {
 		return estoque;
 	}
-	public void setEstoque(String estoque) {
+	public void setEstoque(Short estoque) {
 		this.estoque = estoque;
 	}
 	

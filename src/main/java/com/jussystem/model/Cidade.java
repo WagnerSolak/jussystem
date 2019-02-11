@@ -2,6 +2,14 @@ package com.jussystem.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Cidade implements Serializable{
 
 
@@ -12,18 +20,25 @@ public class Cidade implements Serializable{
 	private Estado estado;
 	
 	
+	@Id
+	@GeneratedValue
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	@Column(nullable = false, length = 50)
 	public String getNome() {
 		return nome;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	@ManyToOne
+	@JoinColumn(nullable = false)
 	public Estado getEstado() {
 		return estado;
 	}

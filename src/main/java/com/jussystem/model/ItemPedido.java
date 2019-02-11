@@ -3,6 +3,14 @@ package com.jussystem.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class ItemPedido implements Serializable{
 
 
@@ -18,22 +26,30 @@ public class ItemPedido implements Serializable{
 		this.id = id;
 	}
 	
+	@Id
+	@GeneratedValue
 	public Long getId() {
 		return id;
 	}
 	
+	@Column(nullable = false, length = 3)
 	public Integer getQuantidade() {
 		return quantidade;
 	}
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
+	
+	@Column(nullable = false, precision = 10, scale = 2)
 	public BigDecimal getValorUnitario() {
 		return valorUnitario;
 	}
 	public void setValorUnitario(BigDecimal valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name = "produto_id", nullable = false)
 	public Produto getProduto() {
 		return produto;
 	}
@@ -45,6 +61,8 @@ public class ItemPedido implements Serializable{
 		this.pedido = pedido;
 	}
 	
+	@ManyToOne
+	@JoinColumn(name = "pedido_id", nullable = false)
 	public Pedido getPedido() {
 		return pedido;
 	}

@@ -16,17 +16,18 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>5.0.5.Final</version>
+			<version>5.0.0.Final</version>
 		</dependency>
 
-
-		<!-- Implementação de EntityManager da JPA -->
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.2.3.Final</version>
-			<scope>compile</scope>
+			<version>5.0.0.Final</version>
 		</dependency>
+
+
+
 
 		<!-- Driver JDBC do MySQL -->
 		<dependency>

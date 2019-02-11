@@ -2,9 +2,12 @@ package com.jussystem.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Endereco implements Serializable {
@@ -29,6 +32,8 @@ public class Endereco implements Serializable {
 		this.id = id;
 	}
 	
+	@ManyToOne
+	@JoinColumn(name = "pessoa_id", nullable = false)
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -37,7 +42,7 @@ public class Endereco implements Serializable {
 		this.pessoa = pessoa;
 	}
 	
-
+	@Column(nullable = false, length = 100)
 	public String getLogradouro() {
 		return logradouro;
 	}
@@ -46,6 +51,7 @@ public class Endereco implements Serializable {
 		this.logradouro = logradouro;
 	}
 
+	@Column(nullable = false, length = 20)
 	public String getNumero() {
 		return numero;
 	}
@@ -54,6 +60,7 @@ public class Endereco implements Serializable {
 		this.numero = numero;
 	}
 
+	@Column(length = 100)
 	public String getComplemento() {
 		return complemento;
 	}
@@ -62,6 +69,7 @@ public class Endereco implements Serializable {
 		this.complemento = complemento;
 	}
 
+	@Column(nullable = false, length = 10)
 	public String getCep() {
 		return cep;
 	}
@@ -74,6 +82,8 @@ public class Endereco implements Serializable {
 		this.cidade = cidade;
 	}
 	
+	@ManyToOne
+	@JoinColumn(name = "cidade_id", nullable = false)
 	public Cidade getCidade() {
 		return cidade;
 	}
