@@ -87,8 +87,8 @@ public class Pedido implements Serializable{
 		this.dataEmissao = dataEmissao;
 	}
 	
-	@NotNull
-	@Column(precision = 10, scale = 2, nullable = false)
+	
+	@Column(precision = 10, scale = 2)
 	public BigDecimal getValorFrete() {
 		return valorFrete;
 	}
@@ -96,8 +96,8 @@ public class Pedido implements Serializable{
 		this.valorFrete = valorFrete;
 	}
 	
-	@NotNull
-	@Column(precision = 10, scale = 2, nullable = false)
+	
+	@Column(precision = 10, scale = 2)
 	public BigDecimal getValorDesconto() {
 		return valorDesconto;
 	}
@@ -161,6 +161,8 @@ public class Pedido implements Serializable{
 	public void setItens(List<ItemPedido> itens) {
 		this.itens = itens;
 	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

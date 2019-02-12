@@ -9,7 +9,7 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 
 import com.jussystem.model.Pedido;
-import com.jusystem.service.NegocioException;
+
 
 @Named
 @ViewScoped

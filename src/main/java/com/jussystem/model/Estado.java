@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Estado implements Serializable{
@@ -14,6 +15,7 @@ public class Estado implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	private String nome;
 	private String sigla;
 	
 	@Id
@@ -25,6 +27,7 @@ public class Estado implements Serializable{
 		this.id = id;
 	}
 	
+	@NotNull
 	@Column(nullable = false, length = 2)
 	public String getSigla() {
 		return sigla;
@@ -32,6 +35,17 @@ public class Estado implements Serializable{
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
 	}
+	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+	@NotNull
+	@Column(nullable = false, length = 50)
+	public String getNome() {
+		return nome;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

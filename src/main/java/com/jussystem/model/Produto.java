@@ -43,23 +43,27 @@ public class Produto implements Serializable{
 	public String getNome() {
 		return nome;
 	}
+	
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 	
 	@NotNull
-	@Column(nullable = false, precision = 10, scale = 2)
+	@Column(nullable = false,precision = 10, scale = 2)
 	public BigDecimal getValorUnitario() {
 		return valorUnitario;
 	}
+	
 	public void setValorUnitario(BigDecimal valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
+	
 	@NotNull @Min(0) @Max(9999)
-	@Column(nullable = false)
+	@Column(nullable = false, length = 5)
 	public Short getEstoque() {
 		return estoque;
 	}
+	
 	public void setEstoque(Short estoque) {
 		this.estoque = estoque;
 	}

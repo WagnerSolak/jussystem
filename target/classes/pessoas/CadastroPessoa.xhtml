@@ -35,24 +35,24 @@
 
 
 			<p:outputLabel value="Nome" for="nome" />
-			<p:inputText id="nome" size="80" maxlength="80" />
+			<p:inputText id="nome" size="80" maxlength="80" value="#{cadastroPessoaBean.pessoa.nome}"/>
 
 			<p:outputLabel value="Tipo Fiscal" for="tipo" />
-			<p:selectOneRadio id="tipo" required="true" styleClass="sem-bordas">
+			<p:selectOneRadio id="tipo" required="true" styleClass="sem-bordas" value="#{cadastroPessoaBean.pessoa.tipo}">
 				<f:selectItem itemLabel="Física" itemValue="F" />
 				<f:selectItem itemLabel="Jurídica" itemValue="J" />
 			</p:selectOneRadio>
 			
 			
 			<p:outputLabel value="CNPJ" for="cnpj" />
-			<p:inputText id="cnpj" size="20" maxlength="20" />
+			<p:inputText id="cnpj" size="20" maxlength="20" value="#{cadastroPessoaBean.pessoa.documentoReceitaFederal}"/>
 			
 			<p:outputLabel value="CPF" for="cpf" />
-			<p:inputText id="cpf" size="20" maxlength="20" />
+			<p:inputText id="cpf" size="20" maxlength="20" value="#{cadastroPessoaBean.pessoa.documentoReceitaFederal}"/>
 			
 			
 			<p:outputLabel value="E-mail:" for="email" />
-			<p:inputText id="email" size="60" maxlength="80" />
+			<p:inputText id="email" size="60" maxlength="80" value="#{cadastroPessoaBean.pessoa.email}"/>
 			
 			<p:commandButton value="Adicionar Endereço"/>
 			
@@ -61,13 +61,14 @@
 				 maximizable="false">
 				 
 				 <p:outputLabel value="CEP" for="cep" />
-			<p:inputText id="cep" size="20" maxlength="20" />
+			<p:inputText id="cep" size="20" maxlength="20" required="true"
+				/>
 				
 			<p:outputLabel value="Logradouro" for="logradouro" />
-			<p:inputText id="logradouro" size="80" maxlength="100" />
+			<p:inputText id="logradouro" size="80" maxlength="100" required="true"/>
 			
 			<p:outputLabel value="Número" for="numero" />
-			<p:inputText id="numero" size="20" maxlength="20" />
+			<p:inputText id="numero" size="20" maxlength="20" required="true"/>
 			
 			<p:outputLabel value="Complemento" for="complemento" />
 			<p:inputText id="complemento" size="80" maxlength="80" />
@@ -91,8 +92,8 @@
 			
 			
 
-			<p:dataTable id="produtosTable" var="produto"
-				style="margin-top: 20px" emptyMessage="Nenhum produto encontrado."
+			<p:dataTable id="pessoasTable" var="pessoa"
+				style="margin-top: 20px" emptyMessage="Nenhuma pessoa encontrada."
 				rows="20" paginator="true" paginatorAlwaysVisible="false"
 				paginatorPosition="bottom">
 				

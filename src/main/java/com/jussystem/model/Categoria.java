@@ -34,7 +34,7 @@ public class Categoria implements Serializable{
 		this.id = id;
 	}
 
-	@Column(length = 80)
+	@Column(nullable = false ,length = 60)
 	public String getDescricao() {
 		return descricao;
 	}

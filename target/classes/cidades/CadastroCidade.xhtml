@@ -26,11 +26,11 @@
     columnClasses="rotulo, campo">
 
     
-    <p:outputLabel value="Nome" for="nome"/>
-    <p:inputText id="nome" size="60" maxlength="80" value="#{cadastroCidadeBean.cidade.nome}"/>
+    <p:outputLabel value="Nome *" for="nome"/>
+    <p:inputText id="nome" size="60" maxlength="80" value="#{cadastroCidadeBean.cidade.nome}" />
     
-    <p:outputLabel value="Estado" for="estado"/>
-    <p:selectOneMenu id="estado" value="#{cadastroCidadeBean.cidade.estado}">
+    <p:outputLabel value="Estado *" for="estado"/>
+    <p:selectOneMenu id="estado" value="#{cadastroCidadeBean.cidade.estado}" >
     <f:selectItem itemLabel="Selecione o estado"/>
     </p:selectOneMenu>
     

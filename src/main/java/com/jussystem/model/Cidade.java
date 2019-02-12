@@ -8,6 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 public class Cidade implements Serializable{
@@ -29,6 +33,8 @@ public class Cidade implements Serializable{
 		this.id = id;
 	}
 	
+	@NotBlank
+	@Size(max = 50)
 	@Column(nullable = false, length = 50)
 	public String getNome() {
 		return nome;
@@ -37,6 +43,7 @@ public class Cidade implements Serializable{
 		this.nome = nome;
 	}
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	public Estado getEstado() {
