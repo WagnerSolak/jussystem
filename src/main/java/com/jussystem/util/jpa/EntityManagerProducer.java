@@ -19,9 +19,10 @@ public class EntityManagerProducer {
 	}
 	
 	@Produces @RequestScoped
-	public EntityManagerFactory createEntityManager() {
-		return  (EntityManagerFactory) factory.createEntityManager();
+	public EntityManager createEntityManager() {
+		return factory.createEntityManager();
 	}
+
 	
 	
 	public void closeEntityManager(@Disposes EntityManager manager) {

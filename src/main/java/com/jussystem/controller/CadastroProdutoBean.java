@@ -3,15 +3,16 @@ package com.jussystem.controller;
 import java.io.Serializable;
 import java.util.List;
 
+
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+
+
 
 import com.jussystem.model.Categoria;
 import com.jussystem.model.Produto;
+import com.jussystem.repository.Categorias;
 
 @Named
 @ViewScoped
@@ -19,10 +20,14 @@ public class CadastroProdutoBean implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
+	
+	
     @Inject
-	private EntityManager manager;
+	private Categorias categorias;
 	
 	private Produto produto;
+	
+	private Categoria categoriaPai;
 	
 	private List<Categoria> categoriasRaizes;
 	
@@ -31,10 +36,8 @@ public class CadastroProdutoBean implements Serializable{
 	}
 	
 	public void inicializar() {
-	
-		
-		categoriasRaizes =  manager.createQuery("from Categoria", Categoria.class).getResultList();
-	
+ 
+		categoriasRaizes = categorias.raizes();
 	}
 	
 	
@@ -48,6 +51,14 @@ public class CadastroProdutoBean implements Serializable{
 	
 	public List<Categoria> getCategoriasRaizes() {
 		return categoriasRaizes;
+	}
+	
+	public Categoria getCategoriaPai() {
+		return categoriaPai;
+	}
+	
+	public void setCategoriaPai(Categoria categoriaPai) {
+		this.categoriaPai = categoriaPai;
 	}
 
 }

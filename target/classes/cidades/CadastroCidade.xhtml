@@ -1,42 +1,44 @@
 <ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
-    
-<ui:define name="titulo">Nova Cidade</ui:define>
-    
-    <ui:define name="corpo">
-    <h:form>
-    <h1>Nova cidade</h1>
-    
-    <p:toolbar style="margin-top: 20px">
-    <p:toolbarGroup>
-    <p:button value="Novo" outcome="/cidades/CadastroCidade"/>
-    <p:commandButton value="Salvar" id="botaoSalvar" />
-    </p:toolbarGroup>
-    
-    <p:toolbarGroup align="right">
-    <p:button value="Pesquisa" outcome="/cidades/PesquisaCidades"/>
-    </p:toolbarGroup>
-        </p:toolbar>
-    
-    <p:panelGrid columns="2" id="painel" style="widht: 100%; margin-top: 20px"
-    columnClasses="rotulo, campo">
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
-    
-    <p:outputLabel value="Nome *" for="nome"/>
-    <p:inputText id="nome" size="60" maxlength="80" value="#{cadastroCidadeBean.cidade.nome}" />
-    
-    <p:outputLabel value="Estado *" for="estado"/>
-    <p:selectOneMenu id="estado" value="#{cadastroCidadeBean.cidade.estado}" >
-    <f:selectItem itemLabel="Selecione o estado"/>
-    </p:selectOneMenu>
-    
-    
-    </p:panelGrid>
-    
-</h:form>
-    </ui:define>
-    </ui:composition>
+	<ui:define name="titulo">Nova Cidade</ui:define>
+
+	<ui:define name="corpo">
+		<h:form>
+			<h1>Nova cidade</h1>
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/cidades/CadastroCidade" />
+					<p:commandButton value="Salvar" id="botaoSalvar" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa" outcome="/cidades/PesquisaCidades" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="painel"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+
+				<p:outputLabel value="Nome *" for="nome" />
+				<p:inputText id="nome" size="60" maxlength="80"
+					value="#{cadastroCidadeBean.cidade.nome}" />
+
+				<p:outputLabel value="Estado *" for="estado" />
+				<p:selectOneMenu id="estado"
+					value="#{cadastroCidadeBean.cidade.estado}">
+					<f:selectItem itemLabel="Selecione o estado" />
+				</p:selectOneMenu>
+
+
+			</p:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

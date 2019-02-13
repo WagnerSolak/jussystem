@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 
 
 
-@Entity
+/*@Entity*/
 public class Pessoa implements Serializable{
 
 

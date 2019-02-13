@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-@Entity
+/*@Entity*/
 public class Usuario implements Serializable{
 
 
