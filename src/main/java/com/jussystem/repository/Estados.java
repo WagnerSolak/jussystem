@@ -8,7 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 
 import com.jussystem.model.Estado;
-import com.jussystem.model.Produto;
+
 
 public class Estados implements Serializable{
 	
@@ -17,15 +17,10 @@ public class Estados implements Serializable{
 	@Inject
 	private EntityManager manager;
 
+	
 	public Estado guardar(Estado estado) {
-		EntityTransaction trx = manager.getTransaction();
-		trx.begin();
+		return  manager.merge(estado);
 		
-		estado = manager.merge(estado);
-		
-		trx.commit();
-		
-		return estado;
 	}
 
 	public Estado porNome(String nome) {
