@@ -12,7 +12,27 @@
 
 	<dependencies>
 	
-	<!-- Implementacao do Bean Validation -->
+
+
+		<!-- Implementação Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>5.0.1.Final</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.jboss.logging</groupId>
+					<artifactId>jboss-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging</artifactId>
+			<version>3.3.0.Final</version>
+		</dependency>
+
+		<!-- Implementacao do Bean Validation -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
@@ -20,19 +40,7 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>5.0.0.Final</version>
-		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>5.0.0.Final</version>
-		</dependency>
 
 
 		<!-- Driver JDBC do MySQL -->
@@ -61,14 +69,14 @@
 		</dependency>
 
 
-		
-		        <!-- Mojarra (implementacao do JSF) -->
-        <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.faces</artifactId>
-            <version>2.2.9</version>
-            <scope>compile</scope>
-        </dependency>
+
+		<!-- Mojarra (implementacao do JSF) -->
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.faces</artifactId>
+			<version>2.2.9</version>
+			<scope>compile</scope>
+		</dependency>
 
 		<!-- Log4J -->
 		<dependency>
@@ -85,8 +93,8 @@
 			<version>1.1.3</version>
 			<scope>compile</scope>
 		</dependency>
-		
-		
+
+
 
 	</dependencies>
 

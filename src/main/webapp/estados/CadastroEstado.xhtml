@@ -8,13 +8,15 @@
 <ui:define name="titulo">Novo Estado</ui:define>
     
     <ui:define name="corpo">
+    
+    
     <h:form>
     <h1>Novo estado</h1>
     
     <p:toolbar style="margin-top: 20px">
     <p:toolbarGroup>
     <p:button value="Novo" outcome="/estados/CadastroEstado"/>
-    <p:commandButton value="Salvar" id="botaoSalvar" ajax="false"/>
+    <p:commandButton value="Salvar" id="botaoSalvar" update="@form"/>
     </p:toolbarGroup>
     
     <p:toolbarGroup align="right">

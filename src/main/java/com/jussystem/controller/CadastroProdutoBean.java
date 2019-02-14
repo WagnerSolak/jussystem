@@ -13,14 +13,13 @@ import javax.inject.Named;
 import com.jussystem.model.Categoria;
 import com.jussystem.model.Produto;
 import com.jussystem.repository.Categorias;
+import com.jussystem.util.jsf.FacesUtil;
 
 @Named
 @ViewScoped
 public class CadastroProdutoBean implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	
-	
 	
     @Inject
 	private Categorias categorias;
@@ -30,16 +29,22 @@ public class CadastroProdutoBean implements Serializable{
 	private Categoria categoriaPai;
 	
 	private List<Categoria> categoriasRaizes;
+	private List<Categoria> subcategorias;
 	
 	public CadastroProdutoBean() {
 		produto = new Produto();
 	}
 	
 	public void inicializar() {
- 
-		categoriasRaizes = categorias.raizes();
+		if(FacesUtil.isNotPostBack()) {
+			categoriasRaizes = categorias.raizes();
+		}
+		
 	}
 	
+	public void carregarSubcategorias() {
+		subcategorias = categorias.subcategoriaDe(categoriaPai);
+	}
 	
 	public void salvar() {
 		
@@ -59,6 +64,10 @@ public class CadastroProdutoBean implements Serializable{
 	
 	public void setCategoriaPai(Categoria categoriaPai) {
 		this.categoriaPai = categoriaPai;
+	}
+	
+	public List<Categoria> getSubcategorias() {
+		return subcategorias;
 	}
 
 }
