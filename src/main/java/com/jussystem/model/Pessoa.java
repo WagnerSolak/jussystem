@@ -13,12 +13,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 
 
 
-/*@Entity*/
+@Entity
 public class Pessoa implements Serializable{
 
 
@@ -29,6 +31,7 @@ public class Pessoa implements Serializable{
 	private String nome;
 	private String email;
 	private String documentoReceitaFederal;
+	private String registroGeral;
 	private TipoPessoa tipo;
 	private String sexo;
 	private Date dataNascimento;
@@ -95,6 +98,8 @@ public class Pessoa implements Serializable{
 		this.sexo = sexo;
 	}
 	
+	@NotNull
+	@Column(nullable = false,length = 1)
 	public String getSexo() {
 		return sexo;
 	}
@@ -102,7 +107,9 @@ public class Pessoa implements Serializable{
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	
+
+	@Column
+	@Temporal(TemporalType.DATE)
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
@@ -111,9 +118,21 @@ public class Pessoa implements Serializable{
 		this.status = status;
 	}
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 9)
 	public StatusTipoPessoa getStatus() {
 		return status;
+	}
+	
+	public void setRegistroGeral(String registroGeral) {
+		this.registroGeral = registroGeral;
+	}
+	
+	
+	@Column(length = 12)
+	public String getRegistroGeral() {
+		return registroGeral;
 	}
 	
 	@Override

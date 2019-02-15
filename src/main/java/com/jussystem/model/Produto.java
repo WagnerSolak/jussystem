@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -68,10 +70,14 @@ public class Produto implements Serializable{
 		this.estoque = estoque;
 	}
 	
+	
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "categoria_id", nullable = false)
 	public Categoria getCategoria() {
 		return categoria;
 	}

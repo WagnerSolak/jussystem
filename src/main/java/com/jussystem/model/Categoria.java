@@ -12,8 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
-/*@Entity*/
+@Entity
 public class Categoria implements Serializable{
 
 
@@ -34,6 +35,7 @@ public class Categoria implements Serializable{
 		this.id = id;
 	}
 
+	@NotNull
 	@Column(nullable = false ,length = 60)
 	public String getDescricao() {
 		return descricao;

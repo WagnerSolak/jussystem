@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-/*@Entity*/
+@Entity
 public class Usuario implements Serializable{
 
 
@@ -55,6 +55,7 @@ public class Usuario implements Serializable{
 	public String getSenha() {
 		return senha;
 	}
+	
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
@@ -63,6 +64,8 @@ public class Usuario implements Serializable{
 		this.status = status;
 	}
 	
+	@NotNull
+	@Column(nullable = false, length = 9) 
 	@Enumerated(EnumType.STRING)
 	public StatusTipoUsuario getStatus() {
 		return status;

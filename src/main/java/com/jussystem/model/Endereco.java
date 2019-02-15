@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-/*@Entity*/
+@Entity
 public class Endereco implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -2,6 +2,7 @@ package com.jussystem.model;
 
 import java.io.Serializable;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,7 +46,7 @@ public class Cidade implements Serializable{
 	
 	@NotNull
 	@ManyToOne
-	@JoinColumn(nullable = false)
+	@JoinColumn(name = "estado_id",nullable = false)
 	public Estado getEstado() {
 		return estado;
 	}

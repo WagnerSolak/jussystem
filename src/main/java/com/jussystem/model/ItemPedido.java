@@ -9,9 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
-/*@Entity
-*/
+@Entity
 public class ItemPedido implements Serializable{
 
 
@@ -33,6 +33,7 @@ public class ItemPedido implements Serializable{
 		return id;
 	}
 	
+	@NotNull
 	@Column(nullable = false, length = 3)
 	public Integer getQuantidade() {
 		return quantidade;
@@ -41,6 +42,7 @@ public class ItemPedido implements Serializable{
 		this.quantidade = quantidade;
 	}
 	
+	@NotNull
 	@Column(nullable = false, precision = 10, scale = 2)
 	public BigDecimal getValorUnitario() {
 		return valorUnitario;
@@ -49,6 +51,7 @@ public class ItemPedido implements Serializable{
 		this.valorUnitario = valorUnitario;
 	}
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "produto_id", nullable = false)
 	public Produto getProduto() {
@@ -62,6 +65,7 @@ public class ItemPedido implements Serializable{
 		this.pedido = pedido;
 	}
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "pedido_id", nullable = false)
 	public Pedido getPedido() {
