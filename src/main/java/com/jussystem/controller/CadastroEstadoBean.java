@@ -16,21 +16,18 @@ import com.jusystem.service.CadastroEstadoService;
 @ViewScoped
 public class CadastroEstadoBean implements Serializable{
 
-
 	private static final long serialVersionUID = 1L;
-	
-	/*@Inject
-	private EntityManager manager;*/
 	
 	private Estado estado;
 	
 	@Inject
 	private CadastroEstadoService cadastroEstadoService;
 	
-	/*private List<Estado> estados; */
-	
-	
 	public CadastroEstadoBean() {
+		limpar();
+	}
+	
+	public void inicializar() {
 		limpar();
 	}
 	
@@ -51,8 +48,6 @@ public class CadastroEstadoBean implements Serializable{
 		return estado;
 	}
 	
-	/*public List<Estado> getEstados() {
-		return estados;
-	}*/
+
 	
 }

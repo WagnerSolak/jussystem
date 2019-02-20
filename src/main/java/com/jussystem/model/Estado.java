@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 public class Estado implements Serializable{
@@ -40,7 +43,8 @@ public class Estado implements Serializable{
 		this.nome = nome;
 	}
 	
-	@NotNull
+	@NotBlank
+	@Size(max = 50)
 	@Column(nullable = false, length = 50)
 	public String getNome() {
 		return nome;

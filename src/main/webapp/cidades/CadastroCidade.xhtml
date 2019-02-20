@@ -8,13 +8,21 @@
 	<ui:define name="titulo">Nova Cidade</ui:define>
 
 	<ui:define name="corpo">
+		<f:metadata>
+			<f:viewParam name="corrigeVariosSelects" />
+			<f:event listener="#{cadastroCidadeBean.inicializar}"
+				type="preRenderView"></f:event>
+		</f:metadata>
 		<h:form>
 			<h1>Nova cidade</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
 
 			<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup>
 					<p:button value="Novo" outcome="/cidades/CadastroCidade" />
-					<p:commandButton value="Salvar" id="botaoSalvar" />
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroCidadeBean.salvar}" />
 				</p:toolbarGroup>
 
 				<p:toolbarGroup align="right">
@@ -31,9 +39,10 @@
 					value="#{cadastroCidadeBean.cidade.nome}" />
 
 				<p:outputLabel value="Estado *" for="estado" />
-				<p:selectOneMenu id="estado"
-					value="#{cadastroCidadeBean.cidade.estado}">
+				<p:selectOneMenu id="estado">
 					<f:selectItem itemLabel="Selecione o estado" />
+					<f:selectItems value="#{cadastroCidadeBean.estados}" var="estado"
+						itemValue="#{estado}" itemLabel="#{estado.nome} - #{estado.sigla}" />
 				</p:selectOneMenu>
 
 

@@ -25,7 +25,7 @@ public class Categorias implements Serializable{
 				Categoria.class).getResultList();
 	}
 	
-	public List<Categoria> subcategoriaDe(Categoria categoriaPai){
+	public List<Categoria> subcategoriasDe(Categoria categoriaPai){
 		return manager.createQuery("from categoria where categoriaPai = :raiz", 
 				Categoria.class).setParameter("raiz", categoriaPai).getResultList();
 	}

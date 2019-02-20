@@ -3,12 +3,10 @@ package com.jussystem.controller;
 import java.io.Serializable;
 import java.util.List;
 
-
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-
+import javax.validation.constraints.NotNull;
 
 import com.jussystem.model.Categoria;
 import com.jussystem.model.Produto;
@@ -43,7 +41,7 @@ public class CadastroProdutoBean implements Serializable{
 	}
 	
 	public void carregarSubcategorias() {
-		subcategorias = categorias.subcategoriaDe(categoriaPai);
+		subcategorias = categorias.subcategoriasDe(categoriaPai);
 	}
 	
 	public void salvar() {
@@ -58,6 +56,7 @@ public class CadastroProdutoBean implements Serializable{
 		return categoriasRaizes;
 	}
 	
+	@NotNull
 	public Categoria getCategoriaPai() {
 		return categoriaPai;
 	}
