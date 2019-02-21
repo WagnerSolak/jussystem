@@ -22,7 +22,7 @@ public class EstadoConverter implements Converter{
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		Estado retorno = null;
 		
-		if(value !=null) {
+		if(value != null) {
 			Long id = new Long(value);
 			retorno = estados.porId(id);
 		}

@@ -9,7 +9,6 @@ import com.jussystem.repository.Estados;
 import com.jussystem.util.jpa.Transactional;
 
 
-
 public class CadastroEstadoService implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -19,10 +18,12 @@ public class CadastroEstadoService implements Serializable{
 	
 	@Transactional
 	public Estado salvar(Estado estado) {
-/*	Estado estadoExistente = estados.porNome(estado.getNome());
+	Estado estadoExistente = estados.porNome(estado.getNome());
 		if(estadoExistente !=null) {
 			throw new NegocioException("Já existe um estado com este nome cadastrado!");
-		}*/
-		return estados.guardar(estado);
+		}
+		 
+		estado = 	estados.guardar(estado);
+		return estado;
 	}
 }

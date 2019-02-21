@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-
+import javax.persistence.NoResultException;
 
 import com.jussystem.model.Estado;
 
@@ -31,7 +31,7 @@ public class Estados implements Serializable{
 		return manager.find(Estado.class, id);
 	}
 
-/*	public Estado porNome(String nome) {
+	public Estado porNome(String nome) {
 		try {
 		return manager.createQuery("from Estado where upper(nome) = :nome", Estado.class)
 				.setParameter("nome", nome.toUpperCase())
@@ -40,5 +40,5 @@ public class Estados implements Serializable{
 		}catch (NoResultException e) {
 			return null;
 		}
-	}*/
+	}
 }

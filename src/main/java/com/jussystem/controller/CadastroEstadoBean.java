@@ -9,6 +9,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import com.jussystem.model.Estado;
+import com.jussystem.repository.Estados;
 import com.jussystem.util.jsf.FacesUtil;
 import com.jusystem.service.CadastroEstadoService;
 
@@ -18,13 +19,16 @@ public class CadastroEstadoBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	@Inject
+	private Estados estados;
+	
 	private Estado estado;
 	
 	@Inject
 	private CadastroEstadoService cadastroEstadoService;
 	
 	public CadastroEstadoBean() {
-		limpar();
+		
 	}
 	
 	public void inicializar() {
@@ -48,6 +52,8 @@ public class CadastroEstadoBean implements Serializable{
 		return estado;
 	}
 	
-
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
 	
 }

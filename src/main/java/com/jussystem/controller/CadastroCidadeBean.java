@@ -10,6 +10,7 @@ import javax.inject.Named;
 
 import com.jussystem.model.Cidade;
 import com.jussystem.model.Estado;
+import com.jussystem.repository.Cidades;
 import com.jussystem.repository.Estados;
 
 @Named
@@ -19,13 +20,20 @@ public class CadastroCidadeBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
+	private Cidades cidades;
+	
+	@Inject
 	private Estados estadosRepository;
 	
 	private Cidade cidade;
-	
+	private Estado estado;
 	private List<Estado> estados;
 	
-	private Estado est;
+	
+	public CadastroCidadeBean() {
+		limpar();
+		
+	}
 	
 	public void inicializar() {
 		System.out.println("Inicializando...");
@@ -34,14 +42,16 @@ public class CadastroCidadeBean implements Serializable{
 	}
 	
 	public void salvar() {
-		System.out.println("Estado selecioado: " + est.getNome());
-		System.out.println("Silga Estado: " + est.getSigla());
+		System.out.println("Nome da cidade informada: " + cidade.getNome());
+		System.out.println("Estado selecionado foi: " + cidade.getEstado());
+		System.out.println("Estado: " + estado.getNome());
+		System.out.println("Estado: " + estado.getSigla());
+		System.out.println("Estado: " + estado.getId());
 	}
 	
-	
-	public CadastroCidadeBean() {
+	public void limpar() {
 		cidade = new Cidade();
-		est = new Estado();
+		estado = new Estado();
 	}
 	
 	public Cidade getCidade() {
@@ -52,12 +62,12 @@ public class CadastroCidadeBean implements Serializable{
 		return estados;
 	}
 	
-	public void setEst(Estado est) {
-		this.est = est;
+	public Estado getEstado() {
+		return estado;
 	}
 	
-	public Estado getEst() {
-		return est;
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
-
+	
 }

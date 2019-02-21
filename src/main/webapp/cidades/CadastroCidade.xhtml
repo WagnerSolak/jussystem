@@ -10,8 +10,7 @@
 	<ui:define name="corpo">
 		<f:metadata>
 			<f:viewParam name="corrigeVariosSelects" />
-			<f:event listener="#{cadastroCidadeBean.inicializar}"
-				type="preRenderView"></f:event>
+			<f:event listener="#{cadastroCidadeBean.inicializar}" type="preRenderView"/>
 		</f:metadata>
 		<h:form>
 			<h1>Nova cidade</h1>
@@ -39,7 +38,7 @@
 					value="#{cadastroCidadeBean.cidade.nome}" />
 
 				<p:outputLabel value="Estado *" for="estado" />
-				<p:selectOneMenu id="estado">
+				<p:selectOneMenu id="estado" value="{cadastroCidadeBean.estado}">
 					<f:selectItem itemLabel="Selecione o estado" />
 					<f:selectItems value="#{cadastroCidadeBean.estados}" var="estado"
 						itemValue="#{estado}" itemLabel="#{estado.nome} - #{estado.sigla}" />
