@@ -43,6 +43,14 @@
 			<version>3.3.0.Final</version>
 		</dependency>
 
+		<!-- OmniFaces (utilitarios para JSF) -->
+		<dependency>
+			<groupId>org.omnifaces</groupId>
+			<artifactId>omnifaces</artifactId>
+			<version>1.5</version>
+			<scope>compile</scope>
+		</dependency>
+
 		<!-- Implementacao do Bean Validation -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -109,8 +117,8 @@
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
-		
-				<!-- Commons Lang (utilidades) -->
+
+		<!-- Commons Lang (utilidades) -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>

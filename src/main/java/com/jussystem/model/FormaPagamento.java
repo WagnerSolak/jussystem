@@ -2,5 +2,20 @@ package com.jussystem.model;
 
 public enum FormaPagamento {
 	
-	DINHEIRO, CARTAO_CREDITO, CARTAO_DEBITO, CHEQUE, BOLETO, DEPOSITO_BANCARIO
+	DINHEIRO("Dinheiro"), 
+	CARTAO_CREDITO("Cartão de crédito"), 
+	CARTAO_DEBITO("Cartão de débito"), 
+	CHEQUE("Cheque"), 
+	BOLETO("Boleto bancário"), 
+	DEPOSITO_BANCARIO("Depósito Bancário");
+	
+	private String descricao;
+	
+	FormaPagamento(String descricao) {
+		this.descricao = descricao;
+	}
+	
+	public String getDescricao() {
+		return descricao;
+	}
 }

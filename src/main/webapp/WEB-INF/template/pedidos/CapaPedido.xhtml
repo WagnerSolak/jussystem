@@ -8,29 +8,33 @@
 	<p:panelGrid columns="6" style="width: 100%; margin-top: 20px"
 		columnClasses="rotulo, campo, rotulo, campo, rotulo, campo">
 		
-		<p:outputLabel value="Número:"/>
-		<h:outputText value="#{cadastroPedidoBean.pedido.id}"/>
+		<p:outputLabel value="Número:" rendered="#{cadastroPedidoBean.pedido.existente}"/>
+		<h:outputText value="#{cadastroPedidoBean.pedido.id}" rendered="#{cadastroPedidoBean.pedido.existente}"/>
 		
-		<p:outputLabel value="Status:"/>
-		<h:outputText value="#{cadastroPedidoBean.pedido.status}"/>
+		<p:outputLabel value="Status:" />
+		<h:outputText value="#{cadastroPedidoBean.pedido.status.descricao}"/>
 		
-		<p:outputLabel value="Usuário:"/>
-		<h:outputText value="#{cadastroPedidoBean.pedido.comprador}" />
+	<p:outputLabel value="Comprador:" for="comprador"/>
+		<p:selectOneMenu id="comprador" value="#{cadastroPedidoBean.pedido.comprador}" >
+		<f:selectItem itemLabel="Selecione"/>
+		<f:selectItems value="#{cadastroPedidoBean.compradores}" var="comprador"
+			itemValue="#{comprador}" itemLabel="#{comprador.nome}"/>
+		</p:selectOneMenu> 
 		
 		
-		<p:outputLabel value="Data de criação:"/>
-		<h:outputText value="#{cadastroPedidoBean.pedido.dataCriacao}">
+		<p:outputLabel value="Data de criação:" rendered="#{cadastroPedidoBean.pedido.existente}"/>
+		<h:outputText value="#{cadastroPedidoBean.pedido.dataCriacao}" rendered="#{cadastroPedidoBean.pedido.existente}">
 		<f:convertDateTime pattern="dd/MM/yyyy" />
 		</h:outputText>
 		
-		<p:outputLabel value="Data de emissão:"/>
-		<h:outputText value="#{cadastroPedidoBean.pedido.dataEmissao}">
+		<p:outputLabel value="Data de emissão:" rendered="#{cadastroPedidoBean.pedido.existente}"/>
+		<h:outputText value="#{cadastroPedidoBean.pedido.dataEmissao}" rendered="#{cadastroPedidoBean.pedido.existente}">
 		<f:convertDateTime pattern="dd/MM/yyyy" />
 		</h:outputText>
 		
 		
-			<p:outputLabel value="Data do cancelamento:"/>
-		<h:outputText value="#{cadastroPedidoBean.pedido.dataCancelamento}">
+			<p:outputLabel value="Data do cancelamento:" rendered="#{cadastroPedidoBean.pedido.existente}"/>
+		<h:outputText value="#{cadastroPedidoBean.pedido.dataCancelamento}" rendered="#{cadastroPedidoBean.pedido.existente}">
 		<f:convertDateTime pattern="dd/MM/yyyy" />
 		</h:outputText>
 		
@@ -41,13 +45,17 @@
 		
 		<p:outputLabel value="Fornecedor" for="fornecedor"/>
 		<p:autoComplete id="fornecedor" size="40" dropdown="true"
-		value="#{cadastroPedidoBean.pedido.fornecedor}"/>
+		value="#{cadastroPedidoBean.pedido.fornecedor}"
+		completeMethod="#{cadastroPedidoBean.completarFornecedor}"
+		var="pessoa" itemLabel="#{pessoa.nome}" itemValue="#{pessoa}"
+		forceSelection="true"/>
 			
 		<p:outputLabel value="Forma de pagamento" for="forma"/>
 		<p:selectOneMenu id="forma" value="#{cadastroPedidoBean.pedido.formaPagamento}">
 		<f:selectItem itemLabel="Selecione"/>
-		<f:selectItem itemLabel="Cartão de crédito"/>
-		<f:selectItem itemLabel="Dinheiro"/>
+		<f:selectItems value="#{cadastroPedidoBean.formasPagamento}"
+		var="formaPagamento" itemValue="#{formaPagamento}"
+		itemLabel="#{formaPagamento.descricao}"/>
 		</p:selectOneMenu>
 		
 		<p:outputLabel value="Valor do frete" for="valorFrete"/>

@@ -71,4 +71,14 @@ public class Pedidos implements Serializable{
 		return criteria.addOrder(Order.asc("id")).list();
 	}
 
+	public Pedido guardar(Pedido pedido) {
+		
+		return this.manager.merge(pedido);
+		
+	}
+	
+	public Pedido porId(Long id) {
+		return this.manager.find(Pedido.class, id);
+	}
+
 }
