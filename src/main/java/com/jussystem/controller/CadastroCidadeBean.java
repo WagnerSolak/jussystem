@@ -3,6 +3,7 @@ package com.jussystem.controller;
 import java.io.Serializable;
 import java.util.List;
 
+
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -10,8 +11,9 @@ import javax.inject.Named;
 
 import com.jussystem.model.Cidade;
 import com.jussystem.model.Estado;
-import com.jussystem.repository.Cidades;
 import com.jussystem.repository.Estados;
+import com.jussystem.util.jsf.FacesUtil;
+import com.jusystem.service.CadastroCidadeService;
 
 @Named
 @ViewScoped
@@ -20,7 +22,7 @@ public class CadastroCidadeBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private Cidades cidades;
+	private CadastroCidadeService cadastroCidadeService;
 	
 	@Inject
 	private Estados estadosRepository;
@@ -37,21 +39,23 @@ public class CadastroCidadeBean implements Serializable{
 	
 	public void inicializar() {
 		System.out.println("Inicializando...");
-		estados = estadosRepository.buscarEstados();
+		if(FacesUtil.isNotPostBack()) {
+			estados = estadosRepository.buscarEstados();
+		}
+		
 			
 	}
 	
 	public void salvar() {
-		System.out.println("Nome da cidade informada: " + cidade.getNome());
-		System.out.println("Estado selecionado foi: " + cidade.getEstado());
-		System.out.println("Estado: " + estado.getNome());
-		System.out.println("Estado: " + estado.getSigla());
-		System.out.println("Estado: " + estado.getId());
-	}
+		cadastroCidadeService.salvar(cidade);
+		limpar();
+		FacesUtil.addInfoMessage("Cidade cadastrada com sucesso!");
+		
+	}	
 	
 	public void limpar() {
 		cidade = new Cidade();
-		estado = new Estado();
+		estado = null;
 	}
 	
 	public Cidade getCidade() {
