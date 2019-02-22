@@ -10,10 +10,11 @@
 	<ui:define name="corpo">
 		<h:form>
 			<h1>Pesquisa cidades</h1>
-
+				<p:messages autoUpdate="true" closable="true"/>
 			<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup>
-					<p:commandButton value="Pesquisar" id="botaoPesquisar" />
+					<p:commandButton value="Pesquisar" 
+						action="#{pesquisaCidadeBean.pesquisar}" update="@form" />
 				</p:toolbarGroup>
 
 				<p:toolbarGroup align="right">
@@ -25,37 +26,41 @@
 				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
 
 				<p:outputLabel value="Código" for="cod" />
-				<p:inputText id="cod" size="20" />
+				<p:inputText id="cod" size="20" value="#{pesquisaCidadeBean.filtro.id}" />
 
 				<p:outputLabel value="Nome" for="nome" />
-				<p:inputText id="nome" size="60" />
+				<p:inputText id="nome" size="60"
+					value="#{pesquisaCidadeBean.filtro.nome}" />
 
 			</p:panelGrid>
 
-			<p:dataTable id="cidadesTable" var="cidade"
-				style="margin-top: 20px" emptyMessage="Nenhum produto encontrado."
-				rows="20" paginator="true" paginatorAlwaysVisible="false"
-				paginatorPosition="bottom">
+			<p:dataTable id="cidadesTable" var="cidade" style="margin-top: 20px"
+				emptyMessage="Nenhum produto encontrado." rows="20" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				value="#{pesquisaCidadeBean.cidadesFiltradas}">
 
 				<p:column headerText="Código"
 					style="text-align: center; width: 100px">
-					<h:outputText value="1" />
+					<h:outputText value="#{cidade.id}" />
 				</p:column>
 
 				<p:column headerText="Nome">
-					<h:outputText value="Ponta Grossa" />
+					<h:outputText value="#{cidade.nome}" />
 				</p:column>
-				
-				<p:column headerText="Estado"
-				style="width: 80px">
-					<h:outputText value="PR" />
+
+				<p:column headerText="Estado " style="text-align: center; width: 60px">
+					<h:outputText value="#{cidade.estado.sigla}" />
 				</p:column>
+
+				<p:column headerText="Estado" style="width: 140px">
+					<h:outputText value="#{cidade.estado.nome}" />
+				</p:column> 
 
 
 				<p:column style="text-align: center">
 					<p:button icon="ui-icon-pencil" title="Editar" />
 					<p:commandButton icon="ui-icon-trash" title="Excluir"
-					oncomplete="confirmacaoExclusao.show(); " />
+						oncomplete="confirmacaoExclusao.show(); " />
 				</p:column>
 			</p:dataTable>
 
