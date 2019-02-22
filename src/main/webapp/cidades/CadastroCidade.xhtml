@@ -3,17 +3,18 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
 
-	<ui:define name="titulo">Nova Cidade</ui:define>
+	<ui:define name="titulo">#{cadastroCidadeBean.editando ? 'Edição de produto' : 'Novo produto'}</ui:define>
 
 	<ui:define name="corpo">
 		<f:metadata>
-			<f:viewParam name="corrigeVariosSelects" />
+			<o:viewParam name="cidade" value="#{cadastroCidadeBean.cidade}"/>
 			<f:event listener="#{cadastroCidadeBean.inicializar}" type="preRenderView"/>
 		</f:metadata>
 		<h:form>
-			<h1>Nova cidade</h1>
+			<h1>#{cadastroCidadeBean.editando ? 'Edição de produto' : 'Novo produto'}</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
 

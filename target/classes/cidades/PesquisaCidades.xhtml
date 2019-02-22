@@ -10,10 +10,10 @@
 	<ui:define name="corpo">
 		<h:form>
 			<h1>Pesquisa cidades</h1>
-				<p:messages autoUpdate="true" closable="true"/>
+			<p:messages autoUpdate="true" closable="true" />
 			<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup>
-					<p:commandButton value="Pesquisar" 
+					<p:commandButton value="Pesquisar"
 						action="#{pesquisaCidadeBean.pesquisar}" update="@form" />
 				</p:toolbarGroup>
 
@@ -26,7 +26,8 @@
 				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
 
 				<p:outputLabel value="Código" for="cod" />
-				<p:inputText id="cod" size="20" value="#{pesquisaCidadeBean.filtro.id}" />
+				<p:inputText id="cod" size="20"
+					value="#{pesquisaCidadeBean.filtro.id}" />
 
 				<p:outputLabel value="Nome" for="nome" />
 				<p:inputText id="nome" size="60"
@@ -48,17 +49,22 @@
 					<h:outputText value="#{cidade.nome}" />
 				</p:column>
 
-				<p:column headerText="Estado " style="text-align: center; width: 60px">
+				<p:column headerText="Estado "
+					style="text-align: center; width: 60px">
 					<h:outputText value="#{cidade.estado.sigla}" />
 				</p:column>
 
 				<p:column headerText="Estado" style="width: 140px">
 					<h:outputText value="#{cidade.estado.nome}" />
-				</p:column> 
+				</p:column>
 
 
 				<p:column style="text-align: center">
-					<p:button icon="ui-icon-pencil" title="Editar" />
+					<p:button outcome="/cidades/CadastroCidade" icon="ui-icon-pencil"
+						title="Editar">
+						<f:param name="cidade" value="#{cidade.id}" />
+					</p:button>
+
 					<p:commandButton icon="ui-icon-trash" title="Excluir"
 						oncomplete="confirmacaoExclusao.show(); " />
 				</p:column>

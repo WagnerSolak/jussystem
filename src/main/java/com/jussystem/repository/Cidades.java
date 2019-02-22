@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
@@ -58,5 +57,9 @@ public class Cidades implements Serializable{
 			criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
 		}
 		return criteria.addOrder(Order.asc("nome")).list();
+	}
+
+	public Cidade porId(Long id) {
+		return this.manager.find(Cidade.class, id);
 	}
 }

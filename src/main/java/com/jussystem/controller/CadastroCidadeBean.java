@@ -52,6 +52,10 @@ public class CadastroCidadeBean implements Serializable{
 		
 	}	
 	
+	public boolean isEditando() {
+		return this.cidade.getId() != null;
+	}
+	
 	public void limpar() {
 		cidade = new Cidade();
 		estado = null;
@@ -72,5 +76,10 @@ public class CadastroCidadeBean implements Serializable{
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
+	
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+	
 	
 }
