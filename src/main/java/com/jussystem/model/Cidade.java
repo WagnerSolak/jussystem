@@ -44,7 +44,7 @@ public class Cidade implements Serializable{
 		this.nome = nome;
 	}
 	
-	@NotNull
+	//@NotNull
 	@ManyToOne
 	@JoinColumn(name = "estado_id",nullable = false)
 	public Estado getEstado() {

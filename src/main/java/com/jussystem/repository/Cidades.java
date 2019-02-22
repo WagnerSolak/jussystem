@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 
 import com.jussystem.model.Cidade;
 
@@ -22,12 +23,17 @@ public class Cidades implements Serializable{
 	}
 
 	public Cidade guardar(Cidade cidade) {
-		EntityTransaction trx = manager.getTransaction();
-		trx.begin();
-		
-		cidade = manager.merge(cidade);
-		
-		trx.commit();
-		return cidade;
+		return  manager.merge(cidade);
+
+	}
+
+	public Cidade porNome(String nome) {
+		try {
+		return manager.createQuery("from Cidade where upper(nome) = :nome", Cidade.class)
+				.setParameter("nome", nome.toUpperCase())
+				.getSingleResult();
+		}catch(NoResultException e) {
+			return null;
+		}
 	}
 }

@@ -38,7 +38,6 @@ public class CadastroCidadeBean implements Serializable{
 	}
 	
 	public void inicializar() {
-		System.out.println("Inicializando...");
 		if(FacesUtil.isNotPostBack()) {
 			estados = estadosRepository.buscarEstados();
 		}

@@ -1,6 +1,7 @@
 package com.jussystem.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
@@ -12,6 +13,7 @@ import com.jussystem.model.Categoria;
 import com.jussystem.model.Produto;
 import com.jussystem.repository.Categorias;
 import com.jussystem.util.jsf.FacesUtil;
+import com.jusystem.service.CadastroProdutoService;
 
 @Named
 @ViewScoped
@@ -21,6 +23,10 @@ public class CadastroProdutoBean implements Serializable{
 	
     @Inject
 	private Categorias categorias;
+    
+    @Inject
+    private CadastroProdutoService cadastroProdutoService;
+    
 	
 	private Produto produto;
 	
@@ -45,6 +51,15 @@ public class CadastroProdutoBean implements Serializable{
 	}
 	
 	public void salvar() {
+		cadastroProdutoService.salvar(produto);
+		limpar();
+		FacesUtil.addInfoMessage("Produto cadastrado com sucesso!");
+	}
+	
+	public void limpar() {
+		produto = new Produto();
+		categoriaPai = null;
+		subcategorias = new ArrayList<>();
 		
 	}
 	
