@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
@@ -16,6 +17,8 @@ import org.hibernate.criterion.Restrictions;
 
 import com.jussystem.model.Cidade;
 import com.jussystem.repository.filter.CidadeFilter;
+import com.jussystem.util.jpa.Transactional;
+import com.jusystem.service.NegocioException;
 
 
 public class Cidades implements Serializable{
@@ -32,6 +35,17 @@ public class Cidades implements Serializable{
 	public Cidade guardar(Cidade cidade) {
 		return  manager.merge(cidade);
 
+	}
+	
+	@Transactional
+	public void  remover(Cidade cidade) {
+		try {
+		cidade = porId(cidade.getId());
+		manager.remove(cidade);
+		manager.flush();
+		}catch(PersistenceException e) {
+			throw new NegocioException("Cidade não pode ser excluída, ela pode conter filhos!");
+		}
 	}
 
 	public Cidade porNome(String nome) {

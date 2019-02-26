@@ -8,12 +8,15 @@
 	<ui:define name="titulo">Pesquisa: estados</ui:define>
 
 	<ui:define name="corpo">
-		<h:form>
+		<h:form id="frmPesquisa">
 			<h1>Pesquisa estados</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
 
 			<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup>
-					<p:commandButton value="Pesquisar" id="botaoPesquisar" />
+					<p:commandButton value="Pesquisar" 
+						action="#{pesquisaEstadoBean.pesquisar}" update="@form" />
 				</p:toolbarGroup>
 
 				<p:toolbarGroup align="right">
@@ -24,43 +27,56 @@
 			<p:panelGrid columns="2" id="painel"
 				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
 
-				<p:outputLabel value="Código" for="cod" />
-				<p:inputText id="cod" size="20" readonly="true"/>
+				<p:outputLabel value="Nome" for="nome" />
+				<p:inputText id="nome" size="60"
+					value="#{pesquisaEstadoBean.filtro.nome}" />
 
 				<p:outputLabel value="Sigla" for="sigla" />
-				<p:inputText id="sigla" size="60" />
+				<p:inputText id="sigla" size="10"
+					value="#{pesquisaEstadoBean.filtro.sigla}" />
 
 			</p:panelGrid>
 
-			<p:dataTable id="estadosTable" var="estado"
-				style="margin-top: 20px" emptyMessage="Nenhum estado encontrado."
-				rows="20" paginator="true" paginatorAlwaysVisible="false"
-				paginatorPosition="bottom">
+			<p:dataTable id="estadosTable" var="estado" style="margin-top: 20px"
+				emptyMessage="Nenhum estado encontrado." rows="20" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				value="#{pesquisaEstadoBean.estadosFiltrados}">
 
 				<p:column headerText="Código"
 					style="text-align: center; width: 100px">
-					<h:outputText value="1" />
+					<h:outputText value="#{estado.id}" />
 				</p:column>
 
-				<p:column headerText="Sigla">
-					<h:outputText value="PR" />
+				<p:column headerText="Nome" style="width: 850px">
+					<h:outputText value="#{estado.nome}" />
 				</p:column>
-				
 
+				<p:column headerText="Sigla" style="text-align: center; width: 80px">
+					<h:outputText value="#{estado.sigla}" />
+				</p:column>
 
-				<p:column style="text-align: center">
-					<p:button icon="ui-icon-pencil" title="Editar" />
+				<p:column style="width:100 px; text-align: center">
+					<p:button outcome="/estados/CadastroEstado" icon="ui-icon-pencil"
+						title="Editar">
+						<f:param name="estado" value="#{estado.id}" />
+					</p:button>
+					
 					<p:commandButton icon="ui-icon-trash" title="Excluir"
-					oncomplete="confirmacaoExclusao.show(); " />
+						oncomplete="confirmacaoExclusao.show()" process="@this"
+						update=":frmPesquisa:confirmacaoExclusaoDilaog">
+						<f:setPropertyActionListener value="#{estado}" target="#{pesquisaEstadoBean.estadoSelecionado}"/>
+						</p:commandButton>
 				</p:column>
 			</p:dataTable>
 
-			<p:confirmDialog header="Exclusão de estado"
-				message="Deseja realmente excluir o estado?"
+			<p:confirmDialog id="confirmacaoExclusaoDilaog" header="Exclusão de estado"
+				message="Deseja realmente excluir o estado #{pesquisaEstadoBean.estadoSelecionado.nome} ?"
 				widgetVar="confirmacaoExclusao">
 				<p:button value="Não"
 					onclick="confirmacaoExclusao.hide(); return false" />
-				<p:commandButton value="Sim" oncomplete="confirmacaoExclusao.hide()" />
+				<p:commandButton value="Sim" oncomplete="confirmacaoExclusao.hide()" 
+					action="#{pesquisaEstadoBean.excluir}" update=":frmPesquisa:estadosTable"
+					process="@this"/>
 
 			</p:confirmDialog>
 		</h:form>

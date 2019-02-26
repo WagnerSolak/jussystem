@@ -1,15 +1,14 @@
 package com.jussystem.controller;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.faces.bean.ViewScoped;
+
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
+
 
 import com.jussystem.model.Estado;
-import com.jussystem.repository.Estados;
 import com.jussystem.util.jsf.FacesUtil;
 import com.jusystem.service.CadastroEstadoService;
 
@@ -19,24 +18,23 @@ public class CadastroEstadoBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Inject
-	private Estados estados;
-	
 	private Estado estado;
 	
+
 	@Inject
 	private CadastroEstadoService cadastroEstadoService;
 	
 	public CadastroEstadoBean() {
-		
+		limpar();
 	}
 	
 	public void inicializar() {
-		limpar();
+		
 	}
 	
 	
 	public void salvar() {
+		
 		estado = cadastroEstadoService.salvar(estado);
 		limpar();
 		FacesUtil.addInfoMessage("Estado salvo com sucesso!");
@@ -47,6 +45,11 @@ public class CadastroEstadoBean implements Serializable{
 		estado = new Estado();
 		
 	}
+	
+	public boolean isEditando() {
+		return this.estado.getId() != null;
+	}
+	
 	
 	public Estado getEstado() {
 		return estado;

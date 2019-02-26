@@ -8,9 +8,11 @@
 	<ui:define name="titulo">Pesquisa: cidades</ui:define>
 
 	<ui:define name="corpo">
-		<h:form>
+		<h:form id="frmPesquisa">
 			<h1>Pesquisa cidades</h1>
+			
 			<p:messages autoUpdate="true" closable="true" />
+			
 			<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup>
 					<p:commandButton value="Pesquisar"
@@ -59,23 +61,29 @@
 				</p:column>
 
 
-				<p:column style="text-align: center">
+				<p:column style="width:100 px; text-align: center">
 					<p:button outcome="/cidades/CadastroCidade" icon="ui-icon-pencil"
 						title="Editar">
 						<f:param name="cidade" value="#{cidade.id}" />
 					</p:button>
 
 					<p:commandButton icon="ui-icon-trash" title="Excluir"
-						oncomplete="confirmacaoExclusao.show(); " />
+						oncomplete="confirmacaoExclusao.show()" 
+						process="@this" update=":frmPesquisa:confirmacaoExclusaoDialog">
+						<f:setPropertyActionListener value="#{cidade}" target="#{pesquisaCidadeBean.cidadeSelecionada}"/>
+						</p:commandButton>
+						
 				</p:column>
 			</p:dataTable>
 
-			<p:confirmDialog header="Exclusão de cidade"
-				message="Deseja realmente excluir a cidade?"
+			<p:confirmDialog id="confirmacaoExclusaoDialog" header="Exclusão de cidade"
+				message="Deseja realmente excluir a cidade #{pesquisaCidadeBean.cidadeSelecionada.nome}?"
 				widgetVar="confirmacaoExclusao">
 				<p:button value="Não"
 					onclick="confirmacaoExclusao.hide(); return false" />
-				<p:commandButton value="Sim" oncomplete="confirmacaoExclusao.hide()" />
+				<p:commandButton value="Sim" oncomplete="confirmacaoExclusao.hide();" 
+				action="#{pesquisaCidadeBean.excluir}" process="@this"
+				update=":frmPesquisa:cidadesTable"/>
 
 			</p:confirmDialog>
 		</h:form>

@@ -32,7 +32,9 @@ public class EstadoConverter implements Converter{
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if(value !=null) {
-			return ((Estado) value).getId().toString();
+			Estado estado = (Estado) value;
+			return estado.getId() == null ? null : estado.getId().toString();
+			
 		}
 		return "";
 	}

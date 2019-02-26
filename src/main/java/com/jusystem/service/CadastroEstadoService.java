@@ -18,12 +18,12 @@ public class CadastroEstadoService implements Serializable{
 	
 	@Transactional
 	public Estado salvar(Estado estado) {
-	Estado estadoExistente = estados.porNome(estado.getNome());
-		if(estadoExistente !=null) {
+	    Estado estadoExistente = estados.porNome(estado.getNome());
+		if(estadoExistente !=null && !estadoExistente.equals(estado)) {
 			throw new NegocioException("Já existe um estado com este nome cadastrado!");
 		}
 		 
-		estado = 	estados.guardar(estado);
-		return estado;
+		return 	estados.guardar(estado);
+		
 	}
 }

@@ -65,6 +65,10 @@ public class CadastroCidadeBean implements Serializable{
 		return cidade;
 	}
 	
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+	
 	public List<Estado> getEstados() {
 		return estados;
 	}
@@ -77,9 +81,7 @@ public class CadastroCidadeBean implements Serializable{
 		this.estado = estado;
 	}
 	
-	public void setCidade(Cidade cidade) {
-		this.cidade = cidade;
-	}
+
 	
 	
 }
