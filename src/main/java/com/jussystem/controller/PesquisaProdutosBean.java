@@ -1,24 +1,45 @@
 package com.jussystem.controller;
 
-import java.util.ArrayList;
+
+import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
+import com.jussystem.model.Produto;
+import com.jussystem.repository.Produtos;
+import com.jussystem.repository.filter.ProdutoFilter;
 
-@ManagedBean
-public class PesquisaProdutosBean {
+@Named
+@ViewScoped
+public class PesquisaProdutosBean implements Serializable{
 	
-	private List<Integer>produtosFiltrados;
+
+	private static final long serialVersionUID = 1L;
+
+	private List<Produto>produtosFiltrados;
+	
+	@Inject
+	private Produtos produtos;
+	
+	private ProdutoFilter filtro;
 	
 	public PesquisaProdutosBean() {
-		produtosFiltrados = new ArrayList<>();
-		for(int i = 0; i < 30; i++) {
-			produtosFiltrados.add(i);
-		}	
+		filtro = new ProdutoFilter();
 	}
 	
-	public List<Integer> getProdutosFiltrados() {
+	public void pesquisar() {
+		produtosFiltrados = produtos.filtrados(filtro);
+	}
+	
+	public List<Produto> getProdutosFiltrados() {
 		return produtosFiltrados;
 	}
+	
+	public ProdutoFilter getFiltro() {
+		return filtro;
+	}
 }
+

@@ -1,12 +1,21 @@
 package com.jussystem.repository;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+
 import com.jussystem.model.Produto;
+import com.jussystem.repository.filter.ProdutoFilter;
 
 public class Produtos implements Serializable {
 
@@ -30,5 +39,21 @@ public class Produtos implements Serializable {
 		} catch (NoResultException e) {
 			return null;
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Produto>filtrados(ProdutoFilter filtro){
+		Session session = manager.unwrap(Session.class);
+		Criteria criteria = session.createCriteria(Produto.class);
+		
+		if(StringUtils.isNotEmpty(filtro.getNome())) {
+			criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
+		}
+		
+		if(filtro.getId() != null) {
+			criteria.add(Restrictions.eq("id", filtro.getId()));
+		}
+		
+		return criteria.addOrder(Order.asc("nome")).list();
 	}
 }

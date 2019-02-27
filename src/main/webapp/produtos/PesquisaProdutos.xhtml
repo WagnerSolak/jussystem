@@ -11,9 +11,12 @@
 		<h:form>
 			<h1>Pesquisa produtos</h1>
 
+			<p:messages autoUpdate="true" closable="true" />
+
 			<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup>
-					<p:commandButton value="Pesquisar" id="botaoPesquisar" />
+					<p:commandButton value="Pesquisar" id="botaoPesquisar"
+						action="#{pesquisaProdutosBean.pesquisar}" update="@form" />
 				</p:toolbarGroup>
 
 				<p:toolbarGroup align="right">
@@ -25,10 +28,12 @@
 				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
 
 				<p:outputLabel value="Código" for="cod" />
-				<p:inputText id="cod" size="20" />
+				<p:inputText id="cod" size="20"
+					value="#{pesquisaProdutosBean.filtro.id}" />
 
 				<p:outputLabel value="Nome" for="nome" />
-				<p:inputText id="nome" size="60" />
+				<p:inputText id="nome" size="60"
+					value="#{pesquisaProdutosBean.filtro.nome}" />
 
 			</p:panelGrid>
 
@@ -40,33 +45,35 @@
 
 				<p:column headerText="Código"
 					style="text-align: center; width: 100px">
-					<h:outputText value="1" />
+					<h:outputText value="#{produto.id}" />
 				</p:column>
 
 				<p:column headerText="Nome">
-					<h:outputText value="Detergente" />
+					<h:outputText value="#{produto.nome}" />
 				</p:column>
-				
-				<p:column headerText="Categoria"
-				style="width: 250px">
-					<h:outputText value="Detergente" />
+
+				<p:column headerText="Categoria" style="width: 250px">
+					<h:outputText
+						value="#{produto.categoria.categoriaPai.descricao} - #{produto.categoria.descricao}" />
 				</p:column>
 
 				<p:column headerText="Valor Unitário"
 					style="text-align: right; width: 120px">
-					<h:outputText value="1,50" />
+					<h:outputText value="#{produto.valorUnitario}">
+						<f:convertNumber type="currency" />
+					</h:outputText>
 				</p:column>
 
 
 				<p:column headerText="Estoque"
 					style="text-align: right; width: 100px">
-					<h:outputText value="8" />
+					<h:outputText value="#{produt.estoque}" />
 				</p:column>
 
 				<p:column style="text-align: center">
 					<p:button icon="ui-icon-pencil" title="Editar" />
 					<p:commandButton icon="ui-icon-trash" title="Excluir"
-					oncomplete="confirmacaoExclusao.show(); " />
+						oncomplete="confirmacaoExclusao.show(); " />
 				</p:column>
 			</p:dataTable>
 
