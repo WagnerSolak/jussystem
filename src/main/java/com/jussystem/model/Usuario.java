@@ -1,13 +1,19 @@
 package com.jussystem.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -21,7 +27,7 @@ public class Usuario implements Serializable{
 	private String email;
 	private String senha;
 	private StatusTipoUsuario status;
-	
+	private List<Grupo>grupos = new ArrayList<>();
 	
 	@Id
 	@GeneratedValue
@@ -42,7 +48,7 @@ public class Usuario implements Serializable{
 	}
 	
 	@NotNull
-	@Column(nullable = false, length = 80)
+	@Column(nullable = false, length = 80, unique = true)
 	public String getEmail() {
 		return email;
 	}
@@ -69,6 +75,17 @@ public class Usuario implements Serializable{
 	@Enumerated(EnumType.STRING)
 	public StatusTipoUsuario getStatus() {
 		return status;
+	}
+	
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
+	}
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "usuario_id"),
+			inverseJoinColumns = @JoinColumn(name = "grupo_id"))
+	public List<Grupo> getGrupos() {
+		return grupos;
 	}
 	
 	

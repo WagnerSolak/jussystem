@@ -62,4 +62,6 @@ public class PesquisaEstadoBean implements Serializable{
 	public void setEstadoSelecionado(Estado estadoSelecionado) {
 		this.estadoSelecionado = estadoSelecionado;
 	}
+	
+
 }

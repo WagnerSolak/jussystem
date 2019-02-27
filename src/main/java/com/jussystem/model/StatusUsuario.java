@@ -1,6 +1,6 @@
 package com.jussystem.model;
 
-public enum StatusTipoPessoa {
+public enum StatusUsuario {
 	
 	ATIVO, INATIVO
 }

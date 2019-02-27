@@ -26,22 +26,46 @@
 			style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
 
 			<p:outputLabel for="nome" value="Nome" />
-			<p:inputText id="nome" required="true" size="80" maxlength="80"  
-				value="#{cadastroUsuarioBean.usuario.nome}"/>
+			<p:inputText id="nome" required="true" size="80" maxlength="80"
+				value="#{cadastroUsuarioBean.usuario.nome}" />
 
 			<p:outputLabel for="email" value="E-mail" />
-			<p:inputText id="email" required="true" size="80" maxlength="80" 
-				value="#{cadastroUsuarioBean.usuario.email}"/>
+			<p:inputText id="email" required="true" size="80" maxlength="80"
+				value="#{cadastroUsuarioBean.usuario.email}" />
 
 			<p:outputLabel for="senhaUm" value="Senha" />
 			<p:password id="senhaUm" required="true" feedback="true" size="20"
-				maxlength="20" value="#{cadastroUsuarioBean.usuario.senha}"/>
+				maxlength="20" value="#{cadastroUsuarioBean.usuario.senha}" />
 
 			<p:outputLabel for="senhaDois" value="Confirma Senha" />
 			<p:password id="senhaDois" required="true" size="20" maxlength="20" />
-			
+
 			<p:outputLabel for="status" value="Status" />
 			<h:outputText id="status" />
+
+			<h:panelGrid columns="2">
+
+				<p:selectOneMenu style="vertical-align: middle">
+					<f:selectItems value="Administrador" />
+					<f:selectItems value="Usuario" />
+					<f:selectItems value="Funcionario" />
+				</p:selectOneMenu>
+
+				<p:commandButton title="Adicionar Grupo" />
+
+				<p:dataTable id="grupoTable" value="Grupo"
+					emptyMessage="Nenhum produto encontrado." rows="20"
+					paginator="true" paginatorAlwaysVisible="false"
+					paginatorPosition="bottom">
+					
+					<p:column>
+					<h:outputText value="Auxiliares"/>
+					</p:column>
+					
+					
+				</p:dataTable>
+
+			</h:panelGrid>
 
 		</p:panelGrid>
 

@@ -35,7 +35,7 @@ public class Pessoa implements Serializable{
 	private TipoPessoa tipo;
 	private String sexo;
 	private Date dataNascimento;
-	private StatusTipoPessoa status;
+	private StatusPessoa status;
 	private List<Endereco>enderecos = new ArrayList<>();
 	
 	@Id
@@ -114,14 +114,14 @@ public class Pessoa implements Serializable{
 		return dataNascimento;
 	}
 	
-	public void setStatus(StatusTipoPessoa status) {
+	public void setStatus(StatusPessoa status) {
 		this.status = status;
 	}
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 9)
-	public StatusTipoPessoa getStatus() {
+	public StatusPessoa getStatus() {
 		return status;
 	}
 	
