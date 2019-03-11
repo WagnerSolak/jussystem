@@ -11,6 +11,7 @@ import javax.inject.Named;
 import com.jussystem.model.Produto;
 import com.jussystem.repository.Produtos;
 import com.jussystem.repository.filter.ProdutoFilter;
+import com.jussystem.util.jsf.FacesUtil;
 
 @Named
 @ViewScoped
@@ -25,6 +26,7 @@ public class PesquisaProdutosBean implements Serializable{
 	private Produtos produtos;
 	
 	private ProdutoFilter filtro;
+	private Produto produtoSelecionado;
 	
 	public PesquisaProdutosBean() {
 		filtro = new ProdutoFilter();
@@ -34,12 +36,27 @@ public class PesquisaProdutosBean implements Serializable{
 		produtosFiltrados = produtos.filtrados(filtro);
 	}
 	
+	public void excluir() {
+		produtos.remover(produtoSelecionado);
+		produtosFiltrados.remove(produtoSelecionado);
+		
+		FacesUtil.addInfoMessage("Produto " + produtoSelecionado.getNome() + " excluído com sucesso!");
+	}
+	
 	public List<Produto> getProdutosFiltrados() {
 		return produtosFiltrados;
 	}
 	
 	public ProdutoFilter getFiltro() {
 		return filtro;
+	}
+	
+	public void setProdutoSelecionado(Produto produtoSelecionado) {
+		this.produtoSelecionado = produtoSelecionado;
+	}
+	
+	public Produto getProdutoSelecionado() {
+		return produtoSelecionado;
 	}
 }
 

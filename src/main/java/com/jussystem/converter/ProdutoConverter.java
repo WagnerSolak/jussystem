@@ -21,7 +21,7 @@ public class ProdutoConverter implements Converter{
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-Produto retorno = null;
+     Produto retorno = null;
 		
 		if (value != null) {
 			Long id = new Long(value);

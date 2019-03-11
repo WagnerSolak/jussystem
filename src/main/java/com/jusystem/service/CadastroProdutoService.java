@@ -19,7 +19,7 @@ public class CadastroProdutoService implements Serializable{
 	public Produto salvar(Produto produto) {
 		Produto produtoExistente = produtos.porNome(produto.getNome());
 		
-		if(produtoExistente != null) {
+		if(produtoExistente != null && !produtoExistente.equals(produto)) {
 			throw new NegocioException("Já existe um produto cadastrado com esta descrição!");
 		}
 		return produtos.guardar(produto);
