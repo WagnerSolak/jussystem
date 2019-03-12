@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -18,8 +19,8 @@ public class ItemPedido implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	private Integer quantidade;
-	private BigDecimal valorUnitario;
+	private Integer quantidade = 1;
+	private BigDecimal valorUnitario = BigDecimal.ZERO;
 	private Produto produto;
 	private Pedido pedido;
 	
@@ -96,6 +97,14 @@ public class ItemPedido implements Serializable{
 			return false;
 		return true;
 	}
+
+	@Transient
+	public BigDecimal getValorTotal() {
+		return this.getValorUnitario().multiply(new BigDecimal(this.getQuantidade()));
+	}
 	
-	
+	@Transient
+	public boolean isProdutoAssociado() {
+		return this.getProduto() != null && this.getProduto().getId() != null;
+	}
 }

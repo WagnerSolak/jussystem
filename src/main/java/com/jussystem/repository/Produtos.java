@@ -55,6 +55,12 @@ public class Produtos implements Serializable {
 		}
 	}
 	
+	public List<Produto> porNomeLista(String nome) {
+		return this.manager.createQuery("from Produto where upper(nome) like :nome", Produto.class)
+					.setParameter("nome", nome.toUpperCase() + "%").getResultList();
+		
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Produto>filtrados(ProdutoFilter filtro){
 		Session session = manager.unwrap(Session.class);

@@ -8,10 +8,13 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.jussystem.model.FormaPagamento;
+import com.jussystem.model.ItemPedido;
 import com.jussystem.model.Pedido;
 import com.jussystem.model.Pessoa;
+import com.jussystem.model.Produto;
 import com.jussystem.model.Usuario;
 import com.jussystem.repository.Pessoas;
+import com.jussystem.repository.Produtos;
 import com.jussystem.repository.Usuarios;
 import com.jussystem.util.jsf.FacesUtil;
 import com.jusystem.service.CadastroPedidoService;
@@ -24,15 +27,20 @@ public class CadastroPedidoBean implements Serializable {
 
 	@Inject
 	private Usuarios usuarios;
-	
+
 	@Inject
 	private Pessoas pessoas;
-	
+
 	@Inject
 	private CadastroPedidoService cadastroPedidoService;
-	
+
+	@Inject
+	private Produtos produtos;
+
 	private Pedido pedido;
 	private List<Usuario> compradores;
+	private Produto produtoLinhaEditavel;
+	private Long id;
 
 	public CadastroPedidoBean() {
 		limpar();
@@ -40,44 +48,133 @@ public class CadastroPedidoBean implements Serializable {
 	}
 
 	public void inicializar() {
-		if(FacesUtil.isNotPostBack()) {
+		if (FacesUtil.isNotPostBack()) {
 			this.compradores = this.usuarios.compradores();
+
+			this.pedido.adicionarItemVazio();
+
+			this.recalcularPedido();
 		}
 	}
-	
+
 	public void salvar() {
-		this.pedido =  this.cadastroPedidoService.salvar(pedido);
-		//limpar(); ver com Roni, pq pode emitir, mandar por email, etc
-		FacesUtil.addInfoMessage("Pedido salvo com sucesso!");
+		this.pedido.removerItemVazio();
+
+		try {
+			this.pedido = this.cadastroPedidoService.salvar(pedido);
+
+			FacesUtil.addInfoMessage("Pedido salvo com sucesso!");
+		} finally {
+			this.pedido.adicionarItemVazio();
+		}
 	}
 
-	public void limpar() {
+	private void limpar() {
 		pedido = new Pedido();
-		
+
 	}
 
-	public List<Pessoa> completarFornecedor(String nome){
+	public void recalcularPedido() {
+		if (this.pedido != null) {
+			this.pedido.recalcularValorTotal();
+		}
+	}
+
+	public void carregarProdutoPorId() {
+
+		if (this.id != null || !this.id.equals("")) {
+			this.produtoLinhaEditavel = this.produtos.porId(this.id);
+			this.carregarProdutoLinhaEditavel();
+		}
+	}
+
+	public void carregarProdutoLinhaEditavel() {
+		ItemPedido item = this.pedido.getItens().get(0);
+
+		if (this.produtoLinhaEditavel != null) {
+			if (this.existeItemComProduto(this.produtoLinhaEditavel)) {
+				FacesUtil.addInfoMessage("Já existe um item com o nome informado!");
+			} else {
+				item.setProduto(this.produtoLinhaEditavel);
+				;
+				item.setValorUnitario(this.produtoLinhaEditavel.getValorUnitario());
+
+				this.pedido.adicionarItemVazio();
+				this.produtoLinhaEditavel = null;
+				this.id = null;
+
+				this.pedido.recalcularValorTotal();
+			}
+		}
+	}
+
+	private boolean existeItemComProduto(Produto produto) {
+		boolean existeItem = false;
+
+		for (ItemPedido item : this.getPedido().getItens()) {
+			if (produto.equals(item.getProduto())) {
+				existeItem = true;
+				break;
+			}
+
+		}
+		return existeItem;
+	}
+
+	public List<Produto> completarProduto(String nome) {
+		return this.produtos.porNomeLista(nome);
+	}
+
+	public List<Pessoa> completarFornecedor(String nome) {
 		return this.pessoas.porNome(nome);
+	}
+
+	public void atualizarQuantidade(ItemPedido item, int linha) {
+		if (item.getQuantidade() < 1) {
+			if (linha == 0) {
+				item.setQuantidade(1);
+
+			} else {
+				this.getPedido().getItens().remove(linha);
+			}
+		}
+		this.pedido.recalcularValorTotal();
 	}
 
 	public Pedido getPedido() {
 		return pedido;
 	}
-	
+
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
-	
+
 	public List<Usuario> getCompradores() {
 		return compradores;
 	}
-	
+
 	public FormaPagamento[] getFormasPagamento() {
 		return FormaPagamento.values();
 	}
-	
+
 	public boolean isEditando() {
 		return this.pedido.getId() != null;
+	}
+
+	public void setProdutoLinhaEditavel(Produto produtoLinhaEditavel) {
+		this.produtoLinhaEditavel = produtoLinhaEditavel;
+	}
+
+	public Produto getProdutoLinhaEditavel() {
+		return produtoLinhaEditavel;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

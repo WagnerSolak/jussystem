@@ -91,6 +91,7 @@
 				widgetVar="confirmacaoExclusao">
 				<p:button value="Não"
 					onclick="confirmacaoExclusao.hide(); return false" />
+					
 				<p:commandButton value="Sim" oncomplete="confirmacaoExclusao.hide()"
 				action="#{pesquisaProdutosBean.excluir}" process="@this"
 				update=":frmPesquisa:produtosTable"/>
