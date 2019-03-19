@@ -7,7 +7,15 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+
 import com.jussystem.model.Usuario;
+import com.jussystem.repository.filter.UsuarioFilter;
 
 public class Usuarios implements Serializable{
 
@@ -39,5 +47,17 @@ public class Usuarios implements Serializable{
 
 	public Usuario guardar(Usuario usuario) {
 		return manager.merge(usuario);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Usuario> filtrados(UsuarioFilter filtro){
+		Session session = manager.unwrap(Session.class);
+		Criteria criteria = session.createCriteria(Usuario.class);
+		
+		if(StringUtils.isNotBlank(filtro.getNome())){
+			criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
+		}
+		return criteria.addOrder(Order.asc("nome")).list();
+		
 	}
 }

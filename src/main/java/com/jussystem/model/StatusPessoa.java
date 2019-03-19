@@ -2,5 +2,16 @@ package com.jussystem.model;
 
 public enum StatusPessoa {
 	
-	ATIVO, INATIVO
+	ATIVO("Ativo"),
+	INATIVO("Inativo");
+	
+	private String descricao;
+	
+	StatusPessoa(String descricao){
+		this.descricao = descricao;
+	}
+	
+	public String getDescricao() {
+		return descricao;
+	}
 }

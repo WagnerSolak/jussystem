@@ -5,6 +5,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 import com.jussystem.model.Pessoa;
 import com.jussystem.repository.Pessoas;
 import com.jussystem.util.cdi.CDIServiceLocator;
@@ -12,6 +13,7 @@ import com.jussystem.util.cdi.CDIServiceLocator;
 @FacesConverter(forClass=Pessoa.class)
 public class PessoaConverter implements Converter{
 
+	
 	private Pessoas pessoas;
 	
 	public PessoaConverter() {
@@ -31,7 +33,8 @@ public class PessoaConverter implements Converter{
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if(value !=null) {
-			return ((Pessoa) value).getId().toString();
+			Pessoa pessoa = (Pessoa) value;
+			return pessoa != null && pessoa.getId() != null ? pessoa.getId().toString() : null;
 		}
 		return "";
 	}

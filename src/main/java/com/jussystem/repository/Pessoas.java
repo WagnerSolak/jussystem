@@ -25,4 +25,8 @@ public class Pessoas implements Serializable{
 				.setParameter("nome", nome.toUpperCase() + "%")
 				.getResultList();
 	}
+
+	public Pessoa guardar(Pessoa pessoa) {
+		return manager.merge(pessoa);
+	}
 }

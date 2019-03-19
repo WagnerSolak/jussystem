@@ -15,7 +15,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
 
 
 
@@ -33,8 +38,9 @@ public class Pessoa implements Serializable{
 	private String documentoReceitaFederal;
 	private String registroGeral;
 	private TipoPessoa tipo;
-	private String sexo;
 	private Date dataNascimento;
+	
+	private SexoPessoa sexoPessoa;
 	private StatusPessoa status;
 	private List<Endereco>enderecos = new ArrayList<>();
 	
@@ -47,7 +53,7 @@ public class Pessoa implements Serializable{
 		this.id = id;
 	}
 	
-	@NotNull
+	@NotBlank
 	@Column(nullable = false, length = 100)
 	public String getNome() {
 		return nome;
@@ -56,7 +62,7 @@ public class Pessoa implements Serializable{
 		this.nome = nome;
 	}
 	
-	@NotNull
+	@NotBlank
 	@Column(unique = true, length = 50)
 	public String getEmail() {
 		return email;
@@ -65,6 +71,8 @@ public class Pessoa implements Serializable{
 		this.email = email;
 	}
 	
+	@CNPJ
+	@CPF
 	@NotNull
 	@Column(nullable = false, length = 20)
 	public String getDocumentoReceitaFederal() {
@@ -94,15 +102,17 @@ public class Pessoa implements Serializable{
 		return tipo;
 	}
 	
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-	
 	@NotNull
-	@Column(nullable = false,length = 1)
-	public String getSexo() {
-		return sexo;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 9)
+	public SexoPessoa getSexoPessoa() {
+		return sexoPessoa;
+	} 
+	
+	public void setSexoPessoa(SexoPessoa sexoPessoa) {
+		this.sexoPessoa = sexoPessoa;
 	}
+
 	
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
@@ -159,7 +169,10 @@ public class Pessoa implements Serializable{
 		return true;
 	}
 	
-	
+/*	@Transient
+	public boolean isSelecionouTipoFiscalFisico() {
+		
+	}*/
 	
 	
 }

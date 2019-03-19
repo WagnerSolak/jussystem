@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -26,8 +27,9 @@ public class Usuario implements Serializable{
 	private String nome;
 	private String email;
 	private String senha;
-	private StatusTipoUsuario status;
+	private StatusUsuario statusUsuario;
 	private List<Grupo>grupos = new ArrayList<>();
+	
 	
 	@Id
 	@GeneratedValue
@@ -66,15 +68,17 @@ public class Usuario implements Serializable{
 		this.senha = senha;
 	}
 	
-	public void setStatus(StatusTipoUsuario status) {
-		this.status = status;
-	}
+	
 	
 	@NotNull
-	@Column(nullable = false, length = 9) 
+	@Column(nullable = false, length = 9)
 	@Enumerated(EnumType.STRING)
-	public StatusTipoUsuario getStatus() {
-		return status;
+	public StatusUsuario getStatusUsuario() {
+		return statusUsuario;
+	}
+	
+	public void setStatusUsuario(StatusUsuario statusUsuario) {
+		this.statusUsuario = statusUsuario;
 	}
 	
 	public void setGrupos(List<Grupo> grupos) {
@@ -88,6 +92,10 @@ public class Usuario implements Serializable{
 		return grupos;
 	}
 	
+	@Transient
+	public boolean isNovo() {
+		return getId() == null;
+	}
 	
 	@Override
 	public int hashCode() {
