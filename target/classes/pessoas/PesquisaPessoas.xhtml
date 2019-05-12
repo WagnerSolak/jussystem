@@ -8,12 +8,13 @@
 	<ui:define name="titulo">Pesquisa: pessoas</ui:define>
 
 	<ui:define name="corpo">
-		<h:form>
+		<h:form id="frmPesquisa">
 			<h1>Pesquisa pessoas</h1>
 
 			<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup>
-					<p:commandButton value="Pesquisar" id="botaoPesquisar" />
+					<p:commandButton value="Pesquisar" id="botaoPesquisar" 
+					action="#{pesquisaPessoaBean.pesquisar}" update="@form"/>
 				</p:toolbarGroup>
 
 				<p:toolbarGroup align="right">
@@ -25,37 +26,60 @@
 				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
 
 				<p:outputLabel value="CPF/CNPJ" for="cpfCnpj" />
-				<p:inputText id="cpfCnpj" size="20" />
+				<p:inputText id="cpfCnpj" size="20" 
+				value="#{pesquisaPessoaBean.filtro.documentoReceitaFederal}"/>
 
 				<p:outputLabel value="Nome" for="nome" />
-				<p:inputText id="nome" size="60" />
+				<p:inputText id="nome" size="60" 
+				value="#{pesquisaPessoaBean.filtro.nome}"/>
 
 			</p:panelGrid>
 
 			<p:dataTable id="pessoasTable" var="pessoa" style="margin-top: 20px"
 				emptyMessage="Nenhuma pessoas encontrada." rows="20"
-				paginator="true" paginatorAlwaysVisible="false"
-				paginatorPosition="bottom">
+				paginator="true" paginatorAlwaysVisible="false" 
+				paginatorPosition="bottom" value="#{pesquisaPessoaBean.pessoasFiltradas}">
 
 				<p:column headerText="Nome" style="text-align: left; width: 900px">
-					<h:outputText value="123" />
+					<h:outputText value="#{pessoa.nomePessoa}" />
+				</p:column>
+				
+
+				<p:column headerText="Tipo" style="text-align: center; width: 80px">
+					<h:outputText value="#{pessoa.tipo.descricao}" />
+				</p:column>
+				
+				<p:column headerText="CPF/CNPJ" style="text-align: center; width: 120px">
+				<h:outputText value="#{pessoa.documentoReceitaFederal}" converter="cpfCnpjMask"/>
 				</p:column>
 
-				<p:column headerText="Tipo" style="text-align: left; width: 80px">
-					<h:outputText value="Física" />
-				</p:column>
-
-				<p:column headerText="CPF/CNPJ"
-					style="text-align: legt; width: 140px">
-					<h:outputText value="10,00049.184.439-58" />
-				</p:column>
-
-				<p:column style="text-align: center">
-					<p:button icon="ui-icon-pencil" title="Editar" />
-					<p:commandButton icon="ui-icon-trash" title="Excluir" />
+				
+				<p:column style="width: 100px; text-align: center">
+					<p:button icon="ui-icon-pencil" title="Editar" 
+					outcome="/pessoas/CadastroPessoa">
+					<f:param name="pessoa" value="#{pessoa.id}"/>
+					</p:button>
+					
+					
+					<p:commandButton icon="ui-icon-trash" title="Excluir" 
+					oncomplete="confirmacaoExclusaoPessoa.show(); return false;"
+					process="@this" update=":frmPesquisa:confirmacaoExclusaoDialog">
+					<f:setPropertyActionListener value="#{pessoa}" 
+					target="#{pesquisaPessoaBean.pessoaSelecionada}"/>
+					</p:commandButton>
 				</p:column>
 
 			</p:dataTable>
+			
+			<p:confirmDialog header="Exclusão de pessoa"
+			message="Deseja realmente excluir a pessoa?" widgetVar="confirmacaoExclusaoDialog"
+			id="confirmacaoExclusaoDialog">
+			
+			<p:button value="Não" onclick="confirmcaoExclusaoDialog.hide(); return false;"/>
+			<p:commandButton value="Sim" oncomplete="confirmacaoExclusaoDialog.hide();"
+			action="#{cadastroPessoaBean.excluir}" process="@this"
+			update=":frmPesquisa:pessoasTable" id="yesButton"/>
+			</p:confirmDialog>
 		</h:form>
 	</ui:define>
 </ui:composition>

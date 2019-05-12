@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -34,14 +35,18 @@ public class Pedido implements Serializable {
 	private BigDecimal valorFrete = BigDecimal.ZERO;
 	private BigDecimal valorDesconto = BigDecimal.ZERO;
 	private BigDecimal valorTotal = BigDecimal.ZERO;
+	
+	
 	private StatusPedido status = StatusPedido.ORCAMENTO;
 	private FormaPagamento formaPagamento;
 	private Usuario comprador;
 	private Pessoa fornecedor;
 	private List<ItemPedido> itens = new ArrayList<>();
+	
+	
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}
@@ -113,6 +118,8 @@ public class Pedido implements Serializable {
 	public BigDecimal getValorTotal() {
 		return valorTotal;
 	}
+	
+
 
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
@@ -129,15 +136,14 @@ public class Pedido implements Serializable {
 		this.status = status;
 	}
 
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false, length = 20)
-	public FormaPagamento getFormaPagamento() {
-		return formaPagamento;
-	}
-
 	public void setFormaPagamento(FormaPagamento formaPagamento) {
 		this.formaPagamento = formaPagamento;
+	}
+
+	@ManyToOne
+	@JoinColumn
+	public FormaPagamento getFormaPagamento() {
+		return formaPagamento;
 	}
 
 	@NotNull
@@ -170,6 +176,9 @@ public class Pedido implements Serializable {
 	public void setItens(List<ItemPedido> itens) {
 		this.itens = itens;
 	}
+	
+	
+	
 
 	@Transient
 	public boolean isNovo() {
@@ -244,6 +253,11 @@ public class Pedido implements Serializable {
 	public boolean isOrcamento() {
 		return StatusPedido.ORCAMENTO.equals(this.getStatus());
 	}
+	
+	@Transient
+	public boolean isEmitido() {
+		return StatusPedido.EMITIDO.equals(this.getStatus());
+	}
 
 	public void removerItemVazio() {
 		ItemPedido primeiroItem = this.getItens().get(0);
@@ -265,4 +279,93 @@ public class Pedido implements Serializable {
 		return this.isNovo();          // || this.isCancelado(); implementar após cancelar pedido
 	}
 
+	@Transient
+	public boolean isNaoEmissivel() {
+		return !this.isEmissivel();
+	}
+
+	@Transient
+	private boolean isEmissivel() {
+		return this.isExistente() && this.isOrcamento();
+	}
+	
+	@Transient
+	public boolean isNaoCancelavel() {
+		return !isCancelavel();
+	}
+
+	@Transient
+	private boolean isCancelavel() {
+		return this.isExistente() && !this.isCancelado();
+	}
+	
+	@Transient
+	private boolean isCancelado() {
+		return StatusPedido.CANCELADO.equals(this.getStatus());
+	}
+	
+	@Transient
+	public boolean isNaoAlteravel() {
+		return !this.isAlteravel();
+	}
+	
+	@Transient
+	private boolean isAlteravel() {
+		return this.isOrcamento();
+	}
+	
+	
+	//Implementação Emissão Pedido
+/*	public void criarParcela(Integer quantidadeParcela) {
+		BigDecimal totalParcelas = valorTotal.subtract(valorEntrada);
+		
+		if(quantidadeParcela == null) {
+			quantidadeParcela = 1;
+			this.setQuantidadeParcela(quantidadeParcela);
+		}
+		contasPagar = new ArrayList<>();
+		for(int i = 1; i <= quantidadeParcela; i++) {
+			ContasPagar cp = new ContasPagar();
+			cp.setNumeroParcela(i+"/"+quantidadeParcela);
+			cp.setDataEmissao(new Date());
+			cp.setPedido(this);
+			cp.setPessoa(this.fornecedor);  //como pegar a pessoa do pedido????????????????????????????
+			cp.setValorPago(BigDecimal.ZERO);
+			cp.setValorAbatimento(BigDecimal.ZERO);
+			cp.setValorMoraMulta(BigDecimal.ZERO);
+			cp.setSituacao("Em Aberto");
+		
+			Calendar vencimento = Calendar.getInstance();
+			vencimento.add(Calendar.DAY_OF_MONTH, 30 * i);
+			cp.setDataVencimento(vencimento.getTime());
+			cp.setValorTotal(totalParcelas.divide(new BigDecimal(quantidadeParcela), BigDecimal.ROUND_HALF_UP));
+			cp.setValorRestante(totalParcelas.divide(new BigDecimal(quantidadeParcela), BigDecimal.ROUND_HALF_UP));
+		}
+	}
+	
+	public void recalcularParcela() {
+		Integer par = quantidadeParcela;
+		par = par -1;
+	    BigDecimal retotal = BigDecimal.ZERO;
+	    BigDecimal ultimaParcela = BigDecimal.ZERO;
+	    
+	    
+	    for(int i = 0; i < quantidadeParcela; i++) {
+	    	System.out.println("Teste de recalculo...");
+	    	
+	    	if(par.equals(i)) {
+	    		System.out.println("Ultima parcela");
+	    		ultimaParcela = TotalDesc.subtract(retotal);
+		    	contasPagar.get(i).setValorTotal(ultimaParcela);
+		    	System.out.println("Ultima Parcela " + ultimaParcela);
+	    	}else {
+	    		retotal = retotal.add(contasPagar.get(i).getValorTotal());
+	    		System.out.println(retotal);
+	    		System.out.println(i);
+	    	}
+	    	
+	    }
+		
+	}
+*/
 }

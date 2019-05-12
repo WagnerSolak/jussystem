@@ -17,6 +17,8 @@
 		
 		<h:form>
 		
+		<p:focus/>
+		
 			<h1>#{cadastroCidadeBean.editando ? 'Edição de cidade' : 'Nova cidade'}</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
@@ -45,7 +47,7 @@
 
 				<p:outputLabel value="Estado *" for="estado"/>
 				<p:selectOneMenu id="estado" value="#{cadastroCidadeBean.cidade.estado}" converter="#{estadoConverter}">
-				<f:selectItem itemLabel="Selecione o estado"/>
+				<f:selectItem itemLabel="Selecione o estado..." noSelectionOption="true"/>
 				<f:selectItems value="#{cadastroCidadeBean.estados}" var="estado"
 					itemValue="#{estado}" itemLabel="#{estado.nome} - #{estado.sigla}"/>
 				</p:selectOneMenu>

@@ -3,6 +3,8 @@ package com.jussystem.controller;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Produces;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -13,6 +15,7 @@ import com.jussystem.model.Pedido;
 import com.jussystem.model.Pessoa;
 import com.jussystem.model.Produto;
 import com.jussystem.model.Usuario;
+import com.jussystem.repository.FormaPagamentos;
 import com.jussystem.repository.Pessoas;
 import com.jussystem.repository.Produtos;
 import com.jussystem.repository.Usuarios;
@@ -27,6 +30,9 @@ public class CadastroPedidoBean implements Serializable {
 
 	@Inject
 	private Usuarios usuarios;
+	
+	@Inject
+	private FormaPagamentos formaPagamentos;
 
 	@Inject
 	private Pessoas pessoas;
@@ -37,8 +43,13 @@ public class CadastroPedidoBean implements Serializable {
 	@Inject
 	private Produtos produtos;
 
+	@Produces
+	@PedidoEdicao
 	private Pedido pedido;
+	
 	private List<Usuario> compradores;
+	private List<FormaPagamento>formasPagamento;
+	
 	private Produto produtoLinhaEditavel;
 	private Long id;
 
@@ -50,7 +61,9 @@ public class CadastroPedidoBean implements Serializable {
 	public void inicializar() {
 		if (FacesUtil.isNotPostBack()) {
 			this.compradores = this.usuarios.compradores();
-
+			this.formasPagamento = this.formaPagamentos.formaPagamentos();
+			
+			
 			this.pedido.adicionarItemVazio();
 
 			this.recalcularPedido();
@@ -74,6 +87,10 @@ public class CadastroPedidoBean implements Serializable {
 
 	}
 
+	public void pedidoAlterado(@Observes PedidoAlteradoEvent event) {
+		this.pedido = event.getPedido();
+	}
+	
 	public void recalcularPedido() {
 		if (this.pedido != null) {
 			this.pedido.recalcularValorTotal();
@@ -152,10 +169,14 @@ public class CadastroPedidoBean implements Serializable {
 	public List<Usuario> getCompradores() {
 		return compradores;
 	}
-
-	public FormaPagamento[] getFormasPagamento() {
-		return FormaPagamento.values();
+	
+	public List<FormaPagamento> getFormasPagamento() {
+		return formasPagamento;
 	}
+
+/*	public FormaPagamento[] getFormasPagamento() { será oimplementado no emissaoPedidoBean
+		return FormaPagamento.values();
+	}*/
 
 	public boolean isEditando() {
 		return this.pedido.getId() != null;

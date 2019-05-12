@@ -1,0 +1,53 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">#{cadastroFormaPagamentoBean.editando ? 'Edição de forma de pagamento' : 'Nova forma de pagamento'}</ui:define>
+
+	<ui:define name="corpo">
+
+
+
+		<f:metadata>
+			<f:viewParam name="formaPagamento"
+				value="#{cadastroFormaPagamentoBean.formaPagamento}" />
+			<f:event listener="#{cadastroFormaPagamentoBean.inicializar}"
+				type="preRenderView" />
+		</f:metadata>
+
+		<h:form>
+
+			<h1>#{cadastroFormaPagamentoBean.editando ? 'Edição de forma de
+				pagamento' : 'Nova forma de pagamento'}</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:button value="Novo"
+						outcome="/formaPagamentos/CadastroFormaPagamento" />
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroFormaPagamentoBean.salvar}" update="@form" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa"
+						outcome="/formaPagamentos/PesquisaFormaPagamentos" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="painel"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Nome *" for="nome" />
+				<p:inputText id="nome" size="70" maxlength="80"
+					value="#{cadastroFormaPagamentoBean.formaPagamento.descricao}" />
+
+			</p:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

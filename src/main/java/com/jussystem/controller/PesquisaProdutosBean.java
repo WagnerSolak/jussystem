@@ -26,6 +26,7 @@ public class PesquisaProdutosBean implements Serializable{
 	private Produtos produtos;
 	
 	private ProdutoFilter filtro;
+	
 	private Produto produtoSelecionado;
 	
 	public PesquisaProdutosBean() {
@@ -36,9 +37,17 @@ public class PesquisaProdutosBean implements Serializable{
 		produtosFiltrados = produtos.filtrados(filtro);
 	}
 	
+	/*public void testeImprimeConsole() {
+		System.out.println("ID: " + produtoSelecionado.getId());
+		System.out.println("Nome: "+ produtoSelecionado.getNome());
+	}*/
+	
 	public void excluir() {
+		
 		produtos.remover(produtoSelecionado);
 		produtosFiltrados.remove(produtoSelecionado);
+		
+		//System.out.println("Id: " + produtoSelecionado.getId()+ "nome: " + produtoSelecionado.getNome());
 		
 		FacesUtil.addInfoMessage("Produto " + produtoSelecionado.getNome() + " excluído com sucesso!");
 	}
@@ -58,5 +67,7 @@ public class PesquisaProdutosBean implements Serializable{
 	public Produto getProdutoSelecionado() {
 		return produtoSelecionado;
 	}
+	
+	
 }
 

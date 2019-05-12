@@ -4,24 +4,51 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<p:panelGrid columns="6" style="width: 100%; margin-top: 20px"
-		columnClasses="rotulo, campo, rotulo, campo, rotulo, campo">
+
+	<p:panelGrid columns="4" style="width: 100%; margin-top: 20px"
+		columnClasses="rotulo, campo, rotulo, campo">
+
 
 		<p:outputLabel value="Número:"
 			rendered="#{cadastroPedidoBean.pedido.existente}" />
 		<h:outputText value="#{cadastroPedidoBean.pedido.id}"
 			rendered="#{cadastroPedidoBean.pedido.existente}" />
 
-		<p:outputLabel value="Status:" />
-		<h:outputText value="#{cadastroPedidoBean.pedido.status.descricao}" />
 
-		
-		<p:outputLabel value="Data de criação:"
+		<p:outputLabel value="Data de Criação:"
 			rendered="#{cadastroPedidoBean.pedido.existente}" />
 		<h:outputText value="#{cadastroPedidoBean.pedido.dataCriacao}"
 			rendered="#{cadastroPedidoBean.pedido.existente}">
 			<f:convertDateTime pattern="dd/MM/yyyy" />
 		</h:outputText>
+
+		<p:outputLabel value="Status" />
+		<h:outputText value="#{cadastroPedidoBean.pedido.status.descricao}" />
+
+		<p:outputLabel value="Comprador:" for="comprador" />
+		<p:selectOneMenu id="comprador" disabled="#{cadastroPedidoBean.pedido.naoAlteravel}"
+			value="#{cadastroPedidoBean.pedido.comprador}">
+			<f:selectItem itemLabel="Selecione" />
+			<f:selectItems value="#{cadastroPedidoBean.compradores}"
+				var="comprador" itemValue="#{comprador}"
+				itemLabel="#{comprador.nome}" />
+		</p:selectOneMenu>
+
+		<p:outputLabel value="Fornecedor" for="fornecedor" />
+		<p:autoComplete id="fornecedor" size="40" dropdown="true" disabled="#{cadastroPedidoBean.pedido.naoAlteravel}"
+			value="#{cadastroPedidoBean.pedido.fornecedor}"
+			completeMethod="#{cadastroPedidoBean.completarFornecedor}"
+			var="pessoa" itemLabel="#{pessoa.nomePessoa}" itemValue="#{pessoa}"
+			forceSelection="true" />
+
+		<p:outputLabel value="Forma de pagamento" for="formaPagamento" />
+		<p:selectOneMenu id="formaPagamento" disabled="#{cadastroPedidoBean.pedido.naoAlteravel}"
+			value="#{cadastroPedidoBean.pedido.formaPagamento}">
+			<f:selectItem itemLabel="Selecione" />
+			<f:selectItems value="#{cadastroPedidoBean.formasPagamento}"
+				var="formaPagamento" itemValue="#{formaPagamento}"
+				itemLabel="#{formaPagamento.descricao}"/>
+		</p:selectOneMenu>
 
 		<p:outputLabel value="Data de emissão:"
 			rendered="#{cadastroPedidoBean.pedido.existente}" />
@@ -37,35 +64,11 @@
 			rendered="#{cadastroPedidoBean.pedido.existente}">
 			<f:convertDateTime pattern="dd/MM/yyyy" />
 		</h:outputText>
-		
-		<p:spacer/>
 
-	</p:panelGrid>
-
-	<p:panelGrid columns="4" style="width: 100%; margin-top: 20px"
-		columnClasses="rotulo, campo, rotulo, campo">
-
-		<p:outputLabel value="Fornecedor" for="fornecedor" />
-		<p:autoComplete id="fornecedor" size="40" dropdown="true"
-			value="#{cadastroPedidoBean.pedido.fornecedor}"
-			completeMethod="#{cadastroPedidoBean.completarFornecedor}"
-			var="pessoa" itemLabel="#{pessoa.nome}" itemValue="#{pessoa}"
-			forceSelection="true" />
-			
-			<p:outputLabel value="Comprador:" for="comprador" />
-		<p:selectOneMenu id="comprador"
-			value="#{cadastroPedidoBean.pedido.comprador}">
-			<f:selectItem itemLabel="Selecione" />
-			<f:selectItems value="#{cadastroPedidoBean.compradores}"
-				var="comprador" itemValue="#{comprador}"
-				itemLabel="#{comprador.nome}" />
-		</p:selectOneMenu>
-
-			
 
 
 		<p:outputLabel value="Valor do frete" for="valorFrete" />
-		<p:inputText id="valorFrete" size="10" maxlength="10"
+		<p:inputText id="valorFrete" size="10" maxlength="10" disabled="#{cadastroPedidoBean.pedido.naoAlteravel}"
 			value="#{cadastroPedidoBean.pedido.valorFrete}" styleClass="moeda">
 			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 
@@ -81,7 +84,7 @@
 		</h:outputText>
 
 		<p:outputLabel value="Valor de desconto" for="valorDesconto" />
-		<p:inputText id="valorDesconto" size="10" maxlength="10"
+		<p:inputText id="valorDesconto" size="10" maxlength="10" disabled="#{cadastroPedidoBean.pedido.naoAlteravel}"
 			styleClass="moeda" value="#{cadastroPedidoBean.pedido.valorDesconto}">
 			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 

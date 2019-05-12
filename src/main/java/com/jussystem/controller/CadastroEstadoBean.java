@@ -20,7 +20,6 @@ public class CadastroEstadoBean implements Serializable{
 	
 	private Estado estado;
 	
-
 	@Inject
 	private CadastroEstadoService cadastroEstadoService;
 	
@@ -31,7 +30,6 @@ public class CadastroEstadoBean implements Serializable{
 	public void inicializar() {
 		
 	}
-	
 	
 	public void salvar() {
 		

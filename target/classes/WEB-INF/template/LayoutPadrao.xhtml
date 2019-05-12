@@ -39,22 +39,49 @@
 		<h:form style="display: inline-block">
 			<p:menubar styleClass="menu-sistema">
 				<p:submenu label="Cadastros">
-					<p:menuitem value="Pessoas" outcome="/pessoas/PesquisaPessoas" />
+					<p:menuitem value="Pessoas" outcome="/pessoas/CadastroPessoa" />
+					<p:menuitem value="Usuários" outcome="/usuarios/CadastroUsuario" />
+					<p:separator />
+					<p:menuitem value="Produtos" outcome="/produtos/CadastroProduto" />
+					<p:separator />
+					<p:menuitem value="Cidades" outcome="/cidades/CadastroCidade" />
+					<p:menuitem value="Estados" outcome="/estados/CadastroEstado" />
+					<p:separator />
+					<p:menuitem value="Forma Pagamento" outcome="/formaPagamentos/CadastroFormaPagamento" />
+					<p:separator />
+					
+				</p:submenu>
+				
+				
+				<p:submenu label="Pesquisas">
+				<p:menuitem value="Pessoas" outcome="/pessoas/PesquisaPessoas" />
 					<p:menuitem value="Usuários" outcome="/usuarios/PesquisaUsuarios" />
 					<p:separator />
 					<p:menuitem value="Produtos" outcome="/produtos/PesquisaProdutos" />
 					<p:separator />
 					<p:menuitem value="Cidades" outcome="/cidades/PesquisaCidades" />
 					<p:menuitem value="Estados" outcome="/estados/PesquisaEstados" />
+					<p:separator />
+					<p:menuitem value="Forma Pagamento" outcome="/formaPagamentos/PesquisaFormaPagamentos" />
+					<p:separator />
 				</p:submenu>
-
+				
+				
 				<p:submenu label="Pedidos">
 					<p:menuitem value="Novo Pedido" outcome="/pedidos/CadastroPedido"/>
 					<p:menuitem value="Pesquisa Pedido" outcome="/pedidos/PesquisaPedidos"/>
+					<p:separator />
 				</p:submenu>
 				
 				<p:submenu label="Relatórios">
 					<p:menuitem value="Compra" />
+					<p:separator />
+					
+				</p:submenu>
+				
+				<p:submenu label="Ajuda">
+					<p:menuitem value="Ajuda" />
+					<p:separator />
 					
 				</p:submenu>
 

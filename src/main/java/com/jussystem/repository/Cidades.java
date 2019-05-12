@@ -76,4 +76,24 @@ public class Cidades implements Serializable{
 	public Cidade porId(Long id) {
 		return this.manager.find(Cidade.class, id);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Cidade>buscarCidadePorEstado(Long estadoId){
+		
+		try {
+			Session session = manager.unwrap(Session.class);
+			Criteria criteria = session.createCriteria(Cidade.class);
+			criteria.add(Restrictions.eq("estado.id", estadoId));
+			
+			criteria.addOrder(Order.asc("nome"));
+			List<Cidade> resultado = criteria.list();
+			return resultado;
+		} catch (RuntimeException e) {
+			throw e;
+		}finally {
+			
+		}
+		
+		
+	}
 }

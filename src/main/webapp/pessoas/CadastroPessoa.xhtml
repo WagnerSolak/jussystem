@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
-	<ui:define name="titulo">#{cadastroPessoaBean.editando ? 'Edição de pessoa' : 'Nova pessoa'}</ui:define>
+	<ui:define name="titulo">#{cadastroPessoaBean.editando ? 'Edição de pessoa' : 'Novo pessoa'}</ui:define>
 
 	<ui:define name="corpo">
 
@@ -52,15 +52,17 @@
 }
 </style>
 
-		<f:metadata>
-			<o:viewParam name="pessoa" value="#{cadastroPessoaBean.pessoa}" />
 
+		<f:metadata>
+			<f:viewParam name="pessoa" value="#{cadastroPessoaBean.pessoa}" />
 			<f:event listener="#{cadastroPessoaBean.inicializar}"
 				type="preRenderView" />
 		</f:metadata>
 
-		<h:form>
-			<h1>#{cadastroPessoaBean.editando ? 'Edição de pessoa' : 'Nova
+		<h:form id="frm">
+			<p:focus context="frm" />
+
+			<h1>#{cadastroPessoaBean.editando ? 'Edição de pessoa' : 'Novo
 				pessoa'}</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
@@ -69,7 +71,8 @@
 				<p:toolbarGroup>
 					<p:button value="Novo" outcome="/pessoas/CadastroPessoa" />
 					<p:commandButton value="Salvar" id="botaoSalvar"
-						action="#{cadastroPessoaBean.salvar}" update="@form" />
+						action="#{cadastroPessoaBean.salvar}" update="@form"
+						process="@this capaPainelGrid" />
 				</p:toolbarGroup>
 
 				<p:toolbarGroup align="right">
@@ -77,55 +80,188 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<p:panelGrid columns="2" id="painel"
+			<p:panelGrid columns="2" id="capaPainelGrid"
 				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
 
-				<p:outputLabel value="Nome *" for="nome" />
-				<p:inputText id="nome" size="60" maxlength="80"
-					value="#{cadastroPessoaBean.pessoa.nome}" />
+				<p:outputLabel value="Nome *" for="nomePessoa" />
+				<p:inputText id="nomePessoa" size="60" maxlength="100"
+					value="#{cadastroPessoaBean.pessoa.nomePessoa}" />
 
-				<p:outputLabel value="E-mail *" for="email" />
-				<p:inputText id="email" size="60" maxlength="80"
-					value="#{cadastroPessoaBean.pessoa.email}" />
+				<p:outputLabel value="Nacionalidade *" for="nacionalidade" />
+				<p:inputText id="nacionalidade" size="40" maxlength="20"
+					value="#{cadastroPessoaBean.pessoa.nacionalidade}" />
 
+				<p:outputLabel value="Estado Civil *" for="estadoCivil" />
+				<p:inputText id="estadoCivil" size="40" maxlength="15"
+					value="#{cadastroPessoaBean.pessoa.estadoCivil}" />
 
-				<p:outputLabel value="Sexo" for="sexo" />
-				<p:selectOneRadio id="sexo"
-					value="#{cadastroPessoaBean.pessoa.sexoPessoa}"
-					styleClass="sem-bordas">
-					<f:selectItems value="#{cadastroPessoaBean.sexos}" var="sexo"
-						itemLabel="#{sexo.descricao}" itemValue="#{sexo}" />
-				</p:selectOneRadio>
+				<p:outputLabel value="Profissão *" for="profissao" />
+				<p:inputText id="profissao" size="40" maxlength="80"
+					value="#{cadastroPessoaBean.pessoa.profissao}" />
 
+				<p:outputLabel value="RG *" for="rg" />
+				<p:inputText id="rg" size="20" maxlength="20"
+					value="#{cadastroPessoaBean.pessoa.rg}" />
 
-				<p:outputLabel value="Tipo Fiscal" for="tipo" />
-				<p:selectOneRadio id="tipo"
-					value="#{cadastroPessoaBean.pessoa.tipo}" styleClass="sem-bordas">
+				<p:outputLabel value="UF RG *" for="ufRg" />
+				<p:inputText id="ufRg" size="20" maxlength="2"
+					value="#{cadastroPessoaBean.pessoa.ufRg}" />
+
+				<p:outputLabel value="Tipo Fiscal" for="tipoFiscal" />
+				<p:selectOneRadio id="tipoFiscal">
 					<f:selectItems value="#{cadastroPessoaBean.tipos}" var="tipo"
-						itemLabel="#{tipo.descricao}" itemValue="#{tipo}" />
-						<p:ajax event="change" process="@this" 
-						update="documentoReceitaFederal documentoReceitaFederalLabel"/>
+						itemValue="#{tipo}" itemLabel="#{tipo.descricao}" />
+					<p:ajax event="change" process="@this"
+						update="documentoReceitaFederal documentoReceitaFederalLabel" />
 				</p:selectOneRadio>
 
-				<p:outputLabel value="#{cadastroPessoaBean.pessoa.tipo.rotulo}" id="documentoReceitaFederalLabel"
-				for="documentoReceitaFederal" />
-				<p:inputMask id="documentoReceitaFederal" size="20" maxlength="14" 
+				<p:outputLabel value="#{cadastroPessoaBean.pessoa.tipo.rotulo}"
+					id="documentoReceitaFederalLabel" for="documentoReceitaFederal" />
+				<p:inputMask id="documentoReceitaFederal" size="20" maxlength="14"
 					mask="#{cadastroPessoaBean.pessoa.tipo.mascara}"
-					converter="cpfCnpjMask"
-					value="#{cadastroPessoaBean.pessoa.documentoReceitaFederal}"/>
+					value="#{cadastroPessoaBean.pessoa.documentoReceitaFederal}"
+					converter="cpfCnpjMask">
+					<f:validateBean
+						validationGroups="#{cadastroPessoaBean.pessoa.tipo.grupoValidacao}" />
+				</p:inputMask>
+
+				<p:outputLabel value="CTPS *" for="ctps" />
+				<p:inputText id="ctps" size="20" maxlength="10"
+					value="#{cadastroPessoaBean.pessoa.ctps}" />
+
+				<p:outputLabel value="Série CTPS *" for="serie" />
+				<p:inputText id="serie" size="20" maxlength="8"
+					value="#{cadastroPessoaBean.pessoa.serieCtps}" />
 
 				<p:outputLabel value="Data de Nascimento" />
 				<p:calendar value="#{cadastroPessoaBean.pessoa.dataNascimento}"
-					navigator="true" locale="pt"
-					maxdate="#{cadastroPessoaBean.dataHoje}"
-					pattern="dd/MM/yyyy"/>
-					
-				<p:outputLabel value="Registro Geral" for="rg"/>
-				<p:inputText id="rg" value="#{cadastroPessoaBean.pessoa.registroGeral}"
-					size="20" maxlength="14"/>
+					navigator="true" locale="pt" pattern="dd/MM/yyyy" />
+
+
+				<p:outputLabel value="Idade *" for="idade" />
+				<p:inputText id="idade" size="10" maxlength="3"
+					value="#{cadastroPessoaBean.pessoa.idade}" />
+
+				<p:outputLabel value="Nome Mãe *" for="mae" />
+				<p:inputText id="mae" size="60" maxlength="100"
+					value="#{cadastroPessoaBean.pessoa.nomeMae}" />
+
+				<p:outputLabel value="Endereço *" for="endereco" />
+				<p:inputText id="endereco" size="60" maxlength="100"
+					value="#{cadastroPessoaBean.pessoa.endereco}" />
+
+				<p:outputLabel value="Bairro *" for="bairro" />
+				<p:inputText id="bairro" size="40" maxlength="80"
+					value="#{cadastroPessoaBean.pessoa.bairro}" />
+
+				<p:outputLabel value="CEP *" for="cep" />
+				<p:inputText id="cep" size="20" maxlength="15"
+					value="#{cadastroPessoaBean.pessoa.cep}" />
+
+				<p:outputLabel value="Estado *" for="estado" />
+				<p:selectOneMenu id="estado" value="#{cadastroPessoaBean.estado}">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um estado ..." />
+					<f:selectItems value="#{cadastroPessoaBean.estados}" var="estado"
+						itemValue="#{estado}" itemLabel="#{estado.nome}" />
+					<p:ajax listener="#{cadastroPessoaBean.popularCidadePorEstado}"
+						update=":frm:cidade" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Cidade *" for="cidade" />
+				<p:selectOneMenu id="cidade"
+					value="#{cadastroPessoaBean.pessoa.cidade}">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione uma cidade ..." />
+					<f:selectItems value="#{cadastroPessoaBean.cidades}" var="cidade"
+						itemValue="#{cidade}" itemLabel="#{cidade.nome}" />
+				</p:selectOneMenu>
+
 
 
 			</p:panelGrid>
+
+			<p:commandButton value="Adicionar Contato"
+				actionListener="#{cadastroPessoaBean.novoContato}" process="@this"
+				update="contatoDialog"
+				oncomplete="contatoDialogWidgetVar.show(); return false;"
+				style="margin: 5px 0">
+				<p:resetInput target="contatoDialog" />
+
+			</p:commandButton>
+
+			<p:dataTable id="contatoDataTable"
+				value="#{cadastroPessoaBean.pessoa.contatos}" var="contato">
+
+				<p:column headerText="E-mail">
+					<h:outputText value="#{contato.email}" />
+				</p:column>
+
+				<p:column headerText="Telefone">
+					<h:outputText value="#{contato.telefone}" />
+				</p:column>
+
+				<p:column headerText="Celular">
+					<h:outputText value="#{contato.celular}" />
+				</p:column>
+
+				<p:column headerText="Operadora">
+					<h:outputText value="#{contato.operadora}" />
+				</p:column>
+
+				<p:column style="width: 100px; text-align: center">
+					<p:commandButton icon="ui-icon-pencil" title="Editar"
+						process="@this" update=":frm:contatoPanelGroup"
+						onsuccess="contatoDialogWidgetVar.show(); return false;"
+						actionListener="#{cadastroPessoaBean.editarContato(contato)}" >
+						<p:resetInput target="contatoDialog" />
+						</p:commandButton>
+
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						process="@this" update="contatoDataTable"
+						action="#{cadastroPessoaBean.excluirContato(contato)}" />
+				</p:column>
+
+			</p:dataTable>
+
+			<p:dialog header="Inclusão de Contato" id="contatoDialog"
+				widgetVar="contatoDialogWidgetVar" modal="true">
+				<h:panelGroup id="contatoPanelGroup">
+					<p:messages id="contatoMessages" autoUpdate="false" />
+
+					<h:panelGrid columns="2">
+						<p:outputLabel value="E-mail" for="email" />
+						<p:inputText id="email" size="50" maxlength="50"
+							value="#{cadastroPessoaBean.contato.email}" />
+
+						<p:outputLabel value="Telefone" for="telefone" />
+						<p:inputMask id="telefone" size="20" maxlength="10"
+							value="#{cadastroPessoaBean.contato.telefone}"
+							mask="(99)99999-9999" />
+
+						<p:outputLabel value="Celular" for="celular" />
+						<p:inputMask id="celular" size="20" maxlength="15"
+							value="#{cadastroPessoaBean.contato.celular}"
+							mask="(99)9999-9999" />
+
+						<p:outputLabel value="Operadora" for="operadora" />
+						<p:inputText id="operadora" size="20" maxlength="15"
+							value="#{cadastroPessoaBean.contato.operadora}" />
+
+						<p:outputLabel />
+						<p:commandButton
+							value="#{cadastroPessoaBean.editandoContato ? 'Alterar' : 'Incluir'}"
+							action="#{cadastroPessoaBean.confirmarContato}"
+							ignoreAutoUpdate="true" process="contatoPanelGroup"
+							update="contatoPanelGroup contatoDataTable"
+							oncomplete="if (!args.validationFailed) contatoDialogWidgetVar.hide();" />
+
+					</h:panelGrid>
+
+				</h:panelGroup>
+
+			</p:dialog>
+
 
 		</h:form>
 	</ui:define>
