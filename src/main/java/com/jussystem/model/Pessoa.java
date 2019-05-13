@@ -53,6 +53,7 @@ public class Pessoa implements Serializable{
 	private String endereco;
 	private String bairro;
 	private String cep;
+	private String emailPessoa;
 	
 	private Cidade cidade;
     private List<Contato>contatos = new ArrayList<>();
@@ -284,7 +285,14 @@ public class Pessoa implements Serializable{
 		this.tipo = tipo;
 	}
 	
+	public void setEmailPessoa(String emailPessoa) {
+		this.emailPessoa = emailPessoa;
+	}
 	
+	@Column(nullable = false, length = 80)
+	public String getEmailPessoa() {
+		return emailPessoa;
+	}
 	
 	
 	

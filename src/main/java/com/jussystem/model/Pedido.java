@@ -276,7 +276,7 @@ public class Pedido implements Serializable {
 
 	@Transient
 	public boolean isNaoEnviavelPorEmail() {
-		return this.isNovo();          // || this.isCancelado(); implementar após cancelar pedido
+		return this.isNovo() || this.isCancelado(); 
 	}
 
 	@Transient
