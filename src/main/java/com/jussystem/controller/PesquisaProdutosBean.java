@@ -4,6 +4,7 @@ package com.jussystem.controller;
 import java.io.Serializable;
 import java.util.List;
 
+
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -37,20 +38,34 @@ public class PesquisaProdutosBean implements Serializable{
 		produtosFiltrados = produtos.filtrados(filtro);
 	}
 	
+	// teste inicio
+	
 	/*public void testeImprimeConsole() {
 		System.out.println("ID: " + produtoSelecionado.getId());
 		System.out.println("Nome: "+ produtoSelecionado.getNome());
 	}*/
+	
+	/*public void excluirDois() {
+		Object meuObjeto = (Object) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("meuObjeto");
+		Produto produtoSelecionado = (Produto)FacesContext.getCurrentInstance().getExternalContext().getFlash().get(produtoSelecionado);
+		
+		
+	}*/
+	
+	
+	//teste - final
 	
 	public void excluir() {
 		
 		produtos.remover(produtoSelecionado);
 		produtosFiltrados.remove(produtoSelecionado);
 		
-		//System.out.println("Id: " + produtoSelecionado.getId()+ "nome: " + produtoSelecionado.getNome());
+		System.out.println("Id: " + produtoSelecionado.getId()+ "nome: " + produtoSelecionado.getNome());
 		
 		FacesUtil.addInfoMessage("Produto " + produtoSelecionado.getNome() + " excluído com sucesso!");
 	}
+	
+	
 	
 	public List<Produto> getProdutosFiltrados() {
 		return produtosFiltrados;

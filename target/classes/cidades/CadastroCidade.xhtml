@@ -3,23 +3,24 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:o="http://omnifaces.org/ui">
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
 	<ui:define name="titulo">#{cadastroCidadeBean.editando ? 'Edição de cidade' : 'Nova cidade'}</ui:define>
 
 	<ui:define name="corpo">
-	
+
 		<f:metadata>
-			<o:viewParam name="cidade" value="#{cadastroCidadeBean.cidade}"/>
-			<f:event listener="#{cadastroCidadeBean.inicializar}" type="preRenderView"/>
+			<o:viewParam name="cidade" value="#{cadastroCidadeBean.cidade}" />
+			<f:event listener="#{cadastroCidadeBean.inicializar}"
+				type="preRenderView" />
 		</f:metadata>
-		
+
 		<h:form>
-		
-		<p:focus/>
-		
-			<h1>#{cadastroCidadeBean.editando ? 'Edição de cidade' : 'Nova cidade'}</h1>
+
+			<p:focus />
+
+			<h1>#{cadastroCidadeBean.editando ? 'Edição de cidade' : 'Nova
+				cidade'}</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
 
@@ -27,7 +28,9 @@
 				<p:toolbarGroup>
 					<p:button value="Novo" outcome="/cidades/CadastroCidade" />
 					<p:commandButton value="Salvar" id="botaoSalvar"
-						action="#{cadastroCidadeBean.salvar}" update="@form"/>
+						action="#{cadastroCidadeBean.salvar}" update="@form">
+						<p:resetInput target="painel"/>
+					</p:commandButton>
 				</p:toolbarGroup>
 
 				<p:toolbarGroup align="right">
@@ -43,13 +46,16 @@
 				<p:inputText id="nome" size="60" maxlength="80"
 					value="#{cadastroCidadeBean.cidade.nome}" />
 
-		
 
-				<p:outputLabel value="Estado *" for="estado"/>
-				<p:selectOneMenu id="estado" value="#{cadastroCidadeBean.cidade.estado}" converter="#{estadoConverter}">
-				<f:selectItem itemLabel="Selecione o estado..." noSelectionOption="true"/>
-				<f:selectItems value="#{cadastroCidadeBean.estados}" var="estado"
-					itemValue="#{estado}" itemLabel="#{estado.nome} - #{estado.sigla}"/>
+
+				<p:outputLabel value="Estado *" for="estado" />
+				<p:selectOneMenu id="estado"
+					value="#{cadastroCidadeBean.cidade.estado}"
+					converter="#{estadoConverter}">
+					<f:selectItem itemLabel="Selecione o estado..."
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadastroCidadeBean.estados}" var="estado"
+						itemValue="#{estado}" itemLabel="#{estado.nome} - #{estado.sigla}" />
 				</p:selectOneMenu>
 
 			</p:panelGrid>

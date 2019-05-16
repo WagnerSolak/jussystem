@@ -1,27 +1,21 @@
 package com.jussystem.model;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 
 @Entity
-public class Grupo implements Serializable {
+public class Permissao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
 	private String nome;
 	private String descricao;
-	private List<Permissao>permissoes;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,17 +44,6 @@ public class Grupo implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "grupo_permissao", joinColumns = @JoinColumn(name = "grupo_id"),
-			inverseJoinColumns = @JoinColumn(name = "permissao_id"))
-	public List<Permissao> getPermissoes() {
-		return permissoes;
-	}
-	
-	public void setPermissoes(List<Permissao> permissoes) {
-		this.permissoes = permissoes;
-	}
 
 	@Override
 	public int hashCode() {
@@ -78,7 +61,7 @@ public class Grupo implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Grupo other = (Grupo) obj;
+		Permissao other = (Permissao) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

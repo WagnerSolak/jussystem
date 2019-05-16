@@ -30,6 +30,7 @@ public class Usuario implements Serializable{
 	private String senha;
 	private StatusUsuario statusUsuario;
 	private List<Grupo>grupos = new ArrayList<>();
+	private String confirmaSenha;
 	
 	
 	@Id
@@ -69,6 +70,14 @@ public class Usuario implements Serializable{
 		this.senha = senha;
 	}
 	
+	@Transient
+	public String getConfirmaSenha() {
+		return confirmaSenha;
+	}
+	
+	public void setConfirmaSenha(String confirmaSenha) {
+		this.confirmaSenha = confirmaSenha;
+	}
 	
 	
 	@NotNull

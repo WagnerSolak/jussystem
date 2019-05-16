@@ -2,16 +2,21 @@ package com.jussystem.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.model.DualListModel;
 
+import com.jussystem.model.Grupo;
+import com.jussystem.model.StatusUsuario;
 import com.jussystem.model.Usuario;
-import com.jussystem.repository.Usuarios;
+import com.jussystem.repository.Grupos;
 import com.jussystem.util.jsf.FacesUtil;
 import com.jusystem.service.CadastroUsuarioService;
+import com.jusystem.service.NegocioException;
 
 @Named
 @ViewScoped
@@ -21,38 +26,69 @@ public class CadastroUsuarioBean implements Serializable{
 	
 	private Usuario usuario;
 	
-	@Inject
-	private Usuarios usuarios;
+	private DualListModel<Grupo> listaGrupos;
 	
 	@Inject
 	private CadastroUsuarioService cadastroUsuarioService;
 
-	private ArrayList statusUsuario;
+	@Inject
+	private Grupos grupos;
 	
 	
-	public CadastroUsuarioBean() {
-		limpar();
+	public void inicializar() {
+		if(usuario == null) {
+			limpar();
+		}else {
+			List<Grupo> lista = grupos.todosGrupos();
+			lista.removeAll(usuario.getGrupos());
+			
+			listaGrupos = new DualListModel<>(lista, new ArrayList<>(usuario.getGrupos()));
+		}
 	}
 	
 	public void salvar() {
+		try {
+			
+			if(usuario.getSenha().equals(usuario.getConfirmaSenha())) {
+				usuario.setGrupos(listaGrupos.getTarget());
+				usuario.setStatusUsuario(StatusUsuario.ATIVO);
+				usuario = cadastroUsuarioService.salvar(usuario);
+				limpar();
+				FacesUtil.addInfoMessage("Usuário salvo com sucesso!");
+			}else {
+				FacesUtil.addInfoMessage("O campo Senha e Confirma Senha devem ser iguais!");
+			}
+			
+		} catch (NegocioException e) {
+			FacesUtil.addErrorMessage(e.getMessage());
+		}
 		
-		usuario = cadastroUsuarioService.salvar(usuario);
-		limpar();
-		FacesUtil.addInfoMessage("Usuário salvo com sucesso!");
 		
 	}
 	
 	private void limpar() {
 		usuario = new Usuario();
-		statusUsuario = new ArrayList<>();
+		
+	
+		listaGrupos = new DualListModel<>(grupos.todosGrupos(), new ArrayList<>());
 	}
 	
-	/*public StatusTipoUsuario[] getStatusTipoUsuario() {     apaguar, vai mudar para entidade grupo e nao enum
-		return StatusTipoUsuario.values();
-	}*/
+
 	
 	public Usuario getUsuario() {
 		return usuario;
+	}
+	
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	public DualListModel<Grupo> getListaGrupos() {
+		return listaGrupos;
+	}
+	
+	public void setListaGrupos(DualListModel<Grupo> listaGrupos) {
+		this.listaGrupos = listaGrupos;
 	}
 	
 }

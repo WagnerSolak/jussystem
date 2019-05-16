@@ -5,26 +5,25 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
-import com.jussystem.model.Usuario;
-import com.jussystem.repository.Usuarios;
+import com.jussystem.model.Grupo;
+import com.jussystem.repository.Grupos;
 import com.jussystem.util.cdi.CDIServiceLocator;
 
-@FacesConverter(forClass=Usuario.class)
-public class UsuarioConverter implements Converter{
+@FacesConverter("grupoConverter")
+public class GrupoConverter implements Converter{
 
-	private Usuarios usuarios;
+	private Grupos grupos;
 	
-	public UsuarioConverter() {
-		this.usuarios = CDIServiceLocator.getBean(Usuarios.class);
+	public GrupoConverter() {
+		this.grupos = CDIServiceLocator.getBean(Grupos.class);
 	}
 	
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		Usuario retorno = null;
+		Grupo retorno = null;
 		
 		if(value !=null) {
-			retorno = this.usuarios.porId(new Long(value));
+			retorno = this.grupos.porId(new Long(value));
 		}
 		return retorno;
 	}
@@ -32,10 +31,9 @@ public class UsuarioConverter implements Converter{
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if(value != null) {
-			Usuario usuario = (Usuario) value;
-			return usuario.getId() == null ? null : usuario.getId().toString();
+			return ((Grupo) value).getId().toString();
 		}
-		return "";
+		return null;
 	}
 
 }

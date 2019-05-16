@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import com.jussystem.model.Cidade;
-import com.jussystem.model.Estado;
 import com.jussystem.model.ProcuracaoAdJudicia;
 
 public class ProcuracaoAdJudicias implements Serializable{
