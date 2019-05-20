@@ -33,6 +33,11 @@ public class PesquisaEstadoBean implements Serializable {
 	public void pesquisar() {
 		estadosFiltrados = estados.filtrados(filtro);
 	}
+	
+	public void remove(Estado estadoSelecionado) {
+		this.estados.remover(estadoSelecionado);
+		System.out.println("Fim se");
+	}
 
 	public void excluir() {
 		try {

@@ -100,23 +100,20 @@
 
 
 				<p:outputLabel value="Tipo Fiscal" for="tipo" />
-				<p:selectOneRadio id="tipo"
-					value="#{cadastroPessoaBean.pessoa.tipo}" styleClass="sem-bordas">
-					<f:selectItems value="#{cadastroPessoaBean.tipos}" var="tipo"
-						itemLabel="#{tipo.descricao}" itemValue="#{tipo}" />
-					<p:ajax event="change" process="@this"
-						update="documentoReceitaFederal documentoReceitaFederalLabel" />
+				<p:selectOneRadio id="tipo" value="#{cadastroPessoaBean.pessoa.tipo}">
+				<f:selectItems value="#{cadastroPessoaBean.tipos}" 
+				var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.descricao}"/>
+				<p:ajax event="change" process="@this" update="doc docLabel "/>
 				</p:selectOneRadio>
+				
+				<p:outputLabel value="#{cadastroPessoaBean.pessoa.tipo.rotulo}" id="docLabel" 
+				for="doc"/>
+				<p:inputMask id="doc" size="20" maxlength="14" 
+				mask="#{cadastroPessoaBean.pessoa.tipo.mascara}"
+				converter="cpfCnpjMask"
+				value="#{cadastroPessoaBean.pessoa.documentoReceitaFederal}"/>
+				
 
-				<p:outputLabel value="#{cadastroPessoaBean.pessoa.tipo.rotulo}"
-					id="documentoReceitaFederalLabel" for="documentoReceitaFederal" />
-				<p:inputMask id="documentoReceitaFederal" size="20" maxlength="14"
-					mask="#{cadastroPessoaBean.pessoa.tipo.mascara}"
-					converter="cpfCnpjMask"
-					value="#{cadastroPessoaBean.pessoa.documentoReceitaFederal}">
-					<f:validateBean
-						validationGroups="#{cadastroPessoaBean.pessoa.tipo.grupoValidacao}" />
-				</p:inputMask>
 
 				<p:outputLabel value="Data de Nascimento" />
 				<p:calendar value="#{cadastroPessoaBean.pessoa.dataNascimento}"

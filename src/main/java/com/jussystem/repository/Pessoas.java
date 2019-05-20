@@ -14,6 +14,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.Restrictions;
 
 import com.jussystem.model.Pessoa;
 import com.jussystem.repository.filter.PessoaFilter;
@@ -48,6 +49,10 @@ public class Pessoas implements Serializable{
 		List<Predicate> predicates = new ArrayList<>();
 		
 		Root<Pessoa> pessoaRoot = criteriaQuery.from(Pessoa.class);
+		
+		if(filtro.getId() != null) {                                      
+			predicates.add(builder.equal(pessoaRoot.get("id"), filtro.getId()));
+			}
 		
 		if(StringUtils.isNotBlank(filtro.getDocumentoReceitaFederal())) {
 			predicates.add(builder.equal(pessoaRoot.get("documentoReceitaFederal"), filtro.getDocumentoReceitaFederal()));

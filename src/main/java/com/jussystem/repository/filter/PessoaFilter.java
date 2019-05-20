@@ -6,6 +6,7 @@ public class PessoaFilter implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private Long id;
 	private String documentoReceitaFederal;
 	private String nome;
 	
@@ -24,6 +25,12 @@ public class PessoaFilter implements Serializable {
 		this.nome = nome;
 	}
 	
+	public void setId(Long id) {
+		this.id = id;
+	}
 	
+	public Long getId() {
+		return id;
+	}
 	
 }

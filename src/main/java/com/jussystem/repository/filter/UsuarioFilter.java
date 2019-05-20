@@ -8,6 +8,8 @@ public class UsuarioFilter implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	private Long id;
+	
 	private String nome;
 	
 	public void setNome(String nome) {
@@ -16,5 +18,13 @@ public class UsuarioFilter implements Serializable{
 	
 	public String getNome() {
 		return nome;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public Long getId() {
+		return id;
 	}
 }

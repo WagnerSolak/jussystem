@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -59,6 +61,7 @@ public class Usuario implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
 	
 	@NotNull
 	@Column(nullable = false, length = 32)

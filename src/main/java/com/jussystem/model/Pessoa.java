@@ -40,10 +40,8 @@ public class Pessoa implements Serializable{
 	private Long id;
 	private String nomePessoa;
 	private String nacionalidade;
-	private String estadoCivil;
 	private String profissao;
 	private String rg;
-	private String ufRg;
 	private String documentoReceitaFederal;
 	private String ctps;
 	private String serieCtps;
@@ -62,11 +60,8 @@ public class Pessoa implements Serializable{
 	
 	private String observacao;
 	private TipoPessoa tipo;
-	
-	
-	
-	
-	
+	private EstadoCivilPessoa estadoCivil;
+	private UfRgPessoa ufRg;
 	
 	
 	@Id
@@ -98,15 +93,6 @@ public class Pessoa implements Serializable{
 		this.nacionalidade = nacionalidade;
 	}
 	
-	@NotNull
-	@Column(nullable = false, length = 15)
-	public String getEstadoCivil() {
-		return estadoCivil;
-	}
-	
-	public void setEstadoCivil(String estadoCivil) {
-		this.estadoCivil = estadoCivil;
-	}
 	
 	@NotNull
 	@Column(nullable = false, length = 30)
@@ -128,15 +114,6 @@ public class Pessoa implements Serializable{
 		this.rg = rg;
 	}
 	
-	@NotNull
-	@Column(nullable = false, length = 2)
-	public String getUfRg() {
-		return ufRg;
-	}
-	
-	public void setUfRg(String ufRg) {
-		this.ufRg = ufRg;
-	}
 	
 	@CNPJ(groups = JuridicaGroups.class)
 	@CPF(groups = FisicaGroups.class)
@@ -253,6 +230,29 @@ public class Pessoa implements Serializable{
 	
 	
 	
+	public void setUfRg(UfRgPessoa ufRg) {
+		this.ufRg = ufRg;
+	}
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 2)
+	public UfRgPessoa getUfRg() {
+		return ufRg;
+	}
+	
+	
+	public void setEstadoCivil(EstadoCivilPessoa estadoCivil) {
+		this.estadoCivil = estadoCivil;
+	}
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 12)
+	public EstadoCivilPessoa getEstadoCivil() {
+		return estadoCivil;
+	}
+	
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 9)
@@ -293,10 +293,6 @@ public class Pessoa implements Serializable{
 	public String getEmailPessoa() {
 		return emailPessoa;
 	}
-	
-	
-	
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -320,6 +316,11 @@ public class Pessoa implements Serializable{
 			return false;
 		return true;
 	}
+	
+	
+	
+	
+	
 	
 
 	

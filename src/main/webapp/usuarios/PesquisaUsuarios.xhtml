@@ -27,7 +27,10 @@
 
 			<p:panelGrid columns="2" id="painel"
 				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
-
+				
+				<p:outputLabel value="Código" for="cod" />
+				<p:inputText id="cod" size="20"
+					value="#{pesquisaUsuarioBean.filtro.id}" />
 
 				<p:outputLabel value="Nome" for="nome" />
 				<p:inputText id="nome" size="60"
@@ -41,25 +44,25 @@
 				paginatorPosition="bottom"
 				value="#{pesquisaUsuarioBean.usuariosFiltrados}">
 
-				<p:column headerText="Código" style="text-align: left; width: 50px">
+				<p:column headerText="Código" style="text-align: center; width: 50px">
 					<h:outputText value="#{usuario.id}" />
 				</p:column>
 
 
-				<p:column headerText="Nome" style="text-align: left; width: 500px">
+				<p:column headerText="Nome" style="text-align: center; width: 500px">
 					<h:outputText value="#{usuario.nome}" />
 				</p:column>
 
-				<p:column headerText="E-mail" style="text-align: left; width: 300px">
+				<p:column headerText="E-mail" style="text-align: center; width: 300px">
 					<h:outputText value="#{usuario.email}" />
 				</p:column>
 
 				<p:column headerText="Status do Usuário"
-					style="text-align: left; width: 150px">
-					<h:outputText value="#{usuario.statusUsuario}" />
+					style="text-align: center; width: 150px">
+					<h:outputText value="#{usuario.statusUsuario.descricao}" />
 				</p:column>
-
-
+				
+				
 
 				<p:column style="text-align: center">
 					<p:button outcome="/usuarios/CadastroUsuario" icon="ui-icon-pencil"

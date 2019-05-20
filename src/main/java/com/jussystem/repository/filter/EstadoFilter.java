@@ -6,6 +6,7 @@ public class EstadoFilter implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	private Long id;
 	private String nome;
 	private String sigla;
 	
@@ -23,5 +24,13 @@ public class EstadoFilter implements Serializable{
 	
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public Long getId() {
+		return id;
 	}
 }

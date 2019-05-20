@@ -43,7 +43,7 @@
 				value="#{pesquisaCidadeBean.cidadesFiltradas}">
 
 				<p:column headerText="Código"
-					style="text-align: center; width: 100px">
+					style="text-align: center; width: 50px">
 					<h:outputText value="#{cidade.id}" />
 				</p:column>
 
@@ -56,7 +56,7 @@
 					<h:outputText value="#{cidade.estado.sigla}" />
 				</p:column>
 
-				<p:column headerText="Estado" style="width: 140px">
+				<p:column headerText="Estado" style="text-align: center; width: 240px">
 					<h:outputText value="#{cidade.estado.nome}" />
 				</p:column>
 
@@ -66,11 +66,12 @@
 						title="Editar">
 						<f:param name="cidade" value="#{cidade.id}" />
 					</p:button>
+				
 
 					<p:commandButton icon="ui-icon-trash" title="Excluir"
 						oncomplete="confirmacaoExclusao.show()" process="@this"
 						update=":frmPesquisa:confirmacaoExclusaoDialog">
-						<f:setPropertyActionListener value="#{cidade}" target="#{pesquisaCidadeBean.cidadeSelecionada}" />
+					<f:attribute name="cidadeSelecionada" value="#{cidade}"/>
 					</p:commandButton>
 
 				</p:column>
@@ -84,7 +85,7 @@
 					onclick="confirmacaoExclusao.hide(); return false" />
 				<p:commandButton value="Sim"
 					oncomplete="confirmacaoExclusao.hide();"
-					action="#{pesquisaCidadeBean.excluir}" process="@this"
+					actionListener="#{pesquisaCidadeBean.excluirDois}" process="@this"
 					update=":frmPesquisa:cidadesTable" />
 
 			</p:confirmDialog>

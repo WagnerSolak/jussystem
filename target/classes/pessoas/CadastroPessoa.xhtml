@@ -54,7 +54,7 @@
 
 
 		<f:metadata>
-			<f:viewParam name="pessoa" value="#{cadastroPessoaBean.pessoa}" />
+			<o:viewParam name="pessoa" value="#{cadastroPessoaBean.pessoa}" />
 			<f:event listener="#{cadastroPessoaBean.inicializar}"
 				type="preRenderView" />
 		</f:metadata>
@@ -91,9 +91,16 @@
 				<p:inputText id="nacionalidade" size="40" maxlength="20"
 					value="#{cadastroPessoaBean.pessoa.nacionalidade}" />
 
-				<p:outputLabel value="Estado Civil *" for="estadoCivil" />
-				<p:inputText id="estadoCivil" size="40" maxlength="15"
-					value="#{cadastroPessoaBean.pessoa.estadoCivil}" />
+
+				<p:outputLabel value="Estado Civil *" for="estadoCivilPessoa" />
+				<p:selectOneMenu id="estadoCivilPessoa"
+					value="#{cadastroPessoaBean.pessoa.estadoCivil}">
+					<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
+					<f:selectItems value="#{cadastroPessoaBean.estadosCivilPessoa}"
+						var="estadoCivilPessoa" itemValue="#{estadoCivilPessoa}"
+						itemLabel="#{estadoCivilPessoa.descricao}" />
+				</p:selectOneMenu>
+
 
 				<p:outputLabel value="Profissão *" for="profissao" />
 				<p:inputText id="profissao" size="40" maxlength="80"
@@ -104,26 +111,28 @@
 					value="#{cadastroPessoaBean.pessoa.rg}" />
 
 				<p:outputLabel value="UF RG *" for="ufRg" />
-				<p:inputText id="ufRg" size="20" maxlength="2"
-					value="#{cadastroPessoaBean.pessoa.ufRg}" />
+				<p:selectOneMenu id="ufRg" value="#{cadastroPessoaBean.pessoa.ufRg}">
+					<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
+					<f:selectItems value="#{cadastroPessoaBean.ufsRgPessoa}" var="ufRg"
+						itemValue="#{ufRg}" itemLabel="#{ufRg}" />
+				</p:selectOneMenu>
 
-				<p:outputLabel value="Tipo Fiscal" for="tipoFiscal" />
-				<p:selectOneRadio id="tipoFiscal">
+				<p:outputLabel value="Tipo Fiscal" for="tipo" />
+				<p:selectOneRadio id="tipo" styleClass="sem-bordas"
+					value="#{cadastroPessoaBean.pessoa.tipo}">
 					<f:selectItems value="#{cadastroPessoaBean.tipos}" var="tipo"
 						itemValue="#{tipo}" itemLabel="#{tipo.descricao}" />
-					<p:ajax event="change" process="@this"
-						update="documentoReceitaFederal documentoReceitaFederalLabel" />
+					<p:ajax event="change" process="@this" update="doc docLabel " />
 				</p:selectOneRadio>
 
 				<p:outputLabel value="#{cadastroPessoaBean.pessoa.tipo.rotulo}"
-					id="documentoReceitaFederalLabel" for="documentoReceitaFederal" />
-				<p:inputMask id="documentoReceitaFederal" size="20" maxlength="14"
+					id="docLabel" for="doc" />
+				<p:inputMask id="doc" size="20" maxlength="14"
 					mask="#{cadastroPessoaBean.pessoa.tipo.mascara}"
-					value="#{cadastroPessoaBean.pessoa.documentoReceitaFederal}"
-					converter="cpfCnpjMask">
-					<f:validateBean
-						validationGroups="#{cadastroPessoaBean.pessoa.tipo.grupoValidacao}" />
-				</p:inputMask>
+					converter="cpfCnpjMask"
+					value="#{cadastroPessoaBean.pessoa.documentoReceitaFederal}" >
+					<f:validateBean validationGroups="#{cadastroPessoaBean.pessoa.tipo.grupoValidacao}"/>
+					</p:inputMask>
 
 				<p:outputLabel value="CTPS *" for="ctps" />
 				<p:inputText id="ctps" size="20" maxlength="10"
@@ -135,7 +144,8 @@
 
 				<p:outputLabel value="Data de Nascimento" />
 				<p:calendar value="#{cadastroPessoaBean.pessoa.dataNascimento}"
-					navigator="true" locale="pt" pattern="dd/MM/yyyy" />
+					navigator="true" locale="pt" pattern="dd/MM/yyyy"
+					maxdate="#{cadastroPessoaBean.dataHoje}" />
 
 
 				<p:outputLabel value="Idade *" for="idade" />
@@ -156,10 +166,11 @@
 
 				<p:outputLabel value="CEP *" for="cep" />
 				<p:inputMask id="cep" size="20" maxlength="15"
-					value="#{cadastroPessoaBean.pessoa.cep}"  mask="99.999-999"/>
-					
+					value="#{cadastroPessoaBean.pessoa.cep}" mask="99.999-999" />
+
 				<p:outputLabel value="Estado *" for="estado" />
-				<p:selectOneMenu id="estado" value="#{cadastroPessoaBean.estado}">
+				<p:selectOneMenu id="estado" value="#{cadastroPessoaBean.estado}"
+				converter="#{estadoConverter}">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione um estado ..." />
 					<f:selectItems value="#{cadastroPessoaBean.estados}" var="estado"
@@ -170,18 +181,19 @@
 
 				<p:outputLabel value="Cidade *" for="cidade" />
 				<p:selectOneMenu id="cidade"
-					value="#{cadastroPessoaBean.pessoa.cidade}">
+					value="#{cadastroPessoaBean.pessoa.cidade}"
+					converter="#{cidadeConverter}">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione uma cidade ..." />
-					<f:selectItems value="#{cadastroPessoaBean.cidades}" var="cidade"								
+					<f:selectItems value="#{cadastroPessoaBean.cidades}" var="cidade"
 						itemValue="#{cidade}" itemLabel="#{cidade.nome}" />
 				</p:selectOneMenu>
-				
-				
-					<p:outputLabel value="Email para Pedido" for="emailPessoa" />
+
+
+				<p:outputLabel value="Email para Pedido" for="emailPessoa" />
 				<p:inputText id="emailPessoa" size="60" maxlength="80"
 					value="#{cadastroPessoaBean.pessoa.emailPessoa}" />
-				
+
 
 
 			</p:panelGrid>
@@ -218,9 +230,9 @@
 					<p:commandButton icon="ui-icon-pencil" title="Editar"
 						process="@this" update=":frm:contatoPanelGroup"
 						onsuccess="contatoDialogWidgetVar.show(); return false;"
-						actionListener="#{cadastroPessoaBean.editarContato(contato)}" >
+						actionListener="#{cadastroPessoaBean.editarContato(contato)}">
 						<p:resetInput target="contatoDialog" />
-						</p:commandButton>
+					</p:commandButton>
 
 					<p:commandButton icon="ui-icon-trash" title="Excluir"
 						process="@this" update="contatoDataTable"

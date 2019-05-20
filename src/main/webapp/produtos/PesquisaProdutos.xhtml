@@ -44,7 +44,7 @@
 				paginatorPosition="bottom">
 
 				<p:column headerText="Código"
-					style="text-align: center; width: 100px">
+					style="text-align: center; width: 50px">
 					<h:outputText value="#{produto.id}" />
 				</p:column>
 
@@ -52,13 +52,13 @@
 					<h:outputText value="#{produto.nome}" />
 				</p:column>
 
-				<p:column headerText="Categoria" style="width: 250px">
+				<p:column headerText="Categoria" style="text-align: center; width: 250px">
 					<h:outputText
 						value="#{produto.categoria.categoriaPai.descricao} - #{produto.categoria.descricao}" />
 				</p:column>
 
 				<p:column headerText="Valor Unitário"
-					style="text-align: right; width: 120px">
+					style="text-align: center; width: 120px">
 					<h:outputText value="#{produto.valorUnitario}">
 						<f:convertNumber type="currency" />
 					</h:outputText>
@@ -66,7 +66,7 @@
 
 
 				<p:column headerText="Estoque"
-					style="text-align: right; width: 100px">
+					style="text-align: center; width: 100px">
 					<h:outputText value="#{produto.estoque}" />
 				</p:column>
 

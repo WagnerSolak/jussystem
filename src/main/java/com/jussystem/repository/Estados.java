@@ -53,6 +53,10 @@ public class Estados implements Serializable {
 	public List<Estado> filtrados(EstadoFilter filtro) {
 		Session session = manager.unwrap(Session.class);
 		Criteria criteria = session.createCriteria(Estado.class);
+		
+		if(filtro.getId() != null) {                                      
+			criteria.add(Restrictions.eq("id", filtro.getId()));
+			}
 
 		if (StringUtils.isNotBlank(filtro.getNome())) {
 			criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
@@ -65,7 +69,7 @@ public class Estados implements Serializable {
 	}
 
 	@Transactional
-	public void remover(Estado estado) {
+	public void remover(Estado estado) throws NegocioException{
 		try {
 			estado = porId(estado.getId());
 			manager.remove(estado);

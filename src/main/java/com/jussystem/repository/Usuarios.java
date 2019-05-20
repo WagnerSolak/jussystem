@@ -15,7 +15,6 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import com.jussystem.model.Produto;
 import com.jussystem.model.Usuario;
 import com.jussystem.repository.filter.UsuarioFilter;
 import com.jussystem.util.jpa.Transactional;
