@@ -1,8 +1,8 @@
 <ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
 	<ui:define name="titulo">#{cadastroPessoaBean.editando ? 'Edição de pessoa' : 'Novo pessoa'}</ui:define>
@@ -80,18 +80,42 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<p:panelGrid columns="2" id="capaPainelGrid"
-				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+			<p:panelGrid columns="4" id="capaPainelGrid"
+				style="widht: 100%; margin-top: 20px"
+				columnClasses="rotulo, campo, rotulo, campo">
 
 				<p:outputLabel value="Nome *" for="nomePessoa" />
 				<p:inputText id="nomePessoa" size="60" maxlength="100"
 					value="#{cadastroPessoaBean.pessoa.nomePessoa}" />
 
+				<p:spacer />
+				<p:spacer />
+				
+				<p:outputLabel value="Tipo Fiscal" for="tipo" />
+				<p:selectOneRadio id="tipo" styleClass="sem-bordas"
+					value="#{cadastroPessoaBean.pessoa.tipo}">
+					<f:selectItems value="#{cadastroPessoaBean.tipos}" var="tipo"
+						itemValue="#{tipo}" itemLabel="#{tipo.descricao}" />
+					<p:ajax event="change" process="@this" update="doc docLabel " />
+				</p:selectOneRadio>
+				
 				<p:outputLabel value="Nacionalidade *" for="nacionalidade" />
 				<p:inputText id="nacionalidade" size="40" maxlength="20"
 					value="#{cadastroPessoaBean.pessoa.nacionalidade}" />
 
+				
 
+				<p:outputLabel value="#{cadastroPessoaBean.pessoa.tipo.rotulo}"
+					id="docLabel" for="doc" />
+				<p:inputMask id="doc" size="20" maxlength="14"
+					mask="#{cadastroPessoaBean.pessoa.tipo.mascara}"
+					converter="cpfCnpjMask"
+					value="#{cadastroPessoaBean.pessoa.documentoReceitaFederal}">
+					<f:validateBean
+						validationGroups="#{cadastroPessoaBean.pessoa.tipo.grupoValidacao}" />
+				</p:inputMask>
+
+				
 				<p:outputLabel value="Estado Civil *" for="estadoCivilPessoa" />
 				<p:selectOneMenu id="estadoCivilPessoa"
 					value="#{cadastroPessoaBean.pessoa.estadoCivil}">
@@ -117,22 +141,7 @@
 						itemValue="#{ufRg}" itemLabel="#{ufRg}" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Tipo Fiscal" for="tipo" />
-				<p:selectOneRadio id="tipo" styleClass="sem-bordas"
-					value="#{cadastroPessoaBean.pessoa.tipo}">
-					<f:selectItems value="#{cadastroPessoaBean.tipos}" var="tipo"
-						itemValue="#{tipo}" itemLabel="#{tipo.descricao}" />
-					<p:ajax event="change" process="@this" update="doc docLabel " />
-				</p:selectOneRadio>
-
-				<p:outputLabel value="#{cadastroPessoaBean.pessoa.tipo.rotulo}"
-					id="docLabel" for="doc" />
-				<p:inputMask id="doc" size="20" maxlength="14"
-					mask="#{cadastroPessoaBean.pessoa.tipo.mascara}"
-					converter="cpfCnpjMask"
-					value="#{cadastroPessoaBean.pessoa.documentoReceitaFederal}" >
-					<f:validateBean validationGroups="#{cadastroPessoaBean.pessoa.tipo.grupoValidacao}"/>
-					</p:inputMask>
+				
 
 				<p:outputLabel value="CTPS *" for="ctps" />
 				<p:inputText id="ctps" size="20" maxlength="10"
@@ -158,7 +167,8 @@
 
 				<p:outputLabel value="Endereço *" for="endereco" />
 				<p:inputText id="endereco" size="60" maxlength="100"
-					value="#{cadastroPessoaBean.pessoa.endereco}" />
+					value="#{cadastroPessoaBean.pessoa.endereco}" 
+					placeholder="Exemplo: Av. Brasil, 500"/>
 
 				<p:outputLabel value="Bairro *" for="bairro" />
 				<p:inputText id="bairro" size="40" maxlength="80"
@@ -170,7 +180,7 @@
 
 				<p:outputLabel value="Estado *" for="estado" />
 				<p:selectOneMenu id="estado" value="#{cadastroPessoaBean.estado}"
-				converter="#{estadoConverter}">
+					converter="#{estadoConverter}">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione um estado ..." />
 					<f:selectItems value="#{cadastroPessoaBean.estados}" var="estado"
@@ -178,6 +188,14 @@
 					<p:ajax listener="#{cadastroPessoaBean.popularCidadePorEstado}"
 						update=":frm:cidade" />
 				</p:selectOneMenu>
+				
+				
+				<p:outputLabel value="Email para Pedido" for="emailPessoa" />
+				<p:inputText id="emailPessoa" size="60" maxlength="80"
+					value="#{cadastroPessoaBean.pessoa.emailPessoa}" />
+
+
+				
 
 				<p:outputLabel value="Cidade *" for="cidade" />
 				<p:selectOneMenu id="cidade"
@@ -188,12 +206,6 @@
 					<f:selectItems value="#{cadastroPessoaBean.cidades}" var="cidade"
 						itemValue="#{cidade}" itemLabel="#{cidade.nome}" />
 				</p:selectOneMenu>
-
-
-				<p:outputLabel value="Email para Pedido" for="emailPessoa" />
-				<p:inputText id="emailPessoa" size="60" maxlength="80"
-					value="#{cadastroPessoaBean.pessoa.emailPessoa}" />
-
 
 
 			</p:panelGrid>
@@ -225,6 +237,10 @@
 				<p:column headerText="Operadora">
 					<h:outputText value="#{contato.operadora}" />
 				</p:column>
+				
+				<!-- <p:column headerText="Tipo endereço">
+					<h:outputText value="#{contato.tipoEndereco.descricao}" />
+				</p:column> -->
 
 				<p:column style="width: 100px; text-align: center">
 					<p:commandButton icon="ui-icon-pencil" title="Editar"
@@ -264,6 +280,12 @@
 						<p:outputLabel value="Operadora" for="operadora" />
 						<p:inputText id="operadora" size="20" maxlength="15"
 							value="#{cadastroPessoaBean.contato.operadora}" />
+							
+							<!-- <p:outputLabel value="Tipo de Endereço"/>
+							<p:selectOneMenu value="#{cadastroPessoaBean.pessoa.}">
+							</p:selectOneMenu> -->
+							
+							
 
 						<p:outputLabel />
 						<p:commandButton

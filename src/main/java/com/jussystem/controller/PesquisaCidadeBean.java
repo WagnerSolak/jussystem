@@ -3,7 +3,7 @@ package com.jussystem.controller;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.event.ActionEvent;
+
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -35,17 +35,18 @@ public class PesquisaCidadeBean implements Serializable{
 		filtro = new CidadeFilter();
 	}
 	
-	public void excluirDois(ActionEvent evento) {
-		cidade = (Cidade) evento.getComponent().getAttributes().get("cidadeSelecionada");
-		cidades.remover(cidadeSelecionada);
-		cidadesFiltradas.remove(cidadeSelecionada);
-		
-		FacesUtil.addInfoMessage("A cidade" + cidadeSelecionada.getNome() + "foi excluída com sucesso!");
-	}
-	
 	
 	public void excluir() {
-		System.out.println("Cidade eh:" + cidadeSelecionada.getNome());
+		if(cidadeSelecionada != null){
+			cidades.remover(cidadeSelecionada);
+			cidadesFiltradas.remove(cidadeSelecionada);
+			
+			FacesUtil.addInfoMessage("A cidade" + cidadeSelecionada.getNome() + "foi excluída com sucesso!");
+			System.out.println("Cidade eh:" + cidadeSelecionada.getNome());
+			
+		}else{
+			FacesUtil.addInfoMessage("Erro ao tentar excluir a cidade!");
+		}
 		
 	}
 	

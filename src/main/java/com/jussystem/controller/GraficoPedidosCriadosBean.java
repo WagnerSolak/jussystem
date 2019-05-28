@@ -12,8 +12,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.LineChartModel;
 
 import com.jussystem.model.Usuario;
 import com.jussystem.repository.Pedidos;
@@ -33,10 +35,18 @@ public class GraficoPedidosCriadosBean {
 	@UsuarioLogado
 	private UsuarioSistema usuarioLogado;
 	
-	private CartesianChartModel model;
+	private LineChartModel model;
+	
+	
 	
 	public void preRender() {
-		this.model = new CartesianChartModel();
+		this.model = new LineChartModel();
+		this.model.setTitle("Pedidos criados");
+		this.model.setLegendPosition("e");
+		this.model.setAnimate(true);
+		
+		this.model.getAxes().put(AxisType.X, new CategoryAxis());
+		
 		
 		adicionarSerie("Todos os pedidos", null);
 		adicionarSerie("Meus pedidos", usuarioLogado.getUsuario());
@@ -60,7 +70,7 @@ public class GraficoPedidosCriadosBean {
 		this.model.addSeries(series);
 	}
 
-	public CartesianChartModel getModel() {
+	public LineChartModel getModel() {
 		return model;
 	}
 }

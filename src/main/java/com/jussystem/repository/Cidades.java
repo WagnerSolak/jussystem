@@ -74,7 +74,7 @@ public class Cidades implements Serializable{
 	}
 
 	public Cidade porId(Long id) {
-		return this.manager.find(Cidade.class, id);
+		return manager.find(Cidade.class, id);
 	}
 	
 	@SuppressWarnings("unchecked")

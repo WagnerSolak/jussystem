@@ -16,14 +16,14 @@ public class RelatorioDeclaracaoJusticaGratuita implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	/*@Inject
+	@Inject
 	private FacesContext facesContext;
 	
 	@Inject
 	private HttpServletResponse httpServletResponse;
 	
 	@Inject
-	private EntityManager manager;*/
+	private EntityManager manager;
 	
 	private Date dataInicio;
 	private Date dataFim;

@@ -71,11 +71,14 @@ public class Estados implements Serializable {
 	@Transactional
 	public void remover(Estado estado) throws NegocioException{
 		try {
-			estado = porId(estado.getId());
-			manager.remove(estado);
-			manager.flush();
+			
+				estado = porId(estado.getId());
+				manager.remove(estado);
+				manager.flush();
+			
 		} catch (PersistenceException e) {
 			throw new NegocioException("Estado não pode ser excluído, ele pode conter filhos!");
 		}
+		
 	}
 }

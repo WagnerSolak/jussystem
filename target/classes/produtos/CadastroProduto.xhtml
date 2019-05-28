@@ -1,8 +1,8 @@
 <ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" 
 	xmlns:o="http://omnifaces.org/ui">
 
@@ -42,7 +42,7 @@
 					value="#{cadastroProdutoBean.produto.nome}" />
 
 				<p:outputLabel value="Categoria" for="categoria" />
-				<p:selectOneMenu id="categoria"
+				<p:selectOneMenu id="categoria" filter="true"
 					value="#{cadastroProdutoBean.categoriaPai}">
 					<f:selectItem itemLabel="Selecione a categoria" />
 					<f:selectItems value="#{cadastroProdutoBean.categoriasRaizes}"
@@ -53,7 +53,7 @@
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Subcategoria" for="subcategoria" />
-				<p:selectOneMenu id="subcategoria"
+				<p:selectOneMenu id="subcategoria" filter="true"
 					value="#{cadastroProdutoBean.produto.categoria}">
 					<f:selectItem itemLabel="Selecione a subcategoria" />
 					<f:selectItems value="#{cadastroProdutoBean.subcategorias}"

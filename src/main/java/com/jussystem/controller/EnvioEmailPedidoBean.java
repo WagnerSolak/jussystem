@@ -12,10 +12,10 @@ import javax.inject.Named;
 import org.apache.velocity.tools.generic.NumberTool;
 
 import com.jussystem.model.Pedido;
-import com.jussystem.util.jsf.FacesUtil;
+/*import com.jussystem.util.jsf.FacesUtil;*/
 import com.jussystem.util.mail.Mailer;
-import com.outjected.email.api.MailMessage;
-import com.outjected.email.impl.templating.velocity.VelocityTemplate;
+/*import com.outjected.email.api.MailMessage;
+import com.outjected.email.impl.templating.velocity.VelocityTemplate;*/
 
 @Named
 @RequestScoped
@@ -30,7 +30,7 @@ public class EnvioEmailPedidoBean implements Serializable{
 	@Inject
 	private Mailer mailer;
 	
-	public void enviarPedido() throws IOException {
+	/*public void enviarPedido() throws IOException {
 		MailMessage message = mailer.novaMensagem();
 		String filePath = getClass().getClassLoader().getResource("/emails/pedido.template").getFile();
 		
@@ -42,5 +42,5 @@ public class EnvioEmailPedidoBean implements Serializable{
 		.send();
 		
 		FacesUtil.addInfoMessage("Pedido enviado por email com sucesso!");
-	}
+	}*/
 }

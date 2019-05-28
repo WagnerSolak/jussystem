@@ -4,7 +4,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
+/*import javax.servlet.http.HttpServletRequest;*/
 import javax.servlet.http.HttpServletResponse;
 
 public class FacesProducer {
@@ -21,11 +21,11 @@ public class FacesProducer {
 		return getFacesContext().getExternalContext();
 	}
 	
-	@Produces
+	/*@Produces       //já existe na biblioteca que foi atualizada por isso pode ser apagada!
 	@RequestScoped
 	public HttpServletRequest getHttpServletRequest() {
 		return ((HttpServletRequest) getExternalContext().getRequest());	
-	}
+	}*/
 	
 	@Produces
 	@RequestScoped

@@ -49,6 +49,7 @@ public class Pessoa implements Serializable{
 	private Integer idade;
 	private String nomeMae;
 	private String endereco;
+	private String numero;
 	private String bairro;
 	private String cep;
 	private String emailPessoa;
@@ -175,6 +176,17 @@ public class Pessoa implements Serializable{
 	public void setNomeMae(String nomeMae) {
 		this.nomeMae = nomeMae;
 	}
+	
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+	
+	@NotNull
+	@Column(nullable = false, length = 7)
+	public String getNumero() {
+		return numero;
+	}
+	
 	
 	@NotNull
 	@Column(nullable = false, length = 100)

@@ -16,6 +16,7 @@ import javax.persistence.criteria.Root;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.Restrictions;
 
+import com.jussystem.model.Categoria;
 import com.jussystem.model.Pessoa;
 import com.jussystem.repository.filter.PessoaFilter;
 import com.jussystem.util.jpa.Transactional;
@@ -35,6 +36,14 @@ public class Pessoas implements Serializable{
 	public List<Pessoa>porNome(String nomePessoa){
 		return this.manager.createQuery("from Pessoa "+
 				"where upper(nomePessoa) like :nomePessoa", Pessoa.class)
+				.setParameter("nomePessoa", nomePessoa.toUpperCase() + "%")
+				.getResultList();
+	}
+	
+	public List<Pessoa>porNomeAtivas(String nomePessoa){   //esta errado ver com Professor Renato como faz!!!
+		return manager.createQuery("from Pessoa"+
+				"where upper(nomePessoa) like :nomePessoa"+
+				"and status = com.jussystem.model.StatusPessoa.ATIVO",Pessoa.class)
 				.setParameter("nomePessoa", nomePessoa.toUpperCase() + "%")
 				.getResultList();
 	}
@@ -81,4 +90,5 @@ public class Pessoas implements Serializable{
 		}
 		
 	}
+
 }

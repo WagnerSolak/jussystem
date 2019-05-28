@@ -6,9 +6,9 @@ import javax.persistence.TemporalType;
 
 
 
+
 import java.io.Serializable;
 import java.util.Date;
-
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class DeclaracaoJusticaGratuita implements Serializable {
@@ -39,7 +40,7 @@ public class DeclaracaoJusticaGratuita implements Serializable {
 		this.id = id;
 	}
 	
-	
+	@NotNull
 	@Column
 	@Temporal(TemporalType.DATE)
 	public Date getDataDocumento() {
@@ -50,6 +51,7 @@ public class DeclaracaoJusticaGratuita implements Serializable {
 		this.dataDocumento = dataDocumento;
 	}
 
+	@NotNull
 	@OneToOne
 	@JoinColumn(nullable = false, name = "pessoa_id")
 	public Pessoa getPessoa() {

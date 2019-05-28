@@ -1,8 +1,8 @@
 <ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="titulo">Pesquisa: cidades</ui:define>
@@ -69,9 +69,10 @@
 				
 
 					<p:commandButton icon="ui-icon-trash" title="Excluir"
-						oncomplete="confirmacaoExclusao.show()" process="@this"
+						oncomplete="PF('confirmacaoExclusao').show()" process="@this"
 						update=":frmPesquisa:confirmacaoExclusaoDialog">
-					<f:attribute name="cidadeSelecionada" value="#{cidade}"/>
+					<f:setPropertyActionListener value="#{cidade}" 
+						target="#{pesquisaCidadeBean.cidadeSelecionada}"/>
 					</p:commandButton>
 
 				</p:column>
@@ -82,10 +83,10 @@
 				message="Deseja realmente excluir a cidade #{pesquisaCidadeBean.cidadeSelecionada.nome}?"
 				widgetVar="confirmacaoExclusao">
 				<p:button value="Não"
-					onclick="confirmacaoExclusao.hide(); return false" />
+					onclick="PF('confirmacaoExclusao').hide(); return false;" />
 				<p:commandButton value="Sim"
-					oncomplete="confirmacaoExclusao.hide();"
-					actionListener="#{pesquisaCidadeBean.excluirDois}" process="@this"
+					oncomplete="PF('confirmacaoExclusao').hide();"
+					action="#{pesquisaPessoaBean.excluir}" process="@this"
 					update=":frmPesquisa:cidadesTable" />
 
 			</p:confirmDialog>

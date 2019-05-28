@@ -13,10 +13,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
-
-
-
 @Entity
 public class ProcuracaoAdJudicia implements Serializable {
 
