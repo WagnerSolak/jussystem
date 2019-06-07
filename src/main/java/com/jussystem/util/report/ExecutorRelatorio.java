@@ -3,12 +3,14 @@ package com.jussystem.util.report;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.jdbc.Work;
 
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
@@ -26,6 +28,7 @@ public class ExecutorRelatorio implements Work{
 	private HttpServletResponse response;
 	private Map<String, Object>parametros;
 	private String nomeArquivoSaida;
+	
 	private boolean relatorioGerado;
 			
 
@@ -36,17 +39,25 @@ public class ExecutorRelatorio implements Work{
 		this.response = response;
 		this.parametros = parametros;
 		this.nomeArquivoSaida = nomeArquivoSaida;
+		
+		this.parametros.put(JRParameter.REPORT_LOCALE, new Locale("pt", "BR"));
 	}
 
 
 
 	@Override
 	public void execute(Connection connection) throws SQLException {
-		InputStream relatorioStream = this.getClass().getResourceAsStream(this.caminhoRelatorio);
+		
 		
 		try {
+			InputStream relatorioStream = this.getClass().getResourceAsStream(this.caminhoRelatorio);
 			JasperPrint print = JasperFillManager.fillReport(relatorioStream, this.parametros, connection);
+			
+			this.relatorioGerado = print.getPages().size() > 0;
 			// jasperPrint ja tem relatorio
+			
+			if(this.relatorioGerado){
+				
 			
 		Exporter<ExporterInput, PdfReportConfiguration, PdfExporterConfiguration, 
 	    OutputStreamExporterOutput> exportador = new JRPdfExporter();
@@ -58,6 +69,7 @@ public class ExecutorRelatorio implements Work{
 				+ this.nomeArquivoSaida  + "\"");
 		
 		exportador.exportReport();  //pega dados do print, gera pdf, e manda para outputStreamReponse
+			}
 		} catch (Exception e) {
 			throw new SQLException("Erro ao executar o relatório " +this.caminhoRelatorio, e);
 		}

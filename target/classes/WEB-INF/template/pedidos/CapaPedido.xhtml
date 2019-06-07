@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-	<h:panelGrid columns="4" style="width: 100%; margin-top: 20px"
+	<p:panelGrid columns="4" style="width: 100%; margin-top: 20px"
 		columnClasses="rotulo, campo, rotulo, campo">
 
 
@@ -44,7 +44,7 @@
 		<p:outputLabel value="Forma de pagamento" for="formaPagamento" />
 		<p:selectOneMenu id="formaPagamento" disabled="#{cadastroPedidoBean.pedido.naoAlteravel}"
 			value="#{cadastroPedidoBean.pedido.formaPagamento}">
-			<f:selectItem itemLabel="Selecione" />
+			<f:selectItem itemLabel="Selecione..." />
 			<f:selectItems value="#{cadastroPedidoBean.formasPagamento}"
 				var="formaPagamento" itemValue="#{formaPagamento}"
 				itemLabel="#{formaPagamento.descricao}"/>
@@ -99,6 +99,6 @@
 			<f:convertNumber type="currency" />
 		</h:outputText>
 
-	</h:panelGrid>
+	</p:panelGrid>
 
 </ui:composition>

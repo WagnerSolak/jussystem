@@ -177,8 +177,6 @@ public class Pedido implements Serializable {
 		this.itens = itens;
 	}
 	
-	
-	
 
 	@Transient
 	public boolean isNovo() {

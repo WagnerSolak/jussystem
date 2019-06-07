@@ -26,80 +26,95 @@
 	</p:ajaxStatus>
 
 	<header>
-	<div style="float: left">
-		<h:link outcome="/Home">
-			<h:graphicImage library="images" name="jusSys.png"
-				style="margin-top: 2px; margin-left:10px" />
-		</h:link>
-	</div>
+		<div style="float: left">
+			<h:link outcome="/Home">
+				<h:graphicImage library="images" name="jusSys.png"
+					style="margin-top: 2px; margin-left:10px" />
+			</h:link>
+		</div>
 
-	<div style="float: right; margin-right: 110px">
-		<span
-			style="float: left; height: 30px; line-height: 30px; margin-right: 60px; margin-top: 5px">
-			Olá #{seguranca.nomeUsuario}! </span>
+		<div style="float: right; margin-right: 110px">
+			<span
+				style="float: left; height: 30px; line-height: 30px; margin-right: 60px; margin-top: 5px">
+				Olá #{seguranca.nomeUsuario}! </span>
 
-		<h:form style="display: inline-block">
-			<p:menubar styleClass="menu-sistema">
-				<p:submenu label="Cadastros">
-					<p:menuitem value="Pessoas" outcome="/pessoas/CadastroPessoa" />
-					<p:menuitem value="Usuários" outcome="/usuarios/CadastroUsuario" />
-					<p:separator />
-					<p:menuitem value="Produtos" outcome="/produtos/CadastroProduto" />
-					<p:separator />
-					<p:menuitem value="Cidades" outcome="/cidades/CadastroCidade" />
-					<p:menuitem value="Estados" outcome="/estados/CadastroEstado" />
-					<p:separator />
-					<p:menuitem value="Forma Pagamento"
-						outcome="/formaPagamentos/CadastroFormaPagamento" />
-					<p:separator />
+			<h:form style="display: inline-block">
+				<p:menubar styleClass="menu-sistema">
+					<p:submenu label="Cadastros">
+						<p:menuitem value="Pessoas" outcome="/pessoas/CadastroPessoa" />
+						<p:menuitem value="Usuários" outcome="/usuarios/CadastroUsuario" />
+						<p:separator />
+						<p:menuitem value="Produtos" outcome="/produtos/CadastroProduto" />
+						<p:separator />
+						<p:menuitem value="Cidades" outcome="/cidades/CadastroCidade" />
+						<p:menuitem value="Estados" outcome="/estados/CadastroEstado" />
+						<p:separator />
+						<p:menuitem value="Forma Pagamento"
+							outcome="/formaPagamentos/CadastroFormaPagamento" />
+						<p:separator />
 
-				</p:submenu>
-
-
-				<p:submenu label="Pesquisas">
-					<p:menuitem value="Pessoas" outcome="/pessoas/PesquisaPessoas" />
-					<p:menuitem value="Usuários" outcome="/usuarios/PesquisaUsuarios" />
-					<p:separator />
-					<p:menuitem value="Produtos" outcome="/produtos/PesquisaProdutos" />
-					<p:separator />
-					<p:menuitem value="Cidades" outcome="/cidades/PesquisaCidades" />
-					<p:menuitem value="Estados" outcome="/estados/PesquisaEstados" />
-					<p:separator />
-					<p:menuitem value="Forma Pagamento"
-						outcome="/formaPagamentos/PesquisaFormaPagamentos" />
-					<p:separator />
-				</p:submenu>
+					</p:submenu>
 
 
-				<p:submenu label="Movimentos">
-					<p:menuitem value="Novo Pedido" outcome="/pedidos/CadastroPedido" />
-					<p:menuitem value="Pesquisa Pedido"
-						outcome="/pedidos/PesquisaPedidos" />
-					<p:separator />
-					<p:menuitem value="Procuracao Ad Judicia" 
-					outcome="/documentos/CadastroProcuracaoAdJudicia"/>
-					<p:menuitem value="Declaracao Justica Gratuita" 
-					outcome="/documentos/CadastroDeclaracaoJusticaGratuita"/>
-					<p:separator />
-				</p:submenu>
+					<p:submenu label="Pesquisas">
+						<p:menuitem value="Pessoas" outcome="/pessoas/PesquisaPessoas" />
+						<p:menuitem value="Usuários" outcome="/usuarios/PesquisaUsuarios" />
+						<p:separator />
+						<p:menuitem value="Produtos" outcome="/produtos/PesquisaProdutos" />
+						<p:separator />
+						<p:menuitem value="Cidades" outcome="/cidades/PesquisaCidades" />
+						<p:menuitem value="Estados" outcome="/estados/PesquisaEstados" />
+						<p:separator />
+						<p:menuitem value="Forma Pagamento"
+							outcome="/formaPagamentos/PesquisaFormaPagamentos" />
+						<p:separator />
+					</p:submenu>
 
-				<p:submenu label="Relatórios">
-					<p:menuitem value="Compra" />
-					<p:separator />
 
-				</p:submenu>
+					<p:submenu label="Movimentos">
+						<p:menuitem value="Novo Pedido" outcome="/pedidos/CadastroPedido" />
+						<p:menuitem value="Pesquisa Pedidos"
+							outcome="/pedidos/PesquisaPedidos" />
+						<p:menuitem value="Relatório de Pedidos"
+							outcome="/relatorios/RelatorioPedidosEmitidos" />
+						<p:separator />
+						<p:menuitem value="Inativação Pessoa"
+							outcome="/inativacoes/InativaPessoa" />
+						<p:menuitem value="Ativação Pessoa" />
+						<p:menuitem value="Altera Senha Usuário"
+							outcome="/AlteraSenhaUsuario" />
+						<p:separator />
+					</p:submenu>
 
-				<p:submenu label="Ajuda">
-					<p:menuitem value="Ajuda" />
-					<p:separator />
+					<p:submenu label="Jurídico">
+						<p:menuitem value="Processo" outcome="/processos/CadastroProcesso" />
+						<p:separator />
+						<p:menuitem value="Procuração Ad Judicia"
+							outcome="/documentos/CadastroProcuracaoAdJudicia" />
+						<p:menuitem value="Pesquisa Procuração Ad Judicia"
+							outcome="/documentos/PesquisaProcuracaoAdJudicia" />
+						<p:separator />
+						<p:menuitem value="Declaração Justiça Gratuita"
+							outcome="/documentos/CadastroDeclaracaoJusticaGratuita" />
+						<p:menuitem value="Pesquisa Declaração Justiça Gratuita"
+							outcome="/documentos/PesquisaDeclaracaoJusticaGratuita" />
+						<p:menuitem value="Relatório Declaração Justiça Gratuita"
+							outcome="/relatorios/RelatorioDeclaracaoJusticaGratuita" />
+						<p:separator />
 
-				</p:submenu>
+					</p:submenu>
 
-				<p:menuitem value="Sair" url="/logout" />
-			</p:menubar>
-		</h:form>
-	</div>
-	<div style="clear: both"></div>
+					<p:submenu label="Ajuda">
+						<p:menuitem value="Ajuda" />
+						<p:separator />
+
+					</p:submenu>
+
+					<p:menuitem value="Sair" url="/logout" />
+				</p:menubar>
+			</h:form>
+		</div>
+		<div style="clear: both"></div>
 	</header>
 
 	<div id="conteudo">

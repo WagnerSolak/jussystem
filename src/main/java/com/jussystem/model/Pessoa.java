@@ -1,6 +1,8 @@
 package com.jussystem.model;
 
+import java.beans.Transient;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -149,9 +151,15 @@ public class Pessoa implements Serializable{
 	
 	@Column
 	@Temporal(TemporalType.DATE)
-	public Date getDataNascimento() {
+	public Date getDataNascimento() {   
 		return dataNascimento;
 	}
+	
+	/*@Transient
+	public String getDataNascimentoStr(){
+		return new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento);
+	}*/
+	
 	
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
@@ -253,7 +261,6 @@ public class Pessoa implements Serializable{
 		return ufRg;
 	}
 	
-	
 	public void setEstadoCivil(EstadoCivilPessoa estadoCivil) {
 		this.estadoCivil = estadoCivil;
 	}
@@ -264,6 +271,34 @@ public class Pessoa implements Serializable{
 	public EstadoCivilPessoa getEstadoCivil() {
 		return estadoCivil;
 	}
+	
+	/*@Transient
+	public String getEstadoCivilFormatado(){
+	
+		String estadoFormatado = null;
+		
+		if(estadoCivil == 'SOLTEIRO'){
+			estadoFormatado = "Solteiro";
+		}
+		
+		if(estadoCivil == 'CASADO'){
+			estadoFormatado = "Casado";
+		}
+		
+		if(estadoCivil == 'SEPARADO'){
+			estadoFormatado = "Separado";
+		}
+		
+		if(estadoCivil == 'DIVORCIADO'){
+			estadoFormatado = "Divorciado";
+		}
+		
+		if(estadoCivilPessoa == 'VIUVO'){
+			estadoFormatado = "Viúvo";
+		}
+		return estadoFormatado;
+		
+	}*/
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)

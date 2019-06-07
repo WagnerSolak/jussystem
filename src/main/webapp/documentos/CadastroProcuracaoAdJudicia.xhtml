@@ -5,12 +5,12 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
-	<ui:define name="titulo">Procuracao Ad Judicia</ui:define>
+	<ui:define name="titulo">#{cadastroProcuracaoAdJudiciaBean.editando ? 'Edição de Procuração Ad Judicia' : 'Nova Procuração Ad Judicia'}</ui:define>
 
 	<ui:define name="corpo">
 
 		<f:metadata>
-			<o:viewParam name="procuracao"
+			<o:viewParam name="procuracaoAdJudicia"
 				value="#{cadastroProcuracaoAdJudiciaBean.procuracaoAdJudicia}" />
 			<f:event listener="#{cadastroProcuracaoAdJudiciaBean.inicializar}"
 				type="preRenderView" />
@@ -18,7 +18,7 @@
 
 		<h:form>
 
-			<h1>Procuracao Ad Judicia</h1>
+			<h1>#{cadastroProcuracaoAdJudiciaBean.editando ? 'Edição de Procuração Ad Judicia' : 'Nova Procuração Ad Judicia'}</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
 
@@ -26,6 +26,11 @@
 				<p:toolbarGroup>
 					<p:commandButton value="Salvar" id="botaoSalvar"
 						action="#{cadastroProcuracaoAdJudiciaBean.salvar}" update="@form" />
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisar Procuração" 
+					outcome="/documentos/PesquisaProcuracaoAdJudicia" />
 				</p:toolbarGroup>
 
 			</p:toolbar>

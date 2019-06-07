@@ -16,6 +16,8 @@
 			<f:event listener="#{cadastroEstadoBean.inicializar}"
 				type="preRenderView" />
 		</f:metadata>
+		
+		<p:focus />
 
 		<h:form>
 
@@ -45,7 +47,8 @@
 
 				<p:outputLabel value="Sigla *" for="sigla" />
 				<p:inputText id="sigla" size="20" maxlength="2"
-					value="#{cadastroEstadoBean.estado.sigla}" />
+					value="#{cadastroEstadoBean.estado.sigla}" 
+					/>
 
 
 

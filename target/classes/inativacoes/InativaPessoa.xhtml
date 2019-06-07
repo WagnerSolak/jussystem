@@ -10,11 +10,11 @@
 	<ui:define name="corpo">
 
 
-		 <f:metadata>
-			
+		<f:metadata>
+
 			<f:event listener="#{movimentoInativaPessoaBean.inicializar}"
 				type="preRenderView" />
-		</f:metadata> 
+		</f:metadata>
 
 		<h:form>
 
@@ -26,11 +26,12 @@
 				<p:toolbarGroup>
 
 					<p:commandButton value="Inativar Pessoa" id="botaoInativar"
-						action="#{cadastroInativaPessoaBean.salvar}" update="@form" />
+						action="#{movimentoInativaPessoaBean.inativarPessoa}" update="@form" />
 				</p:toolbarGroup>
 
-				<p:toolbarGroup align="left">
-					<p:button value="Novo"  />
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa pessoas"
+						outcome="/pessoas/PesquisaPessoas" />
 				</p:toolbarGroup>
 			</p:toolbar>
 
@@ -39,16 +40,26 @@
 
 				<p:outputLabel value="Pessoa *" for="pesInativa" />
 				<h:panelGroup>
-					<p:autoComplete id="pesInativa" size="60" dropdown="true"
-						value="#{movimentoInativaPessoaBean.inativaPessoa.pessoa}" 
-						completeMethod="#{movimentoInativaPessoaBean.completarPessoa}"
-						var="pessoa" itemLabel="#{pessoa.nomePessoa}" itemValue="#{pessoa}"
-						forceSelection="true"/>
+					<p:inputText id="pesInativa" size="60"
+						value="#{movimentoInativaPessoaBean.inativaPessoa.pessoa.nomePessoa}"
+						readonly="#{facesContext.currentPhaseId.name eq 'RENDER_RESPONSE'}" />
+
+					<p:commandButton icon="ui-icon-search" title="Pesquisar"
+						process="@this" action="#{selecaoPessoaBean.abrirDialogo}"
+						ignoreAutoUpdate="true">
+						<p:ajax event="dialogReturn"
+							listener="#{movimentoInativaPessoaBean.pessoaSelecionada}"
+							update="pesInativa" />
+					</p:commandButton>
+
 				</h:panelGroup>
 
-				<p:outputLabel value="Motivo Inativação" for="motivo" />
-				<p:inputTextarea rows="2"
+				<h4>Motivo Inativação *</h4>
+				<p:inputTextarea rows="5" cols="66" maxlength="50" counter="display"
+					autoResize="false" counterTemplate="{0} caracteres restantes."
 					value="#{movimentoInativaPessoaBean.inativaPessoa.motivoInativacao}" />
+				<br />
+				<p:outputLabel id="display" />
 
 
 			</p:panelGrid>

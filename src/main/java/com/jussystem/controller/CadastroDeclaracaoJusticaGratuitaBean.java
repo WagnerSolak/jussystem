@@ -26,20 +26,27 @@ public class CadastroDeclaracaoJusticaGratuitaBean implements Serializable {
 	private DeclaracaoJusticaGratuita declaracaoJusticaGratuita;
 
 	@Inject
-	private Pessoas pessoas;
+	private Pessoas pessoas; //....................................apagar aqui
 
 	@Inject
 	private CadastroDeclaracaoJusticaGratuitaService cadastroDeclaracaoJusticaGratuitaService;
 
 	public void inicializar() {
 		if (FacesUtil.isNotPostBack()) {
-			limpar();
+			System.out.println("Chamei o IsNotPostBack");
 		}
-
+	}
+	
+	public CadastroDeclaracaoJusticaGratuitaBean(){
+		limpar();
 	}
 
-	public Date dataHoje() {
+	public Date getDataHoje() {
 		return new Date();
+	}
+	
+	public boolean isEditando(){
+		return this.declaracaoJusticaGratuita.getId() != null;
 	}
 
 	public void salvar() {
@@ -49,9 +56,6 @@ public class CadastroDeclaracaoJusticaGratuitaBean implements Serializable {
 		FacesUtil.addInfoMessage("Declaração salva com sucesso!");
 	}
 
-	public List<Pessoa> completarPessoa(String nome) {
-		return this.pessoas.porNome(nome);
-	}
 
 	public void pessoaSelecionada(SelectEvent event) {
 		declaracaoJusticaGratuita.setPessoa((Pessoa) event.getObject());
@@ -73,12 +77,12 @@ public class CadastroDeclaracaoJusticaGratuitaBean implements Serializable {
 
 	@NotBlank
 	public String getNomePessoa() {
-		return declaracaoJusticaGratuita.getPessoa() == null ? null
+		return declaracaoJusticaGratuita.getPessoa() == null ? null//....................................apagar aqui
 				: declaracaoJusticaGratuita.getPessoa().getNomePessoa();
 	}
 
 	// somente para nao ocorrer erro, alterado readOnly xhtml para true na fase
 	// RENDER_RESPONSE
-	public void setNomePessoa(String nomePessoa) {
+	public void setNomePessoa(String nomePessoa) {//....................................apagar aqui
 	}
 }

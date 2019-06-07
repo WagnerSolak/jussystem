@@ -40,7 +40,7 @@ public class Pessoas implements Serializable{
 				.getResultList();
 	}
 	
-	public List<Pessoa>porNomeAtivas(String nomePessoa){   //esta errado ver com Professor Renato como faz!!!
+	public List<Pessoa>porNomeAtivas(String nomePessoa){   //verificado com Renato apenas testar!
 		return manager.createQuery("from Pessoa"+
 				"where upper(nomePessoa) like :nomePessoa"+
 				"and status = com.jussystem.model.StatusPessoa.ATIVO",Pessoa.class)

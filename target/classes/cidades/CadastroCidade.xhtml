@@ -17,7 +17,14 @@
 
 		<h:form>
 
+
+
 			<p:focus />
+			<script type="text/javascript" charset="UTF-8">  
+				gerenciaTeclaEnter();
+			</script>
+
+
 
 			<h1>#{cadastroCidadeBean.editando ? 'Edição de cidade' : 'Nova
 				cidade'}</h1>
@@ -29,7 +36,7 @@
 					<p:button value="Novo" outcome="/cidades/CadastroCidade" />
 					<p:commandButton value="Salvar" id="botaoSalvar"
 						action="#{cadastroCidadeBean.salvar}" update="@form">
-						<p:resetInput target="painel"/>
+						<p:resetInput target="painel" />
 					</p:commandButton>
 				</p:toolbarGroup>
 
@@ -38,8 +45,11 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 
+
+
 			<p:panelGrid columns="2" id="painel"
 				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
 
 
 				<p:outputLabel value="Nome *" for="nome" />
@@ -59,6 +69,7 @@
 				</p:selectOneMenu>
 
 			</p:panelGrid>
+
 
 		</h:form>
 	</ui:define>

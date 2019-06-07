@@ -237,10 +237,7 @@
 				<p:column headerText="Operadora">
 					<h:outputText value="#{contato.operadora}" />
 				</p:column>
-				
-				<!-- <p:column headerText="Tipo endereço">
-					<h:outputText value="#{contato.tipoEndereco.descricao}" />
-				</p:column> -->
+			
 
 				<p:column style="width: 100px; text-align: center">
 					<p:commandButton icon="ui-icon-pencil" title="Editar"
@@ -281,12 +278,8 @@
 						<p:inputText id="operadora" size="20" maxlength="15"
 							value="#{cadastroPessoaBean.contato.operadora}" />
 							
-							<!-- <p:outputLabel value="Tipo de Endereço"/>
-							<p:selectOneMenu value="#{cadastroPessoaBean.pessoa.}">
-							</p:selectOneMenu> -->
 							
-							
-
+						
 						<p:outputLabel />
 						<p:commandButton
 							value="#{cadastroPessoaBean.editandoContato ? 'Alterar' : 'Incluir'}"

@@ -5,7 +5,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
-	<ui:define name="titulo">Declaração Justiça Gratuita</ui:define>
+	<ui:define name="titulo">#{cadastroDeclaracaoJusticaGratuitaBean.editando ? 'Edição de Declaração Justiça Gratuita' : 'Nova Declaração Justiça Gratuita'}</ui:define>
 
 	<ui:define name="corpo">
 		<f:metadata>
@@ -19,7 +19,7 @@
 
 		<h:form>
 
-			<h1>Declaração Justiça Gratuita</h1>
+			<h1>#{cadastroDeclaracaoJusticaGratuitaBean.editando ? 'Edição de Declaração Justiça Gratuita' : 'Nova Declaração Justiça Gratuita'}</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
 
@@ -28,6 +28,11 @@
 					<p:commandButton value="Salvar" id="botaoSalvar"
 						action="#{cadastroDeclaracaoJusticaGratuitaBean.salvar}"
 						update="@form" />
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisar Declaração" 
+					outcome="/documentos/PesquisaDeclaracaoJusticaGratuita" />
 				</p:toolbarGroup>
 
 			</p:toolbar>

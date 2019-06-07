@@ -116,7 +116,6 @@ public class Pedidos implements Serializable{
 			criteria.add(Restrictions.le("dataCriacao", filtro.getDataCriacaoAte()));
 		}
 		
-
 		if (StringUtils.isNotBlank(filtro.getNomeFornecedor())) {
 			// acessamos o nome do cliente associado ao pedido pelo alias "f", criado anteriormente
 			criteria.add(Restrictions.ilike("f.fornecedor", filtro.getNomeFornecedor(), MatchMode.ANYWHERE));

@@ -1,0 +1,105 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">Relatório Declaração Justiça Gratuitaaaaaaaaaaaaaaaaaaaaaaaa</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frm">
+
+			<h1>Relatório Declaração Justiça Gratuitaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+
+			<p:toolbar style="margin-top: 20px">
+
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar"
+						action="#{relatorioDeclaracaoJusticaGratuitaBean.pesquisar}"
+						update="@form" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup>
+
+					<p:commandButton value="Emitir"
+						action="#{relatorioDeclaracaoJusticaGratuitaBean.emitir}"
+						ajax="false" />
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Cadastrar nova declaração" 
+					outcome="/documentos/CadastroDeclaracaoJusticaGratuita" />
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:focus />
+
+			<p:panelGrid columns="2" id="painel"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Código" />
+				<h:panelGroup>
+					<p:inputText size="10"
+						value="#{relatorioDeclaracaoJusticaGratuitaBean.filtro.numeroDe}" />
+					a
+					<p:inputText size="10"
+						value="#{relatorioDeclaracaoJusticaGratuitaBean.filtro.numeroAte}" />
+				</h:panelGroup>
+
+				<p:outputLabel value="Data de criação" />
+				<h:panelGroup>
+					<p:calendar size="10" pattern="dd/MM/yyyy"
+						value="#{relatorioDeclaracaoJusticaGratuitaBean.filtro.dataDocumentoDe}" />
+					a
+					<p:calendar size="10" pattern="dd/MM/yyyy"
+						value="#{relatorioDeclaracaoJusticaGratuitaBean.filtro.dataDocumentoAte}" />
+				</h:panelGroup>
+
+				
+				<p:outputLabel value="Pessoa" for="pessoa" />
+				<p:inputText id="pessoa" size="40"
+					value="#{relatorioDeclaracaoJusticaGratuitaBean.filtro.nomePessoa}" />
+
+
+			</p:panelGrid>
+
+			<p:dataTable id="tableDeclaracao"
+				value="#{relatorioDeclaracaoJusticaGratuitaBean.declaracoesJusticaGratuitaFiltrada}"
+				emptyMessage="Não existe declarações para serem exibidas!"
+				style="margin-top: 20px" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				var="declaracaoJusticaGratuita">
+
+				<p:column headerText="Código"
+					style="text-align: center; width: 50px">
+					<h:outputText value="#{declaracaoJusticaGratuita.id}" />
+				</p:column>
+
+				<p:column headerText="Nome" style="text-align: left; width: 600px">
+					<h:outputText value="#{declaracaoJusticaGratuita.pessoa.nomePessoa}" />
+				</p:column>
+
+				<p:column headerText="Data do Documento"
+					style="text-align: left; width: 100px">
+					<h:outputText value="#{declaracaoJusticaGratuita.dataDocumento}" >
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column style="width: 100px; text-align: center">
+					<p:button icon="ui-icon-pencil" title="Editar"
+						outcome="/documentos/CadastroDeclaracaoJusticaGratuita">
+						<f:param name="declaracaoJusticaGratuita"
+							value="#{declaracaoJusticaGratuita.id}" />
+					</p:button>
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

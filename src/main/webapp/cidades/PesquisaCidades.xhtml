@@ -23,6 +23,8 @@
 					<p:button value="Novo" outcome="/cidades/CadastroCidade" />
 				</p:toolbarGroup>
 			</p:toolbar>
+			
+			<p:focus />
 
 			<p:panelGrid columns="2" id="painel"
 				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
@@ -47,19 +49,17 @@
 					<h:outputText value="#{cidade.id}" />
 				</p:column>
 
-				<p:column headerText="Nome">
+				<p:column headerText="Nome"
+				style="text-align: center; width: 640px">
 					<h:outputText value="#{cidade.nome}" />
 				</p:column>
 
 				<p:column headerText="Estado "
-					style="text-align: center; width: 60px">
-					<h:outputText value="#{cidade.estado.sigla}" />
+					style="text-align: center; width: 240px">
+					<h:outputText value="#{cidade.estado.nome} - #{cidade.estado.sigla}" />
 				</p:column>
 
-				<p:column headerText="Estado" style="text-align: center; width: 240px">
-					<h:outputText value="#{cidade.estado.nome}" />
-				</p:column>
-
+			
 
 				<p:column style="width:100 px; text-align: center">
 					<p:button outcome="/cidades/CadastroCidade" icon="ui-icon-pencil"

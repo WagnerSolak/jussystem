@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +23,7 @@ public class Contato implements Serializable {
 	private String celular;
 	private String operadora;
 	
-	private TipoEndereco tipoEndereco;
+	
 	private Pessoa pessoa;
 
 	@Id
@@ -88,16 +86,7 @@ public class Contato implements Serializable {
 		this.pessoa = pessoa;
 	}
 	
-	public void setTipoEndereco(TipoEndereco tipoEndereco) {
-		this.tipoEndereco = tipoEndereco;
-	}
 	
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false, length = 20)
-	public TipoEndereco getTipoEndereco() {
-		return tipoEndereco;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -67,21 +67,23 @@
 				paginatorPosition="bottom">
 
 				<p:column headerText="Código"
-					style="text-align: center; width: 100px">
+					style="text-align: center; width: 30px">
 					<h:outputText value="#{pedido.id}" />
 				</p:column>
 
-				<p:column headerText="Fornecedor">
+				<p:column headerText="Fornecedor"
+				style="text-align: center; width: 200px">
 					<h:outputText value="#{pedido.fornecedor.nomePessoa}" />
 				</p:column>
 
-				<p:column headerText="Usuário">
+				<p:column headerText="Usuário"
+				style="text-align: center; width: 160px">
 					<h:outputText value="#{pedido.comprador.nome}" />
 				</p:column>
 
 
 				<p:column headerText="Data da Criação"
-					style="text-align: center; width: 140px">
+					style="text-align: center; width: 100px">
 					<h:outputText value="#{pedido.dataCriacao}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
@@ -94,7 +96,8 @@
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Status" style="width: 100px">
+				<p:column headerText="Status" 
+				style="text-align: center; width: 100px">
 					<h:outputText value="#{pedido.status.descricao}" />
 				</p:column>
 

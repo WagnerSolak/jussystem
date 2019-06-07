@@ -3,6 +3,7 @@ package com.jussystem.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,36 +11,37 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
-@Entity
-public class Processo implements Serializable{
 
+@Entity
+public class Processo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	private Long id;
 	private String numeroProcesso;
-	private BigDecimal valorTotal;
-	private BigDecimal valorDescontos;
-	private BigDecimal valorLiquido;
-	
+	private BigDecimal valorTotal = BigDecimal.ZERO;
+	private BigDecimal valorDescontos = BigDecimal.ZERO;
+	private BigDecimal valorLiquido = BigDecimal.ZERO;
+	private Date dataEntrada;
+
 	@Max(value = 35)
-	private BigDecimal percentual;
-	
-	private BigDecimal valorRecebimentoCliente;
-	
+	private BigDecimal percentual = BigDecimal.ZERO;
+
+	private BigDecimal valorRecebimentoCliente = BigDecimal.ZERO;
+
 	private Pessoa pessoa;
 	private StatusProcesso statusProcesso;
 	private NaturezaProcesso naturezaProcesso;
-	
+
 	private List<ContasReceber> contasReceber = new ArrayList<>();
 
 	@Id
@@ -51,8 +53,8 @@ public class Processo implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	@Column(nullable = false, length = 25)
+
+	@Column(nullable = false, length = 25, unique = true)
 	public String getNumeroProcesso() {
 		return numeroProcesso;
 	}
@@ -61,7 +63,7 @@ public class Processo implements Serializable{
 		this.numeroProcesso = numeroProcesso;
 	}
 
-	@Column(nullable = false,precision = 10, scale = 2)
+	@Column(nullable = false, precision = 10, scale = 2)
 	public BigDecimal getValorTotal() {
 		return valorTotal;
 	}
@@ -70,7 +72,7 @@ public class Processo implements Serializable{
 		this.valorTotal = valorTotal;
 	}
 
-	@Column(nullable = false,precision = 10, scale = 2)
+	@Column(nullable = false, precision = 10, scale = 2)
 	public BigDecimal getValorDescontos() {
 		return valorDescontos;
 	}
@@ -79,7 +81,7 @@ public class Processo implements Serializable{
 		this.valorDescontos = valorDescontos;
 	}
 
-	@Column(nullable = false,precision = 10, scale = 2)
+	@Column(nullable = false, precision = 10, scale = 2)
 	public BigDecimal getValorLiquido() {
 		return valorLiquido;
 	}
@@ -88,7 +90,7 @@ public class Processo implements Serializable{
 		this.valorLiquido = valorLiquido;
 	}
 
-	@Column(nullable = false,precision = 5, scale = 2)
+	@Column(nullable = false, precision = 5, scale = 2)
 	public BigDecimal getPercentual() {
 		return percentual;
 	}
@@ -97,7 +99,7 @@ public class Processo implements Serializable{
 		this.percentual = percentual;
 	}
 
-	@Column(nullable = false,precision = 10, scale = 2)
+	@Column(nullable = false, precision = 10, scale = 2)
 	public BigDecimal getValorRecebimentoCliente() {
 		return valorRecebimentoCliente;
 	}
@@ -125,7 +127,7 @@ public class Processo implements Serializable{
 	public void setStatusProcesso(StatusProcesso statusProcesso) {
 		this.statusProcesso = statusProcesso;
 	}
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 20)
 	public NaturezaProcesso getNaturezaProcesso() {
@@ -143,6 +145,16 @@ public class Processo implements Serializable{
 
 	public void setContasReceber(List<ContasReceber> contasReceber) {
 		this.contasReceber = contasReceber;
+	}
+
+	public void setDataEntrada(Date dataEntrada) {
+		this.dataEntrada = dataEntrada;
+	}
+
+	@Column
+	@Temporal(TemporalType.DATE)
+	public Date getDataEntrada() {
+		return dataEntrada;
 	}
 
 	@Override
@@ -169,7 +181,19 @@ public class Processo implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
+
+	public void recalcularValorLiquido() {
+		BigDecimal totalLiquido = BigDecimal.ZERO;
+		BigDecimal totalCliente = BigDecimal.ZERO;
+		
+		
+		
+		totalLiquido = totalLiquido.add(this.getValorTotal()).subtract(this.getValorDescontos());
+		totalCliente = totalLiquido.multiply(this.getPercentual()).divide(new BigDecimal("100"));
+
+		this.setValorRecebimentoCliente(totalCliente);
+		this.setValorLiquido(totalLiquido);
+
+	}
+
 }

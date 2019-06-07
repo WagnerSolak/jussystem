@@ -28,9 +28,13 @@ public class CadastroProcuracaoAdJudiciaBean implements Serializable{
 	private CadastroProcuracaoAdJudiciaService cadastroProcuracaoAdJudiciaService;
 	
 	
+	public CadastroProcuracaoAdJudiciaBean(){
+		limpar();
+	}
+	
 	public void inicializar() {
 		if (FacesUtil.isNotPostBack()) {
-			limpar();
+			System.out.println("Chamei o IsNotPostBack");
 		}
 
 	}
@@ -39,6 +43,10 @@ public class CadastroProcuracaoAdJudiciaBean implements Serializable{
 		
 		limpar();
 		FacesUtil.addInfoMessage("Procuração salva com sucesso");
+	}
+	
+	public boolean isEditando(){
+		return procuracaoAdJudicia.getId() != null;
 	}
 	
 	
@@ -62,6 +70,7 @@ public class CadastroProcuracaoAdJudiciaBean implements Serializable{
 	public ProcuracaoAdJudicia getProcuracaoAdJudicia() {
 		return procuracaoAdJudicia;
 	}
+	
 	
 	
 }
