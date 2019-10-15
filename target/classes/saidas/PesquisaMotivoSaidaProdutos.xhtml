@@ -1,0 +1,71 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa: cargos</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frmPesquisa">
+			<h1>Pesquisa cargos</h1>
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+				<p:button value="Limpar"
+						outcome="/saidas/PesquisaMotivoSaidaProdutos" />
+						<p:separator />
+					<p:commandButton value="Pesquisar"
+						action="#{pesquisaMotivoSaidaProdutoBean.pesquisar}" update="@form" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Novo motivo" outcome="/saidas/MotivoSaidaProduto" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:focus />
+
+			<p:panelGrid columns="2" id="panel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Código" for="codigo" />
+				<p:inputText id="codigo" size="20"
+					value="#{pesquisaMotivoSaidaProdutoBean.filtro.id}" />
+
+				<p:outputLabel value="Descrição" for="descricao" />
+				<p:inputText id="descricao" size="60"
+					value="#{pesquisaMotivoSaidaProdutoBean.filtro.nome}" />
+
+
+			</p:panelGrid>
+
+			<p:dataTable id="motivoTable" var="motivoSaida" style="margin-top: 20px"
+				paginatorPosition="bottom" emptyMessage="Nenhum motivo encontrado."
+				rows="10" paginator="true" paginatorAlwaysVisible="false"
+				value="#{pesquisaMotivoSaidaProdutoBean.motivoFiltrados}">
+
+				<p:column headerText="Código"
+					style="text-align: center; width: 40px">
+					<h:outputText value="#{motivoSaida.id}" />
+				</p:column>
+
+				<p:column headerText="Motivo Saída" style="text-align: left"
+				sortBy="#{motivoSaida.motivoSaida}">
+					<h:outputText value="#{motivoSaida.motivoSaida}" />
+				</p:column>
+
+				<p:column style="width: 100px; text-align:center" headerText="Opções:">
+					<p:button outcome="/saidas/MotivoSaidaProduto" icon="ui-icon-pencil"
+						title="Editar">
+						<f:param name="motivoSaida" value="#{motivoSaida.id}" />
+					</p:button>
+
+
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

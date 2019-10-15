@@ -1,4 +1,4 @@
-package com.jussystem.controller;
+/*package com.jussystem.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import com.jussystem.model.EstadoCivilPessoa;
 import com.jussystem.model.Pessoa;
 import com.jussystem.model.StatusPessoa;
 import com.jussystem.model.TipoPessoa;
-import com.jussystem.model.UfRgPessoa;
+import com.jussystem.model.UfRgCliente;
 import com.jussystem.repository.Cidades;
 import com.jussystem.repository.Estados;
 import com.jussystem.util.jsf.FacesUtil;
@@ -106,8 +106,8 @@ public class CadastroPessoaBean implements Serializable {
 		return EstadoCivilPessoa.values();
 	}
 
-	public UfRgPessoa[] getUfsRgPessoa() {
-		return UfRgPessoa.values();
+	public UfRgCliente[] getUfsRgPessoa() {
+		return UfRgCliente.values();
 	}
 
 	public void popularCidadePorEstado() {
@@ -201,3 +201,4 @@ public class CadastroPessoaBean implements Serializable {
 	}
 
 }
+*/

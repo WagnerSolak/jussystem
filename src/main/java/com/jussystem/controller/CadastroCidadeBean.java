@@ -1,17 +1,16 @@
 package com.jussystem.controller;
 
 import java.io.Serializable;
-import java.util.List;
+
+
 
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-
 import com.jussystem.model.Cidade;
-import com.jussystem.model.Estado;
-import com.jussystem.repository.Estados;
+import com.jussystem.model.UfCliente;
 import com.jussystem.util.jsf.FacesUtil;
 import com.jusystem.service.CadastroCidadeService;
 
@@ -24,12 +23,7 @@ public class CadastroCidadeBean implements Serializable{
 	@Inject
 	private CadastroCidadeService cadastroCidadeService;
 	
-	@Inject
-	private Estados estadosRepository;
-	
 	private Cidade cidade;
-	private Estado estado;
-	private List<Estado> estados;
 	
 	
 	public CadastroCidadeBean() {
@@ -38,15 +32,15 @@ public class CadastroCidadeBean implements Serializable{
 	}
 	
 	public void inicializar() {
-		if(FacesUtil.isNotPostBack()) {
-			estados = estadosRepository.buscarEstados();
-		}		
+		if(cidade == null){
+			limpar();
+		}
 	}
 	
 	public void salvar() {
-		cadastroCidadeService.salvar(cidade);
+		cidade = cadastroCidadeService.salvar(cidade);
+		FacesUtil.addInfoMessage("Cidade: " +cidade.getNome()+" - "+cidade.getUfCliente()+", salva com sucesso!");
 		limpar();
-		FacesUtil.addInfoMessage("Cidade cadastrada com sucesso!");
 		
 	}	
 	
@@ -56,8 +50,10 @@ public class CadastroCidadeBean implements Serializable{
 	
 	public void limpar() {
 		cidade = new Cidade();
-		estado = null;
+		
 	}
+	
+
 	
 	public Cidade getCidade() {
 		return cidade;
@@ -67,17 +63,11 @@ public class CadastroCidadeBean implements Serializable{
 		this.cidade = cidade;
 	}
 	
-	public List<Estado> getEstados() {
-		return estados;
+	public UfCliente[] getUfsCliente(){
+		return UfCliente.values();
 	}
 	
-	public Estado getEstado() {
-		return estado;
-	}
 	
-	public void setEstado(Estado estado) {
-		this.estado = estado;
-	}
 	
 
 	

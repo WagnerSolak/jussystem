@@ -32,9 +32,6 @@ public class PesquisaFormaPagamentoBean implements Serializable{
 		formaPagamentoFiltrados = formaPagamentos.filtrados(filtro);
 	}
 	
-	public void excluir() {
-		
-	}
 	
 	public List<FormaPagamento> getFormaPagamentoFiltrados() {
 		return formaPagamentoFiltrados;

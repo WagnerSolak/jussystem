@@ -2,8 +2,9 @@ package com.jussystem.model;
 
 public enum NaturezaProcesso {
 
-	CIVIL("Civil"),
-	TRABALHO("Trabalho");
+	
+	TRABALHO("Trabalho"),
+	CIVIL("Civil");
 
 	private String descricao;
 

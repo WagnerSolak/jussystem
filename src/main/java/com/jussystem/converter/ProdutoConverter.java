@@ -24,8 +24,7 @@ public class ProdutoConverter implements Converter{
      Produto retorno = null;
 		
 		if (value != null) {
-			Long id = new Long(value);
-			retorno = produtos.porId(id);
+			retorno = this.produtos.porId(new Long(value));
 		}
 		
 		return retorno;

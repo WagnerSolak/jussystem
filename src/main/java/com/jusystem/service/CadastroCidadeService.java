@@ -20,7 +20,7 @@ public class CadastroCidadeService implements Serializable{
 		Cidade cidadeExistente = cidades.porNome(cidade.getNome());
 		
 		if(cidadeExistente != null && !cidadeExistente.equals(cidade) ) {
-			throw new NegocioException("Já existe um produto com a descrição informada!");
+			throw new NegocioException("Já existe uma cidade com a descrição informada!");
 		}
 		return cidades.guardar(cidade);
 	}

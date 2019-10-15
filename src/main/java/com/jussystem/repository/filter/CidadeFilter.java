@@ -2,12 +2,15 @@ package com.jussystem.repository.filter;
 
 import java.io.Serializable;
 
+import com.jussystem.model.UfCliente;
+
 public class CidadeFilter implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
 	private String nome;
+	private UfCliente ufs[];
 	
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -23,5 +26,13 @@ public class CidadeFilter implements Serializable{
 	
 	public Long getId() {
 		return id;
+	}
+	
+	public void setUfs(UfCliente[] ufs) {
+		this.ufs = ufs;
+	}
+	
+	public UfCliente[] getUfs() {
+		return ufs;
 	}
 }

@@ -13,12 +13,18 @@
 
 			<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup>
+				<p:button value="Limpar"
+						outcome="/pedidos/PesquisaPedidos" />
+						<p:separator />
 					<p:commandButton value="Pesquisar"
 						action="#{pesquisaPedidoBean.pesquisar}" update="@form" />
 				</p:toolbarGroup>
 
 				<p:toolbarGroup align="right">
-					<p:button value="Novo" outcome="/pedidos/CadastroPedido.xhtml"/>
+				<p:button value="Imprimir Pedidos Emitidos" 
+					outcome="/relatorios/RelatorioPedidosEmitidos" />
+					<p:separator />
+					<p:button value="Novo pedido" outcome="/pedidos/CadastroPedido.xhtml"/>
 				</p:toolbarGroup>
 			</p:toolbar>
 
@@ -63,7 +69,7 @@
 			<p:dataTable id="pedidosTable" var="pedido"
 				value="#{pesquisaPedidoBean.pedidosFiltrados}"
 				style="margin-top: 20px" emptyMessage="Nenhum pedido encontrado."
-				rows="20" paginator="true" paginatorAlwaysVisible="false"
+				rows="10" paginator="true" paginatorAlwaysVisible="false"
 				paginatorPosition="bottom">
 
 				<p:column headerText="Código"
@@ -72,8 +78,9 @@
 				</p:column>
 
 				<p:column headerText="Fornecedor"
-				style="text-align: center; width: 200px">
-					<h:outputText value="#{pedido.fornecedor.nomePessoa}" />
+				style="text-align: center; width: 200px"
+				sortBy="#{pedido.fornecedor.nomeFantasia}">
+					<h:outputText value="#{pedido.fornecedor.nomeFantasia}" />
 				</p:column>
 
 				<p:column headerText="Usuário"
@@ -101,12 +108,11 @@
 					<h:outputText value="#{pedido.status.descricao}" />
 				</p:column>
 
-				<p:column style="text-align: center;width: 50px">
+				<p:column style="text-align: center; width: 50px" headerText="Opções:">
 					<p:button icon="ui-icon-pencil" title="Editar"
 					outcome="/pedidos/CadastroPedido" >
 					<f:param name="pedido" value="#{pedido.id}"/>
 					</p:button>
-					<p:commandButton icon="ui-icon-trash" title="Excluir" />
 				</p:column>
 
 			</p:dataTable>

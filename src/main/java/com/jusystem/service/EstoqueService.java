@@ -26,7 +26,8 @@ public class EstoqueService implements Serializable{
 			item.getProduto().adicionarEstoque(item.getQuantidade());
 		}
 	}
-
+	
+	@Transactional
 	public void baixarItensEstoque(Pedido pedido) {
 		pedido = this.pedidos.porId(pedido.getId());
 		

@@ -30,8 +30,9 @@ public class CadastroFormaPagamentoBean implements Serializable{
 	
 	public void salvar() {
 		formaPagamento= cadastroFormaPagamentoService.salvar(formaPagamento);
+		FacesUtil.addInfoMessage("Forma de pagamento: " + formaPagamento.getDescricao()
+				+ ", cadastrada com sucesso!");
 		limpar();
-		FacesUtil.addInfoMessage("Forma de pagamento cadastrada com sucesso!");
 	}
 	
 	public void inicializar() {

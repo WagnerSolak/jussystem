@@ -43,6 +43,7 @@ public class Produtos implements Serializable {
 	}
 
 	public Produto porId(Long id) {
+	
 		return manager.find(Produto.class, id);
 	}
 

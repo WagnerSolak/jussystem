@@ -15,12 +15,15 @@
 
 			<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup>
+				<p:button value="Limpar"
+						outcome="/cidades/PesquisaCidades" />
+						<p:separator />
 					<p:commandButton value="Pesquisar"
 						action="#{pesquisaCidadeBean.pesquisar}" update="@form" />
 				</p:toolbarGroup>
 
 				<p:toolbarGroup align="right">
-					<p:button value="Novo" outcome="/cidades/CadastroCidade" />
+					<p:button value="Nova cidade" outcome="/cidades/CadastroCidade" />
 				</p:toolbarGroup>
 			</p:toolbar>
 			
@@ -36,60 +39,36 @@
 				<p:outputLabel value="Nome" for="nome" />
 				<p:inputText id="nome" size="60"
 					value="#{pesquisaCidadeBean.filtro.nome}" />
+					
+					
+					
 
 			</p:panelGrid>
 
 			<p:dataTable id="cidadesTable" var="cidade" style="margin-top: 20px"
-				emptyMessage="Nenhum produto encontrado." rows="20" paginator="true"
+				emptyMessage="Nenhum produto encontrado." rows="10" paginator="true"
 				paginatorAlwaysVisible="false" paginatorPosition="bottom"
 				value="#{pesquisaCidadeBean.cidadesFiltradas}">
 
 				<p:column headerText="Código"
-					style="text-align: center; width: 50px">
+					style="text-align: center; width: 60px">
 					<h:outputText value="#{cidade.id}" />
 				</p:column>
 
 				<p:column headerText="Nome"
-				style="text-align: center; width: 640px">
-					<h:outputText value="#{cidade.nome}" />
+				style="text-align: left" sortBy="#{cidade.nome}">
+					<h:outputText value="#{cidade.nome} - #{cidade.ufCliente}" />
 				</p:column>
 
-				<p:column headerText="Estado "
-					style="text-align: center; width: 240px">
-					<h:outputText value="#{cidade.estado.nome} - #{cidade.estado.sigla}" />
-				</p:column>
-
-			
-
-				<p:column style="width:100 px; text-align: center">
+	
+				<p:column style="width:100px; text-align: center" headerText="Opções:">
 					<p:button outcome="/cidades/CadastroCidade" icon="ui-icon-pencil"
 						title="Editar">
 						<f:param name="cidade" value="#{cidade.id}" />
 					</p:button>
-				
-
-					<p:commandButton icon="ui-icon-trash" title="Excluir"
-						oncomplete="PF('confirmacaoExclusao').show()" process="@this"
-						update=":frmPesquisa:confirmacaoExclusaoDialog">
-					<f:setPropertyActionListener value="#{cidade}" 
-						target="#{pesquisaCidadeBean.cidadeSelecionada}"/>
-					</p:commandButton>
 
 				</p:column>
 			</p:dataTable>
-
-			<p:confirmDialog id="confirmacaoExclusaoDialog"
-				header="Exclusão de cidade"
-				message="Deseja realmente excluir a cidade #{pesquisaCidadeBean.cidadeSelecionada.nome}?"
-				widgetVar="confirmacaoExclusao">
-				<p:button value="Não"
-					onclick="PF('confirmacaoExclusao').hide(); return false;" />
-				<p:commandButton value="Sim"
-					oncomplete="PF('confirmacaoExclusao').hide();"
-					action="#{pesquisaPessoaBean.excluir}" process="@this"
-					update=":frmPesquisa:cidadesTable" />
-
-			</p:confirmDialog>
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -1,0 +1,149 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa: processos</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frm">
+
+			<h1>Pesquisa Processos de Pessoa Jurídico</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+
+			<p:toolbar style="margin-top: 20px">
+
+				<p:toolbarGroup>
+				<p:button value="Limpar"
+						outcome="/processos/PesquisaProcessoPJ"/>
+						<p:separator />
+					<p:commandButton value="Pesquisar"
+						action="#{pesquisaProcessoPJBean.pesquisar}" update="@form" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+				
+				<p:commandButton value="Exportar XLS" 
+				disabled="#{empty pesquisaProcessoPJBean.processosPessoaJuridicaFiltrados}"
+				ajax="false">
+				
+					<p:dataExporter type="xls" target="tableProcesso"
+					fileName="ProcessosClientesPessoaJuridica" 
+					postProcessor="#{pesquisaProcessoPJBean.posProcessarXls}"/>
+					</p:commandButton>
+					
+						<p:separator/>
+					<p:button value="Novo processo"
+						outcome="/processos/CadastroProcessoPJ" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:focus />
+
+			<p:panelGrid columns="4" id="painel"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo, rotulo, campo">
+
+				<p:outputLabel value="Código" />
+				<h:panelGroup>
+					<p:inputText size="12"
+						value="#{pesquisaProcessoPJBean.filtro.numeroDe}" />
+					a
+					<p:inputText size="12"
+						value="#{pesquisaProcessoPJBean.filtro.numeroAte}" />
+				</h:panelGroup>
+				
+				
+
+				<p:outputLabel value="Data de criação" />
+				<h:panelGroup>
+					<p:calendar size="12" pattern="dd/MM/yyyy"
+						value="#{pesquisaProcessoPJBean.filtro.dataProcessoDe}" />
+					a
+					<p:calendar size="12" pattern="dd/MM/yyyy"
+						value="#{pesquisaProcessoPJBean.filtro.dataProcessoAte}" />
+				</h:panelGroup>
+				
+				<p:outputLabel value="Pessoa" for="pessoa" />
+				
+					<p:inputText id="pessoa" size="32"
+						value="#{pesquisaProcessoPJBean.filtro.nomePessoa}" />
+					
+			
+
+					<p:outputLabel value="Numero Processo" for="nrProcesso" />
+					<p:inputText id="nrProcesso" size="32" maxlength="25"
+						value="#{pesquisaProcessoPJBean.filtro.numeroProcesso}" />
+			
+			
+				<p:outputLabel value="Status" />
+				<p:selectManyCheckbox value="#{pesquisaProcessoPJBean.filtro.statuses}">
+					<f:selectItems value="#{pesquisaProcessoPJBean.statuses}" var="statusProcesso"
+						itemValue="#{statusProcesso}" itemLabel="#{statusProcesso.descricao}" />
+				</p:selectManyCheckbox> 
+
+	</p:panelGrid>
+	
+	
+			<p:dataTable id="tableProcesso"
+				value="#{pesquisaProcessoPJBean.processosPessoaJuridicaFiltrados}"
+				emptyMessage="Não existe processos para serem exibidos!"
+				style="margin-top: 20px" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				var="processoPJ" rows="10">
+
+				<p:column headerText="Código"
+					style="text-align: center; width: 50px">
+					<h:outputText value="#{processoPJ.id}" />
+				</p:column>
+
+				<p:column headerText="Autor" style="text-align: left; width: 200px"
+				sortBy="#{processoPJ.clientePessoaJuridica.nomeContratante}">
+					<h:outputText
+						value="#{processoPJ.clientePessoaJuridica.nomeContratante}" />
+				</p:column>
+				
+				<p:column headerText="Nr. Processo" style="text-align: center; width: 100px">
+					<h:outputText
+						value="#{processoPJ.numeroProcesso}" />
+				</p:column>
+				
+				<p:column headerText="Natureza" style="text-align: center; width: 40px">
+					<h:outputText
+						value="#{processoPJ.naturezaProcesso.descricao}" />
+				</p:column>
+				
+				<p:column headerText="Percentual" style="text-align: center; width: 50px">
+					<h:outputText
+						value="#{processoPJ.percentualStr} %" />
+				</p:column>
+				
+				<p:column headerText="Status" style="text-align: center; width: 50px">
+					<h:outputText
+						value="#{processoPJ.statusProcesso.descricao}" />
+				</p:column>
+
+				<p:column headerText="Data"
+					style="text-align: center; width: 60px">
+					<h:outputText value="#{processoPJ.dataEntrada}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column style="width: 50px; text-align: center" headerText="Opções:"
+				exportable="false">
+					<p:button icon="ui-icon-pencil" title="Editar"
+						outcome="/processos/CadastroProcessoPJ">
+						<f:param name="processoPJ"
+							value="#{processoPJ.id}" />
+					</p:button>
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

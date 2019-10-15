@@ -53,8 +53,10 @@ public class CadastroUsuarioBean implements Serializable{
 				usuario.setGrupos(listaGrupos.getTarget());
 				usuario.setStatusUsuario(StatusUsuario.ATIVO);
 				usuario = cadastroUsuarioService.salvar(usuario);
+				
+				FacesUtil.addInfoMessage("Usuário " + usuario.getNome()
+						+", salvo com sucesso!");
 				limpar();
-				FacesUtil.addInfoMessage("Usuário salvo com sucesso!");
 			}else {
 				FacesUtil.addInfoMessage("O campo Senha e Confirma Senha devem ser iguais!");
 			}
@@ -89,6 +91,10 @@ public class CadastroUsuarioBean implements Serializable{
 	
 	public void setListaGrupos(DualListModel<Grupo> listaGrupos) {
 		this.listaGrupos = listaGrupos;
+	}
+	
+	public boolean isEditando(){
+		return usuario.getId() != null;
 	}
 	
 }

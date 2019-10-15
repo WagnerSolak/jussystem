@@ -1,0 +1,143 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">JusSystem</ui:define>
+
+	<ui:define name="corpo">
+
+
+
+		<f:metadata>
+			<f:viewParam name="fornecedor"
+				value="#{cadastroFornecedorBean.fornecedor}" />
+			<f:event listener="#{cadastroFornecedorBean.inicializar}"
+				type="preRenderView" />
+		</f:metadata>
+
+		<p:focus />
+
+		<h:form id="frm">
+
+			<h1>#{cadastroFornecedorBean.editando ? 'Edição de fornecedor' :
+				'Novo fornecedor para pedido de compra'}</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:button value="Limpar" outcome="/fornecedores/CadastroFornecedor" />
+					<p:separator/>
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroFornecedorBean.salvar}" update="@form" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa"
+						outcome="/fornecedores/PesquisaFornecedores" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="4" id="painel"
+				style="widht: 100%; margin-top: 20px"
+				columnClasses="rotulo, campo, rotulo, campo">
+
+				<p:outputLabel value="Nome Fantasia *" for="nomeFantasia" />
+				<p:inputText id="nomeFantasia" size="70" maxlength="90"
+					value="#{cadastroFornecedorBean.fornecedor.nomeFantasia}" />
+
+				<p:outputLabel value="Status" for="status"
+					rendered="#{cadastroFornecedorBean.fornecedor.existente}" />
+				<p:inputText id="status" size="20" maxlength="40"
+					readonly="true"
+					rendered="#{cadastroFornecedorBean.fornecedor.existente}"
+					value="#{cadastroFornecedorBean.fornecedor.status}" 
+					style="background:#D3D3D3;"/>
+
+				<p:spacer rendered="#{cadastroFornecedorBean.fornecedor.novo}" />
+				<p:spacer rendered="#{cadastroFornecedorBean.fornecedor.novo}" />
+
+				<p:outputLabel value="Razão Social" for="razaoSocial" />
+				<p:inputText id="razaoSocial" size="70" maxlength="80"
+					value="#{cadastroFornecedorBean.fornecedor.razao}" />
+
+				<p:outputLabel value="CNPJ *" for="cnpj" />
+				<p:inputMask id="cnpj" size="20" maxlength="20"
+					value="#{cadastroFornecedorBean.fornecedor.cnpj}"
+					mask="99.999.999/9999-99" />
+
+				<p:outputLabel value="Inscrição Estadual" for="inscricao" />
+				<p:inputText id="inscricao" size="20" maxlength="20"
+					value="#{cadastroFornecedorBean.fornecedor.inscricao}" />
+
+				<p:outputLabel value="E-mail" for="email" />
+				<p:inputText id="email" size="50" maxlength="50"
+					value="#{cadastroFornecedorBean.fornecedor.email}" />
+
+				<p:outputLabel value="Endereço *" for="endereco" />
+				<p:inputText id="endereco" size="70" maxlength="100"
+					value="#{cadastroFornecedorBean.fornecedor.endereco}"
+					placeholder="Exemplo: Av. Brasil" />
+
+
+				<p:outputLabel value="Numero *" for="numero" />
+				<p:inputText id="numero" size="10" maxlength="7"
+					value="#{cadastroFornecedorBean.fornecedor.numero}"
+					placeholder="Exemplo: 500" />
+
+
+				<p:outputLabel value="Bairro *" for="bairro" />
+				<p:inputText id="bairro" size="40" maxlength="40"
+					value="#{cadastroFornecedorBean.fornecedor.bairro}" />
+
+				<p:outputLabel value="Complemento" for="complemento" />
+				<p:inputText id="complemento" size="50" maxlength="100"
+					value="#{cadastroFornecedorBean.fornecedor.complemento}" />
+
+				<p:outputLabel value="CEP" for="cep" />
+				<p:inputMask id="cep" size="20" maxlength="15"
+					value="#{cadastroFornecedorBean.fornecedor.cep}" mask="99.999-999" />
+
+				
+				<p:outputLabel value="Cidade *" for="cidades" />
+				<p:selectOneMenu id="cidades"
+					value="#{cadastroFornecedorBean.fornecedor.cidade}"
+					converter="#{cidadeConverter}" filter="true" filterMatchMode="contains">
+					<f:selectItem itemLabel="Selecione uma cidade..."
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadastroFornecedorBean.cidades}" var="cid"
+						itemValue="#{cid}" itemLabel="#{cid.nome} - #{cid.ufCliente}" />
+				</p:selectOneMenu>
+
+
+
+				<p:outputLabel value="Telefone/Celular" for="telefone1" />
+				<p:inputText id="telefone1" size="20" 
+					value="#{cadastroFornecedorBean.fornecedor.telefoneCelular1}"
+					styleClass="phone" />
+
+
+				<p:outputLabel value="Telefone/Celular" for="telefone2" />
+				<p:inputText id="telefone2" size="20" 
+					value="#{cadastroFornecedorBean.fornecedor.telefoneCelular2}"
+					styleClass="phone" />
+
+
+
+				<h3>Observação</h3>
+				<p:inputTextarea rows="3" cols="71" counter="display"
+					maxlength="255" counterTemplate="{0} caracteres restantes."
+					autoResize="false"
+					value="#{cadastroFornecedorBean.fornecedor.observacao}" />
+				<br />
+				<h:outputText id="display" />
+
+
+			</p:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

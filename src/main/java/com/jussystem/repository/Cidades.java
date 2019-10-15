@@ -70,6 +70,12 @@ public class Cidades implements Serializable{
 		if(StringUtils.isNotBlank(filtro.getNome())) {
 			criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
 		}
+		
+		/*if (filtro.getUfs() != null && filtro.getUfs().length > 0) {
+			// adicionamos uma restrição "in", passando um array de constantes da enum, porém não deu certo!
+			criteria.add(Restrictions.in("ufCliente", filtro.getUfs()));
+		}*/
+		
 		return criteria.addOrder(Order.asc("nome")).list();
 	}
 

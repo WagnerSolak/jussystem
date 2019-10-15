@@ -16,9 +16,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
+import com.jussystem.validation.OnlyLetters;
 
 @Entity
 public class Usuario implements Serializable{
@@ -34,6 +37,8 @@ public class Usuario implements Serializable{
 	private List<Grupo>grupos = new ArrayList<>();
 	private String confirmaSenha;
 	
+	@Transient
+	private String senhaSemCriptografia;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,8 +49,9 @@ public class Usuario implements Serializable{
 		this.id = id;
 	}
 	
-	@NotNull
-	@Column(nullable = false, length = 80)
+	@OnlyLetters
+	@NotNull 
+	@Column(nullable = false, length = 100)
 	public String getNome() {
 		return nome;
 	}
@@ -53,7 +59,7 @@ public class Usuario implements Serializable{
 		this.nome = nome;
 	}
 	
-	@NotNull
+	@NotBlank @Email(message = "O e-mail informado é inválido!")
 	@Column(nullable = false, length = 80, unique = true)
 	public String getEmail() {
 		return email;
@@ -135,6 +141,11 @@ public class Usuario implements Serializable{
 	}
 	
 	
-	
+	public String getSenhaSemCriptografia() {
+		return senhaSemCriptografia;
+	}
+	public void setSenhaSemCriptografia(String senhaSemCriptografia) {
+		this.senhaSemCriptografia = senhaSemCriptografia;
+	}
 	
 }

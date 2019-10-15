@@ -36,7 +36,8 @@ public class EmissaoPedidoBean implements Serializable{
 			//lançcar evento CDI para atuaizar a visão do pedido para emitido, e add estoque
 			this.pedidoAlteradoEvent.fire(new PedidoAlteradoEvent(this.pedido));
 			
-			FacesUtil.addInfoMessage("Pedido emitido com sucesso!");
+			FacesUtil.addInfoMessage("Pedido: " +pedido.getId()+ ", do fornecedor: "+ pedido.getFornecedor().getNomeFantasia()+
+					", emitido com sucesso!");
 		} finally {
 			this.pedido.adicionarItemVazio();
 		}

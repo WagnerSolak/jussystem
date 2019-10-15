@@ -1,0 +1,772 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">JusSystem</ui:define>
+
+	<ui:define name="corpo">
+
+		<style>
+.sem-bordas td {
+	border: none;
+	padding: 5px;
+}
+</style>
+
+
+		<f:metadata>
+			<o:viewParam name="termoEntrevistaParaDemandaPF"
+				value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF}" />
+			<f:event
+				listener="#{cadastroTermoEntrevistaParaDemandaPFBean.inicializar}"
+				type="preRenderView" />
+		</f:metadata>
+
+		<p:focus />
+
+		<h:form>
+
+			<h1>#{cadastroTermoEntrevistaParaDemandaPFBean.editando ?
+				'Edição de Termo Entrevista para Demanda de Pessoa Física' : 'Novo
+				Termo Entrevista para Demanda de Pessoa Física'}</h1>
+
+
+
+			<p:toolbar style="margin-top: 20px">
+
+
+				<p:toolbarGroup align="right">
+
+					<p:button value="Pesquisar Termo"
+						outcome="/documentos/PesquisaTermoEntrevistaParaDemandaPF" />
+				</p:toolbarGroup>
+
+			</p:toolbar>
+
+			<p:panelGrid columns="4" id="painelPessoa"
+				style="widht: 100%; margin-top: 20px"
+				columnClasses="rotulo, campo, rotulo, campo">
+
+				<p:outputLabel value="AUTOR:" style="font-weight: bold;" />
+				<p:spacer />
+
+				<p:spacer />
+				<p:spacer />
+
+				<p:outputLabel value="Pessoa Autor *" for="pessoaDocumento" />
+				<h:panelGroup>
+					<p:inputText id="pessoaDocumento" size="60"
+						value="#{cadastroTermoEntrevistaParaDemandaPFBean.nomeCliente}"
+						readonly="#{facesContext.currentPhaseId.name eq 'RENDER_RESPONSE'}" />
+
+					<p:commandButton icon="ui-icon-search" title="Pesquisar"
+						process="@this"
+						action="#{selecaoClientePessoaFisicaBean.abrirDialogo}"
+						ignoreAutoUpdate="true">
+						<p:ajax event="dialogReturn"
+							listener="#{cadastroTermoEntrevistaParaDemandaPFBean.clienteSelecionado}"
+							update="pessoaDocumento" />
+					</p:commandButton>
+				</h:panelGroup>
+
+				<p:outputLabel value="Data do Documento" for="dataDoc" />
+				<p:calendar id="dataDoc"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.dataDocumento}"
+					maxdate="#{cadastroTermoEntrevistaParaDemandaPFBean.dataHoje}"
+					navigator="true" locale="pt" pattern="dd/MM/yyyy" 
+					required="true"
+					requiredMessage="O campo Data deve ser informado!"/>
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="4" id="painelReu"
+				style="widht: 100%; margin-top: 20px"
+				columnClasses="rotulo, campo, rotulo, campo">
+
+				<p:outputLabel value="RÉU:" style="font-weight: bold;" />
+				<p:spacer />
+
+				<p:spacer />
+				<p:spacer />
+
+				<p:outputLabel value="Nome Réu" for="reu" />
+				<p:inputText size="65" maxlength="100" id="reu"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.reu}" />
+
+				<p:outputLabel value="Telefone/Celular Réu" for="telefoneCelularReu" />
+				<p:inputText size="20" id="telefoneCelularReu"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.telefoneReu}"
+					styleClass="phone" />
+
+				<p:outputLabel value="Tipo Fiscal" for="tipoFiscal" />
+				<p:selectOneRadio id="tipoFiscal"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.tipo}">
+					<f:selectItems
+						value="#{cadastroTermoEntrevistaParaDemandaPFBean.tipos}"
+						var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}" />
+
+					<p:ajax event="change" process="@this"
+						update="docReceita docReceitaLabel" />
+				</p:selectOneRadio>
+
+				<p:outputLabel
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.tipo.rotulo}"
+					for="docReceita" id="docReceitaLabel" />
+				<p:inputMask id="docReceita" size="20" maxlength="14"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.documentoReceitaFederalReu}"
+					converter="cpfCnpjMask"
+					mask="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.tipo.mascara}">
+					<f:validateBean
+						validationGroups="#{cadastroTermoEntrevistaParaDemandaPJBean.termoEntrevistaParaDemandaPJ.tipo.grupoValidacao}" />
+				</p:inputMask>
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="4" id="painelContrato"
+				style="widht: 100%; margin-top: 20px"
+				columnClasses="rotulo, campo, rotulo, campo">
+
+				<p:outputLabel value="CONTRATO:" style="font-weight: bold;" />
+				<p:spacer />
+
+				<p:spacer />
+				<p:spacer />
+
+				<p:outputLabel value="Admissão" for="admissao" />
+				<p:calendar id="admissao"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.admissao}"
+					maxdate="#{cadastroTermoEntrevistaParaDemandaPFBean.dataHoje}"
+					navigator="true" locale="pt" pattern="dd/MM/yyyy" />
+
+				<p:outputLabel value="Registro em CTPS" for="registro" />
+				<p:calendar id="registro"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.registro}"
+					maxdate="#{cadastroTermoEntrevistaParaDemandaPFBean.dataHoje}"
+					navigator="true" locale="pt" pattern="dd/MM/yyyy" />
+
+				<p:outputLabel value="Demissão" for="demissao" />
+				<p:calendar id="demissao"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.demissao}"
+					maxdate="#{cadastroTermoEntrevistaParaDemandaPFBean.dataHoje}"
+					navigator="true" locale="pt" pattern="dd/MM/yyyy" />
+
+
+				<p:outputLabel value="Último dia trabalhado" for="ultimo" />
+				<p:calendar id="ultimo"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.ultimoDiaTrabalho}"
+					maxdate="#{cadastroTermoEntrevistaParaDemandaPFBean.dataHoje}"
+					navigator="true" locale="pt" pattern="dd/MM/yyyy" />
+
+				<h4>Causa do Afastamento</h4>
+				<p:inputTextarea rows="5" cols="66"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.causaAfastamento}" />
+
+
+
+			</p:panelGrid>
+
+
+
+			<p:panelGrid columns="6" id="painelRecebeuVerbasRecisorias"
+				style="widht: 100%; margin-top: 20px"
+				columnClasses="rotulo, campo, rotulo, campo, rotuo, campo">
+
+				<p:outputLabel value="RECEBEU VERBAS RECISÓRIAS:"
+					style="font-weight: bold;" />
+				<p:spacer />
+
+				<p:spacer />
+				<p:spacer />
+
+				<p:spacer />
+				<p:spacer />
+
+				<p:outputLabel value="Recebeu Verba Recisória" for="verba" />
+				<p:selectOneRadio id="verba" styleClass="sem-bordas"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.recebeuVerbaRecisoria}">
+					<f:selectItem itemLabel="Sim" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+				</p:selectOneRadio>
+
+				<p:outputLabel value="Quanto R$" for="valorVerba" />
+				<p:inputText id="valorVerba" size="10" maxlength="10"
+					styleClass="moeda"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.valorVerbaRecisoria}">
+					<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+				</p:inputText>
+
+				<p:outputLabel value="Trouxe Documento" for="trouxeDocumento" />
+				<p:selectOneRadio id="trouxeDocumento" styleClass="sem-bordas"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.trouxeDocumento}">
+					<f:selectItem itemLabel="Sim" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+				</p:selectOneRadio>
+
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="painelMulta477"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="MULTA DO 477:" style="font-weight: bold;" />
+				<p:spacer />
+
+
+				<p:outputLabel value="Conferir TRCT" for="trtc" />
+				<p:selectOneRadio id="trtc" styleClass="sem-bordas"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.multa477}">
+					<f:selectItem itemLabel="Sim" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+				</p:selectOneRadio>
+
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="painelDanoMoral"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="DANO MORAL:" style="font-weight: bold;"
+					for="danoMoral" />
+				<p:spacer />
+
+				<h4>(especificar os fatos)</h4>
+				<p:inputTextarea rows="3" cols="140" id="danoMoral"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.danoMoral}" />
+
+
+			</p:panelGrid>
+
+
+			<p:panelGrid columns="2" id="painelDanoMaterial"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="DANO MATERIAL:" style="font-weight: bold;"
+					for="danoMaterial" />
+				<p:spacer />
+
+				<h4>(especificar os fatos e comprovantes)</h4>
+				<p:inputTextarea rows="3" cols="140" id="danoMaterial"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.danoMaterial}" />
+
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="funcao"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="FUNÇÃO:" style="font-weight: bold;" for="fun" />
+				<p:spacer />
+
+				<h4>(especificar detalhadamente a função, as alterações de
+					função se houver, e as tarefas executadas)</h4>
+				<p:inputTextarea rows="3" cols="140" id="fun"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.funcao}" />
+
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="salarioContratado"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="SALÁRIO CONTRATADO:"
+					style="font-weight: bold;" for="salContratado" />
+				<p:spacer />
+
+				<h4>(especificar os salários, comissões, gratificações, se
+					misto ou não)</h4>
+				<p:inputTextarea rows="3" cols="140" id="salContratado"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.salarioContratado}" />
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="comissionados"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="COMISSIONADOS:" style="font-weight: bold;"
+					for="com" />
+				<p:spacer />
+
+				<h4>(especificar se recebia relatório mensal de vendas)</h4>
+				<p:inputTextarea rows="3" cols="140" id="com"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.comissionados}" />
+
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="dosInstrumentoDeTrabalho"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="DOS INSTRUMENTOS DE TRABALHO:"
+					style="font-weight: bold;" for="inst" />
+				<p:spacer />
+
+				<h4>(especificar seu usava carro da empresa, ou carro proprio
+					para serviços externos para trabalhadores externo, outras funções
+					internas conferir para pedreiro, rural, etc.)</h4>
+				<p:inputTextarea rows="3" cols="140" id="inst"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.dosInstrumentosTrabalho}" />
+
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="doReajusteSalarial"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="DO REAJUSTE SALARIAL:"
+					style="font-weight: bold;" for="reajuste" />
+				<p:spacer />
+
+				<h4>(verificar DATA-BASE e conferir salários mês a mês, não
+					recebeu o ultimo reajuste)</h4>
+				<p:inputTextarea rows="3" cols="140" id="reajuste"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.doReajusteSalarial}" />
+
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="4" id="exameMedico"
+				style="widht: 100%; margin-top: 20px"
+				columnClasses="rotulo, campo, rotulo, campo">
+
+				<p:outputLabel value="EXAME MÉDICO:" style="font-weight: bold;" />
+				<p:spacer />
+
+				<p:spacer />
+				<p:spacer />
+
+				<p:outputLabel value="Ademissional" for="ademissional" />
+				<p:selectOneRadio id="ademissional" styleClass="sem-bordas"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.exameMedicoAdemissional}">
+					<f:selectItem itemLabel="Sim" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+				</p:selectOneRadio>
+
+				<p:outputLabel value="Periódico" for="periodico" />
+				<p:selectOneRadio id="periodico" styleClass="sem-bordas"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.exameMedicoPeriodico}">
+					<f:selectItem itemLabel="Sim" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+				</p:selectOneRadio>
+
+				<p:outputLabel value="Demissional" for="demissional" />
+				<p:selectOneRadio id="demissional" styleClass="sem-bordas"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.exameMedicoDemissional}">
+					<f:selectItem itemLabel="Sim" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+				</p:selectOneRadio>
+
+				<p:outputLabel value="O médico lhe examinou" for="medicoLheExaminou" />
+				<p:selectOneRadio id="medicoLheExaminou" styleClass="sem-bordas"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.exameMedicoLheExaminou}">
+					<f:selectItem itemLabel="Sim" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+				</p:selectOneRadio>
+
+			</p:panelGrid>
+
+
+			<p:panelGrid columns="2" id="valeTransporte"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="VALE TRANSPORTE:" style="font-weight: bold;" />
+				<p:spacer />
+
+				<h4>(especificar se usava e se pagava)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.valeTransporte}" />
+
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="seguroDeVida"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="SEGURO DE VIDA:" style="font-weight: bold;" />
+				<p:spacer />
+
+				<h4>(Especificar)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.seguroDeVida}" />
+
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="cestaBasica"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="CESTA BÁSICA:" style="font-weight: bold;"
+					for="cesta" />
+				<p:spacer />
+
+				<h4>(se recebia especificar valor)</h4>
+				<p:inputText id="cesta" size="10" styleClass="moeda" maxlength="10"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.cestaBasica}">
+					<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+				</p:inputText>
+
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="premioAssiduidade"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="PRÉMIO ASSIDUIDADE:"
+					style="font-weight: bold;" />
+				<p:spacer />
+
+
+				<p:outputLabel value="Prémio Assiduidade" for="assiduidade" />
+				<p:selectOneRadio id="assiduidade" styleClass="sem-bordas"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.premioAssiduidade}">
+					<f:selectItem itemLabel="Sim" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+				</p:selectOneRadio>
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="adicionalTempoServico"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="ADICIONAL TEMPO DE SERVIÇO:"
+					style="font-weight: bold;" />
+				<p:spacer />
+
+				<h4>(conferir se recebia)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.adicionalTempoServico}" />
+
+
+			</p:panelGrid>
+
+
+			<p:panelGrid columns="2" id="descontos"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="DESCONTOS:" style="font-weight: bold;" />
+				<p:spacer />
+
+				<h4>(especificar quais valores era descontado do salário: taxa
+					confederativa, convênios, etc., pedir devolução caso tenha sido
+					feito)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.descontos}" />
+
+			</p:panelGrid>
+
+
+			<p:panelGrid columns="2" id="jornadaDeTrabalho"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="JORNADA DE TRABALHO:"
+					style="font-weight: bold;" />
+				<p:spacer />
+
+				<h4>(Especificar o horário trabalhado, se em turno, regime
+					(ex.: 5X1, 6X1, 12X36, etc.)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.jTTurno}" />
+
+
+				<h4>(Se trabalhava domingos e feriados)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.jTTrabalhavaDomingo}" />
+
+
+				<h4>(Se tinha cartão ponto ou controle de frequência, e quem
+					anotava o cartão se o reclamante ou outra pessoa)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.jTCartaoPonto}" />
+
+				<h4>(Se anotava cartão ponto conforme horas realmente
+					trabalhadas, ou conforme ordem da empregadora)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.jTCartaoPontoAnotava}" />
+
+				<h4>(Qual tipo de cartão ponto, manual, magnético, digital,
+					etc)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.jTTipoCartaoPonto}" />
+
+				<h4>(Se assinava o cartão ponto ou controle de freqüência)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.jTAssinava}" />
+
+				<h4>(Se recebia horas extras, adicional noturno, reflexos, etc)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.jTHoraExtra}" />
+
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="inItinere"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="IN ITINERE:" style="font-weight: bold;" />
+				<p:spacer />
+
+				<h4>era transportado por veículo da empresa até o local o
+					trabalho, difícil acesso ou não, havia transporte público regular,
+					no turno noturno tinha transporte público regular com horário
+					condizente com o horário de entrada e saída do reclamante qual
+					tempo de percurso</h4>
+				<p:inputTextarea rows="4" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.intinere}" />
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="faltasAoServico"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="FALTAS AO SERVIÇO:" style="font-weight: bold;" />
+				<p:spacer />
+
+
+				<p:outputLabel value="Faltas ao Serviço" for="faltas" />
+				<p:selectOneRadio id="faltas" styleClass="sem-bordas"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.faltaAoServico}">
+					<f:selectItem itemLabel="Sim raramente" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+					<f:selectItem itemLabel="Nunca faltou" itemValue="X" />
+					<f:selectItem itemLabel="Dificilmente" itemValue="D" />
+				</p:selectOneRadio>
+
+				<p:outputLabel value="Justifica a falta cometida"
+					for="justificaFalta" />
+				<p:selectOneRadio id="justificaFalta" styleClass="sem-bordas"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.justificaFaltaCometida}">
+					<f:selectItem itemLabel="Sim" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+				</p:selectOneRadio>
+
+				<p:outputLabel value="Atestado Médico" for="atestadoMedico" />
+				<p:selectOneRadio id="atestadoMedico" styleClass="sem-bordas"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.atestadoMedico}">
+					<f:selectItem itemLabel="Sim" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+					<f:selectItem itemLabel="Nunca faltou" itemValue="X" />
+
+				</p:selectOneRadio>
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="decimoTerceiroSalario"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="13º SALÁRIO:" style="font-weight: bold;" />
+				<p:spacer />
+
+				<h4>(especificar se recebia e CONFERIR)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.decimoTerceiroSalario}" />
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="ferias"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="FÉRIAS:" style="font-weight: bold;" />
+				<p:spacer />
+
+				<h4>(especificar se gozava férias, quanto dias, se recebia, e
+					quando recebia)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.ferias}" />
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="6" id="condicoesDoServico"
+				style="widht: 100%; margin-top: 20px"
+				columnClasses="rotulo, campo, rotulo, campo, rotulo, campo">
+
+				<p:outputLabel
+					value="CONDIÇÕES DO SERVIÇO EM RAZÃO DE AMBIENTE DE TRABALHO E/OU DA ATIVIDADE:"
+					style="font-weight: bold;" />
+				<p:spacer />
+
+				<p:spacer />
+				<p:spacer />
+
+				<p:spacer />
+				<p:spacer />
+
+				<p:outputLabel value="Insalubridade" for="insalubridade" />
+				<p:selectOneRadio id="insalubridade" styleClass="sem-bordas"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.insalubridade}">
+					<f:selectItem itemLabel="Sim" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+				</p:selectOneRadio>
+
+				<p:outputLabel value="Periculosidade" for="periculosidade" />
+				<p:selectOneRadio id="periculosidade" styleClass="sem-bordas"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.periculosidade}">
+					<f:selectItem itemLabel="Sim" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+				</p:selectOneRadio>
+
+				<p:outputLabel value="Riscos" for="riscos" />
+				<p:selectOneRadio id="riscos" styleClass="sem-bordas"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.riscos}">
+					<f:selectItem itemLabel="Sim" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+				</p:selectOneRadio>
+
+				<h4>(especificar os agentes, poeira, frio, calor, sol,
+					químicos, ergonômicos, perigo, etc.,)</h4>
+				<p:inputTextarea rows="5" cols="48"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.riscosDescricao}" />
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="acidenteDeTrabalho"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="ACIDENTE DE TRABALHO:"
+					style="font-weight: bold;" />
+				<p:spacer />
+
+				<p:outputLabel value="Acidente de trabalho" for="acidenteTrabalho" />
+				<p:selectOneRadio id="acidenteTrabalho" styleClass="sem-bordas"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.acidenteTrabalho}">
+					<f:selectItem itemLabel="Sim" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+					<f:selectItem itemLabel="Conferir" itemValue="X" />
+				</p:selectOneRadio>
+
+				<h4>(especificar data e como ocorreu, quanto tempo de
+					afastamento, se foi feito CAT etc.)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.acidenteTrabalhoDescricao}" />
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="doencaProfissional"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="DOENÇA PROFISSIONAL:"
+					style="font-weight: bold;" />
+				<p:spacer />
+
+
+				<h4>(especificar a causa)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.doencaProfissional}" />
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="gestante"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="GESTANTE:" style="font-weight: bold;" />
+				<p:spacer />
+
+
+				<h4>(especificar se for caso)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.gestante}" />
+
+			</p:panelGrid>
+			
+			<p:panelGrid columns="2" id="estabilidade"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="ESTABIIDADE:" style="font-weight: bold;" />
+				<p:spacer />
+
+
+				<p:outputLabel value="Estabilidade" for="est" />
+				<p:selectOneRadio id="est" styleClass="sem-bordas"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.estabilidade}">
+					<f:selectItem itemLabel="Sim" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+					<f:selectItem itemLabel="Conferir" itemValue="X" />
+				</p:selectOneRadio>
+					
+
+			</p:panelGrid>
+
+
+			<p:panelGrid columns="2" id="cipeiro"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="CIPEIRO:" style="font-weight: bold;" />
+				<p:spacer />
+
+
+				<h4>(especificar e conferir direitos)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.cipeiro}" />
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="epis"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="EPI´s:" style="font-weight: bold;" />
+				<p:spacer />
+
+
+				<h4>(especificar quais eram fornecidos)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.epis}" />
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="uniforme"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="UNIFORME:" style="font-weight: bold;" />
+				<p:spacer />
+
+
+				<h4>(especificar se usava e se tinha de comprar)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.uniforme}" />
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="salarioFamilia"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="SALÁRIO FAMÍLIA:" style="font-weight: bold;" />
+				<p:spacer />
+
+
+				<h4>(filho menores de 14 anos conferir salário e direito)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.salarioFamilia}" />
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="fgts"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="FGTS:" style="font-weight: bold;" />
+				<p:spacer />
+
+
+				<h4>(pedir extrato mês a mês para conferencia se foi depositado
+					correto)</h4>
+				<p:inputTextarea rows="3" cols="140"
+					value="#{cadastroTermoEntrevistaParaDemandaPFBean.termoEntrevistaParaDemandaPF.fgts}" />
+
+			</p:panelGrid>
+
+			
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroTermoEntrevistaParaDemandaPFBean.salvar}"
+						update="@form" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

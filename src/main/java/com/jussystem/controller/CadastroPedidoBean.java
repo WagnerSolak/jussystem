@@ -9,14 +9,17 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.primefaces.event.SelectEvent;
+
 import com.jussystem.model.FormaPagamento;
+import com.jussystem.model.Fornecedor;
 import com.jussystem.model.ItemPedido;
 import com.jussystem.model.Pedido;
-import com.jussystem.model.Pessoa;
 import com.jussystem.model.Produto;
 import com.jussystem.model.Usuario;
 import com.jussystem.repository.FormaPagamentos;
-import com.jussystem.repository.Pessoas;
 import com.jussystem.repository.Produtos;
 import com.jussystem.repository.Usuarios;
 import com.jussystem.util.jsf.FacesUtil;
@@ -33,9 +36,7 @@ public class CadastroPedidoBean implements Serializable {
 	
 	@Inject
 	private FormaPagamentos formaPagamentos;
-
-	@Inject
-	private Pessoas pessoas;
+	
 
 	@Inject
 	private CadastroPedidoService cadastroPedidoService;
@@ -57,6 +58,10 @@ public class CadastroPedidoBean implements Serializable {
 		limpar();
 
 	}
+	
+	public void fornecedorSelecionado(SelectEvent event){
+		pedido.setFornecedor((Fornecedor)event.getObject());
+	}
 
 	public void inicializar() {
 		if (FacesUtil.isNotPostBack()) {
@@ -65,7 +70,6 @@ public class CadastroPedidoBean implements Serializable {
 			
 			
 			this.pedido.adicionarItemVazio();
-
 			this.recalcularPedido();
 		}
 	}
@@ -76,7 +80,8 @@ public class CadastroPedidoBean implements Serializable {
 		try {
 			this.pedido = this.cadastroPedidoService.salvar(pedido);
 
-			FacesUtil.addInfoMessage("Pedido salvo com sucesso!");
+			FacesUtil.addInfoMessage("Pedido: " +pedido.getId()+ ", do fornecedor: "+ pedido.getFornecedor().getNomeFantasia()+
+							", salvo com sucesso!");
 		} finally {
 			this.pedido.adicionarItemVazio();
 		}
@@ -98,11 +103,17 @@ public class CadastroPedidoBean implements Serializable {
 	}
 
 	public void carregarProdutoPorId() {
-
-		if (this.id != null || !this.id.equals("")) {
-			this.produtoLinhaEditavel = this.produtos.porId(this.id);
-			this.carregarProdutoLinhaEditavel();
-		}
+	
+				if (this.id != null || !this.id.equals("")) {
+					this.produtoLinhaEditavel = this.produtos.porId(this.id);
+					if(produtoLinhaEditavel == null){
+						FacesUtil.addErrorMessage("Código inválido!");
+					}else{
+						this.carregarProdutoLinhaEditavel();
+					}
+					
+				}	
+	
 	}
 
 	public void carregarProdutoLinhaEditavel() {
@@ -113,7 +124,6 @@ public class CadastroPedidoBean implements Serializable {
 				FacesUtil.addInfoMessage("Já existe um item com o nome informado!");
 			} else {
 				item.setProduto(this.produtoLinhaEditavel);
-				;
 				item.setValorUnitario(this.produtoLinhaEditavel.getValorUnitario());
 
 				this.pedido.adicionarItemVazio();
@@ -142,9 +152,7 @@ public class CadastroPedidoBean implements Serializable {
 		return this.produtos.porNomeLista(nome);
 	}
 
-	public List<Pessoa> completarFornecedor(String nome) {
-		return this.pessoas.porNome(nome);
-	}
+
 
 	public void atualizarQuantidade(ItemPedido item, int linha) {
 		if (item.getQuantidade() < 1) {
@@ -174,9 +182,7 @@ public class CadastroPedidoBean implements Serializable {
 		return formasPagamento;
 	}
 
-/*	public FormaPagamento[] getFormasPagamento() { será oimplementado no emissaoPedidoBean
-		return FormaPagamento.values();
-	}*/
+
 
 	public boolean isEditando() {
 		return this.pedido.getId() != null;
@@ -198,4 +204,13 @@ public class CadastroPedidoBean implements Serializable {
 		this.id = id;
 	}
 
+	@NotBlank
+	public String getNomeFantasiaFornecedor(){
+		return pedido.getFornecedor() == null ? null : pedido.getFornecedor().getNomeFantasia();
+	}
+	
+	//método apenas para não ocorrer erro na validação readOnly como true na render response
+	public void setNomeFantasiaFornecedor(String nome){
+		
+	}
 }

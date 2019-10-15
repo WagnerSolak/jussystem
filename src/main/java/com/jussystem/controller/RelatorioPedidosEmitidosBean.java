@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.Session;
+import org.hibernate.exception.GenericJDBCException;
 
+import com.jussystem.util.jsf.FacesUtil;
 import com.jussystem.util.report.ExecutorRelatorio;
 
 
@@ -39,18 +41,26 @@ public class RelatorioPedidosEmitidosBean implements Serializable{
 	private EntityManager manager;
 	
 	public void emitir() {
-		Map<String, Object> parametros = new HashMap<>();
-		parametros.put("data_inicio", this.dataInicio);
-		parametros.put("data_final", this.dataFim);
+		try {
+			Map<String, Object> parametros = new HashMap<>();
+			parametros.put("data_inicio", this.dataInicio);
+			parametros.put("data_final", this.dataFim);
+			
+			ExecutorRelatorio executor = new ExecutorRelatorio("/META-INF/relatorios/relatorio_pedidos_emitidos.jasper",
+					this.response, parametros, "PedidosEmitidos.pdf");
+			
+			
+			Session session = manager.unwrap(Session.class); //captura a sessao
+			session.doWork(executor);
+			
+			if(executor.isRelatorioGerado()){
+				facesContext.responseComplete();
+			}
+		} catch (GenericJDBCException e) {
+			e.getMessage();
+			FacesUtil.addErrorMessage("Não existem registros para o filtro informado!");
+		}
 		
-		ExecutorRelatorio executor = new ExecutorRelatorio("/META-INF/relatorios/relatorio_pedidos_emitidos.jasper",
-				this.response, parametros, "Pedidos emitidos.pdf");
-		
-		
-		Session session = manager.unwrap(Session.class); //captura a sessao
-		session.doWork(executor);
-		
-		facesContext.responseComplete();
 	}
 	
 	

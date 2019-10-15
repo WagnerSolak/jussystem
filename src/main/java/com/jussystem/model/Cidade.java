@@ -4,15 +4,18 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.jussystem.validation.OnlyLetters;
+
+
 
 @Entity
 public class Cidade implements Serializable{
@@ -22,9 +25,10 @@ public class Cidade implements Serializable{
 	
 	private Long id;
 	private String nome;
-	private Estado estado;
 	
+	private UfCliente ufCliente;
 	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
@@ -34,8 +38,8 @@ public class Cidade implements Serializable{
 		this.id = id;
 	}
 	
-	@NotBlank
-	@Size(max = 50)
+	@OnlyLetters
+	@NotBlank 
 	@Column(nullable = false, length = 50)
 	public String getNome() {
 		return nome;
@@ -44,15 +48,19 @@ public class Cidade implements Serializable{
 		this.nome = nome;
 	}
 	
+	public void setUfCliente(UfCliente ufCliente) {
+		this.ufCliente = ufCliente;
+	}
+	
 	@NotNull
-	@ManyToOne
-	@JoinColumn(name = "estado_id",nullable = false)
-	public Estado getEstado() {
-		return estado;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 2)
+	public UfCliente getUfCliente() {
+		return ufCliente;
 	}
-	public void setEstado(Estado estado) {
-		this.estado = estado;
-	}
+	
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -76,6 +84,9 @@ public class Cidade implements Serializable{
 			return false;
 		return true;
 	}
+	
+	
+	
 	
 	
 }

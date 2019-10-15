@@ -1,0 +1,175 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa: contas a receber</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frm">
+
+			<h1>Pesquisa Contas a Receber de Pessoa Física</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+
+			<p:toolbar style="margin-top: 20px">
+
+				<p:toolbarGroup>
+				<p:button value="Limpar"
+						outcome="/contasReceber/PesquisaContasReceberPF"/>
+						<p:separator />
+					<p:commandButton value="Pesquisar"
+						action="#{pesquisaContasReceberPFBean.pesquisar}" update="@form" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+				
+				
+						<p:separator/>
+					<p:button value="A definir"
+						 />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:focus />
+
+			<p:panelGrid columns="6" id="painel"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo, rotulo, campo">
+
+				<p:outputLabel value="Código" />
+				<h:panelGroup>
+					<p:inputText size="12"
+						value="#{pesquisaContasReceberPFBean.filtro.numeroDe}" />
+					a
+					<p:inputText size="12"
+						value="#{pesquisaContasReceberPFBean.filtro.numeroAte}" />
+				</h:panelGroup>
+				
+				
+
+				<p:outputLabel value="Data de emissão" />
+				<h:panelGroup>
+					<p:calendar size="12" pattern="dd/MM/yyyy"
+						value="#{pesquisaContasReceberPFBean.filtro.dataContasReceberDe}" />
+					a
+					<p:calendar size="12" pattern="dd/MM/yyyy"
+						value="#{pesquisaContasReceberPFBean.filtro.dataContasReceberAte}" />
+				</h:panelGroup>
+				
+				<p:outputLabel value="Data de vencimento" />
+				<h:panelGroup>
+					<p:calendar size="12" pattern="dd/MM/yyyy"
+						value="#{pesquisaContasReceberPFBean.filtro.dataVencimentoDe}" />
+					a
+					<p:calendar size="12" pattern="dd/MM/yyyy"
+						value="#{pesquisaContasReceberPFBean.filtro.dataVencimentoAte}" />
+				</h:panelGroup>
+				
+				<p:outputLabel value="Data de pagamento" />
+				<h:panelGroup>
+					<p:calendar size="12" pattern="dd/MM/yyyy"
+						value="#{pesquisaContasReceberPFBean.filtro.dataPagamentoDe}" />
+					a
+					<p:calendar size="12" pattern="dd/MM/yyyy"
+						value="#{pesquisaContasReceberPFBean.filtro.dataPagamentoAte}" />
+				</h:panelGroup>
+				
+				<p:outputLabel value="Pessoa" for="pessoa" />
+				<p:inputText id="pessoa" size="32"
+						value="#{pesquisaContasReceberPFBean.filtro.nomePessoa}" />
+					
+			
+
+					<p:outputLabel value="Numero Processo" for="nrProcesso" />
+					<p:inputText id="nrProcesso" size="32" maxlength="25"
+						value="#{pesquisaContasReceberPFBean.filtro.numeroProcesso}" />
+			
+			
+				<p:outputLabel value="Status" />
+				<p:selectManyCheckbox value="#{pesquisaContasReceberPFBean.filtro.statuses}">
+					<f:selectItems value="#{pesquisaContasReceberPFBean.statuses}" var="statusCR"
+						itemValue="#{statusCR}" itemLabel="#{statusCR.descricao}" />
+				</p:selectManyCheckbox> 
+
+			</p:panelGrid>
+
+			<p:dataTable id="tableContasReceber"
+				value="#{pesquisaContasReceberPFBean.contasReceberPessoaFisicaFiltradas}"
+				emptyMessage="Não existe contas a receber para serem exibidas!"
+				style="margin-top: 20px" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				var="contasReceberPF" rows="10">
+
+				<p:column headerText="Código"
+					style="text-align: center; width: 50px">
+					<h:outputText value="#{contasReceberPF.id}" />
+				</p:column>
+
+				<p:column headerText="Pessoa" style="text-align: left; width: 100px"
+				sortBy="#{contasReceberPF.clientePessoaFisica.nomePessoa}">
+					<h:outputText
+						value="#{contasReceberPF.clientePessoaFisica.nomePessoa}" />
+				</p:column>
+				
+				
+				<p:column headerText="Dt. Emissão" style="text-align: center; width: 60px"
+					sortBy="#{contasReceberPF.dataEmissao}">
+					<h:outputText value="#{contasReceberPF.dataEmissao}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Dt. Vencimento" style="text-align: center; width: 60px"
+					sortBy="#{contasReceberPF.dataVencimento}">
+					<h:outputText value="#{contasReceberPF.dataVencimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Dt. Pagto" style="text-align: center; width: 60px" 
+					sortBy="#{contasReceberPF.dataPagamento}">
+					<h:outputText value="#{contasReceberPF.dataPagamento}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Vl. Total" style="text-align: center; width: 50px">
+					<h:outputText
+						value="#{contasReceberPF.valorTotal}" />
+				</p:column>
+				
+				<p:column headerText="Vl. Pago" style="text-align: center; width: 50px">
+					<h:outputText
+						value="#{contasReceberPF.valorPago}" />
+				</p:column>
+				
+				<p:column headerText="Vl. Restante" style="text-align: center; width: 50px">
+					<h:outputText
+						value="#{contasReceberPF.valorRestante}" />
+				</p:column>
+				
+				
+				
+				<p:column headerText="Status" style="text-align: center; width: 50px">
+					<h:outputText
+						value="#{contasReceberPF.statusContasReceber.descricao}" />
+				</p:column>
+
+				
+
+				<p:column style="width: 50px; text-align: center" headerText="Opções:"
+					exportable="false">
+					<p:button icon="ui-icon-pencil" title="DESEN.">
+						
+					</p:button>
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

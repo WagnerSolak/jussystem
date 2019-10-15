@@ -1,0 +1,176 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">JusSystem</ui:define>
+
+	<ui:define name="corpo">
+		<f:metadata>
+			<o:viewParam name="processoPF" value="#{cadastroProcessoPFBean.processoPF}" />
+			<f:event listener="#{cadastroProcessoPFBean.inicializar}"
+				type="preRenderView" />
+		</f:metadata>
+
+		<h:form>
+
+			<h1>#{cadastroDeclaracaoJusticaGratuitaPFBean.editando ? 'Edição de Cadastro de Processo de pessoa física' : 'Novo Cadastro de Processo de pessoa física'}</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+				<p:button value="Limpar" outcome="/processos/CadastroProcessoPF" />
+					<p:separator/>
+					<p:separator/>
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroProcessoPFBean.salvar}" update="@form"
+						process="@form" />
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+				
+				<p:commandButton value="Encerrar" action="#{cadastroProcessoPFBean.encerrarProcesso}"
+				process="@form" update="@form"/>
+				<p:separator/>
+				<p:commandButton value="Cancelar"/>
+				<p:separator/>
+				<p:button value="Cadastro Cliente" outcome="/pessoas/CadastroClientePessoaFisica" />
+					<p:separator/>
+					<h:outputLink value="https://honorarios.oabpr.org.br/tabela-de-honorarios" >Ir para: Tabela OAB</h:outputLink>
+					<p:separator/>
+					<p:button value="Pesquisar Processo" 
+					outcome="/processos/PesquisaProcessoPF" />
+				</p:toolbarGroup>
+
+			</p:toolbar>
+
+
+			<p:panelGrid columns="2" id="painel"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Cliente Pessoa Física *" for="pessoaFisica" />
+				<h:panelGroup>
+					<p:inputText id="pessoaFisica" size="60"
+						value="#{cadastroProcessoPFBean.nomeCliente}"
+						readonly="#{facesContext.currentPhaseId.name eq 'RENDER_RESPONSE'}" />
+
+					<p:commandButton icon="ui-icon-search" title="Pesquisar"
+						process="@this" action="#{selecaoClientePessoaFisicaBean.abrirDialogo}"
+						ignoreAutoUpdate="true">
+						<p:ajax event="dialogReturn"
+							listener="#{cadastroProcessoPFBean.clienteSelecionado}"
+							update="pessoaFisica" />
+					</p:commandButton>
+				</h:panelGroup>
+				
+				<p:outputLabel value="Status" />
+				<h:outputText value="#{cadastroProcessoPFBean.processoPF.statusProcesso.descricao}" 
+				/>
+
+				<p:outputLabel value="Data *" />
+				<p:calendar value="#{cadastroProcessoPFBean.processoPF.dataEntrada}"
+					navigator="true" locale="pt" pattern="dd/MM/yyyy" 
+					maxdate="#{cadastroProcessoPFBean.dataHoje}"
+					required="true"
+					requiredMessage="O campo Data deve ser informado!"/>
+
+				<p:outputLabel value="Número do Processo *" for="numeroProcesso" />
+				<p:inputText value="#{cadastroProcessoPFBean.processoPF.numeroProcesso}"
+					id="numeroProcesso" size="20" maxlength="20"/>	
+
+				<p:outputLabel value="Natureza do Processo *" for="natureza" />
+				<h:panelGroup>
+				<p:selectOneRadio id="natureza"
+					value="#{cadastroProcessoPFBean.processoPF.naturezaProcesso}">
+					<f:selectItems value="#{cadastroProcessoPFBean.naturezasProcesso}"
+						var="naturezaProcesso" itemValue="#{naturezaProcesso}"
+						itemLabel="#{naturezaProcesso.descricao}" />
+
+				<p:ajax event="change" process="@this" update="grupoLabel, grupoInput"/>
+				</p:selectOneRadio>
+				</h:panelGroup>
+
+				<p:outputLabel value="Valor Total *" for="vlTotal" />
+				<p:inputText value="#{cadastroProcessoPFBean.processoPF.valorTotal}"
+					id="vlTotal" size="20" styleClass="moeda">
+					<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+
+					<p:ajax event="change" process="@this" update="vlLiquido"
+						listener="#{cadastroProcessoPFBean.recalcularProcesso}" />
+				</p:inputText>
+				
+				<h:panelGroup id="grupoLabel">
+	
+	<p:outputLabel value="Valor Sal. Mínimos" for="vlSalarios" rendered="#{cadastroProcessoPFBean.processoPF.naturezaProcesso eq 'CIVIL'}"/>
+	<p:outputLabel value="Valor Desconto"     for="vlSalarios" rendered="#{cadastroProcessoPFBean.processoPF.naturezaProcesso eq 'TRABALHO'}"/>
+	</h:panelGroup>
+				
+	<h:panelGroup id="grupoInput">
+		<p:inputText value="#{cadastroProcessoPFBean.processoPF.valorDescontos}" id="vlDescontos"
+				 size="20" styleClass="moeda"
+				 rendered="#{cadastroProcessoPFBean.processoPF.naturezaProcesso eq 'TRABALHO'}">
+			
+			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+					
+					<p:ajax event="change" process="@this" update="vlLiquido"
+						listener="#{cadastroProcessoPFBean.recalcularProcesso}" />
+		</p:inputText>
+	
+		<p:inputText value="#{cadastroProcessoPFBean.processoPF.valorSalariosMinimos}" id="vlSalarios"
+				 size="20" styleClass="moeda"
+				 rendered="#{cadastroProcessoPFBean.processoPF.naturezaProcesso eq 'CIVIL'}">
+			
+			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+	
+					
+					<p:ajax event="change" process="@this" update="vlLiquido"
+						listener="#{cadastroProcessoPFBean.recalcularProcesso}" />
+			
+		</p:inputText>			
+	</h:panelGroup>
+	
+	
+				<p:outputLabel value="Percentual *" for="percentual" />
+				<p:inputText value="#{cadastroProcessoPFBean.processoPF.percentual}"
+					id="percentual" size="20">
+					<p:ajax event="change" process="@this"
+						update="vlLiquido valorRecebeCliente valorRecebe"
+						listener="#{cadastroProcessoPFBean.recalcularProcesso}" />
+				</p:inputText>
+				
+
+				<p:spacer />
+				<p:outputLabel value="Valores calculados:" />
+
+				<p:outputLabel value="Valor Líquido" for="vlLiquido"
+					style="font-weight: bold" />
+				<h:outputText value="#{cadastroProcessoPFBean.processoPF.valorLiquido}"
+					id="vlLiquido">
+					<f:convertNumber type="currency" />
+				</h:outputText>
+
+				<p:outputLabel value="Valor Recebimento Escritório" for="valorRecebe"
+					style="font-weight: bold" />
+				<h:outputText
+					value="#{cadastroProcessoPFBean.processoPF.valorRecebimentoProcesso}"
+					id="valorRecebe">
+					<f:convertNumber type="currency" />
+				</h:outputText>
+
+				<p:outputLabel value="Valor Recebimento Cliente"
+					for="valorRecebeCliente" style="font-weight: bold" />
+				<h:outputText
+					value="#{cadastroProcessoPFBean.processoPF.valorRecebimentoCliente}"
+					id="valorRecebeCliente">
+					<f:convertNumber type="currency" />
+				</h:outputText>
+
+			</p:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+

@@ -1,6 +1,6 @@
 package com.jussystem.model;
 
-public enum StatusPessoa {
+public enum StatusPessoa { //apagar quando quiser
 	
 	ATIVO("Ativo"),
 	INATIVO("Inativo");

@@ -12,8 +12,44 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title><ui:insert name="titulo"> SGJ</ui:insert></title>
 	<h:outputStylesheet library="css" name="sistema.css" />
-	<h:outputScript library="js" name="jquery.maskMoney.js"></h:outputScript>
+	<h:outputScript library="js" name="jquery.maskMoney.js" />
+	<h:outputScript library="js" name="jquery.maskPhone.js" />
+	<h:outputScript library="js" name="scripty.js" />
 </h:head>
+
+<script>
+	PrimeFaces.locales['pt'] = {
+		closeText : 'Fechar',
+		prevText : 'Anterior',
+		nextText : 'Próximo',
+		currentText : 'Começo',
+		monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+				'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro',
+				'Dezembro' ],
+		monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul',
+				'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+		dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+				'Sexta', 'Sábado' ],
+		dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+		dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+		weekHeader : 'Semana',
+		firstDay : 1,
+		isRTL : false,
+		showMonthAfterYear : false,
+		yearSuffix : '',
+		timeOnlyTitle : 'Só Horas',
+		timeText : 'Tempo',
+		hourText : 'Hora',
+		minuteText : 'Minuto',
+		secondText : 'Segundo',
+		currentText : 'Data Atual',
+		ampm : false,
+		month : 'Mês',
+		week : 'Semana',
+		day : 'Dia',
+		allDayText : 'Todo Dia'
+	};
+</script>
 
 <h:body>
 	<p:ajaxStatus styleClass="ajax-status" onsuccess="configurarMoeda()">
@@ -40,77 +76,291 @@
 
 			<h:form style="display: inline-block">
 				<p:menubar styleClass="menu-sistema">
-					<p:submenu label="Cadastros">
-						<p:menuitem value="Pessoas" outcome="/pessoas/CadastroPessoa" />
-						<p:menuitem value="Usuários" outcome="/usuarios/CadastroUsuario" />
-						<p:separator />
-						<p:menuitem value="Produtos" outcome="/produtos/CadastroProduto" />
-						<p:separator />
-						<p:menuitem value="Cidades" outcome="/cidades/CadastroCidade" />
-						<p:menuitem value="Estados" outcome="/estados/CadastroEstado" />
-						<p:separator />
-						<p:menuitem value="Forma Pagamento"
-							outcome="/formaPagamentos/CadastroFormaPagamento" />
+					<p:submenu label="Cadastros/Pesquisas">
+						<p:submenu label="Cidade">
+							<p:menuitem value="Cadastro de Cidade" style="width: 200px;"
+								styleClass="menu-tamanho" outcome="/cidades/CadastroCidade"
+								icon="ui-icon-plus" />
+							<p:separator />
+							<p:menuitem value="Pesquisa de Cidade" icon="ui-icon-search"
+								outcome="/cidades/PesquisaCidades" />
+						</p:submenu>
 						<p:separator />
 
-					</p:submenu>
+						<p:submenu label="Cliente Pessoa Física">
+							<p:menuitem value="Cadastro de Cliente Pessoa Física"
+								icon="ui-icon-plus"
+								outcome="/pessoas/CadastroClientePessoaFisica" />
+							<p:separator />
+							<p:menuitem value="Pesquisa de Cliente Pessoa Física"
+								icon="ui-icon-search"
+								outcome="/pessoas/PesquisaClientesPessoaFisica" />
+							<p:separator />
+							<p:menuitem value="Cadastro de Profissão" icon="ui-icon-plus"
+								outcome="/profissoes/CadastroProfissao" />
+							<p:separator />
+							<p:menuitem value="Pesquisa de Profissão" icon="ui-icon-search"
+								outcome="/profissoes/PesquisaProfissoes" />
+						</p:submenu>
+						<p:separator />
 
+						<p:submenu label="Cliente Pessoa Jurídica">
+							<p:menuitem value="Cadastro de Cliente Pessoa Jurídica"
+								outcome="/pessoas/CadastroClientePessoaJuridica" />
+							<p:separator />
+							<p:menuitem value="Pesquisa de Cliente Pessoa Juridica"
+								outcome="/pessoas/PesquisaClientesPessoaJuridica" />
+							<p:separator />
+							<p:menuitem value="Cadastro de Cargo"
+								outcome="/cargos/CadastroCargo" />
+							<p:separator />
+							<p:menuitem value="Pesquisa de Cargo"
+								outcome="/cargos/PesquisaCargos" />
+						</p:submenu>
+						<p:separator />
 
-					<p:submenu label="Pesquisas">
-						<p:menuitem value="Pessoas" outcome="/pessoas/PesquisaPessoas" />
-						<p:menuitem value="Usuários" outcome="/usuarios/PesquisaUsuarios" />
+						<p:submenu label="Fornecedor">
+							<p:menuitem value="Cadastro de Fornecedor"
+								outcome="/fornecedores/CadastroFornecedor" />
+							<p:separator />
+							<p:menuitem value="Pesquisa de Fornecedor"
+								outcome="/fornecedores/PesquisaFornecedores" />
+
+						</p:submenu>
 						<p:separator />
-						<p:menuitem value="Produtos" outcome="/produtos/PesquisaProdutos" />
+
+						<p:submenu label="Usuário">
+							<p:menuitem value="Cadastro de Usuário"
+								outcome="/usuarios/CadastroUsuario" />
+							<p:separator />
+							<p:menuitem value="Pesquisa de Usuário"
+								outcome="/usuarios/PesquisaUsuarios" />
+						</p:submenu>
 						<p:separator />
-						<p:menuitem value="Cidades" outcome="/cidades/PesquisaCidades" />
-						<p:menuitem value="Estados" outcome="/estados/PesquisaEstados" />
+
+						<p:submenu label="Produto">
+							<p:menuitem value="Cadastro de Produto"
+								outcome="/produtos/CadastroProduto" />
+							<p:separator />
+							<p:menuitem value="Pesquisa de Produto"
+								outcome="/produtos/PesquisaProdutos" />
+							<p:separator />
+							<p:menuitem value="Motivo Saída de Produto"
+								outcome="/saidas/MotivoSaidaProduto" />
+							<p:separator />
+							<p:menuitem value="Pesquisa Motivo Saída de Produto"
+								outcome="/saidas/PesquisaMotivoSaidaProdutos" />
+						</p:submenu>
 						<p:separator />
-						<p:menuitem value="Forma Pagamento"
-							outcome="/formaPagamentos/PesquisaFormaPagamentos" />
-						<p:separator />
+
+						<p:submenu label="Forma Pagamento">
+							<p:menuitem value="Cadastro de Forma Pagamento"
+								outcome="/formaPagamentos/CadastroFormaPagamento" />
+							<p:separator />
+							<p:menuitem value="Pesquisa de Forma Pagamento"
+								outcome="/formaPagamentos/PesquisaFormaPagamentos" />
+						</p:submenu>
 					</p:submenu>
 
 
 					<p:submenu label="Movimentos">
-						<p:menuitem value="Novo Pedido" outcome="/pedidos/CadastroPedido" />
-						<p:menuitem value="Pesquisa Pedidos"
-							outcome="/pedidos/PesquisaPedidos" />
-						<p:menuitem value="Relatório de Pedidos"
-							outcome="/relatorios/RelatorioPedidosEmitidos" />
-						<p:separator />
-						<p:menuitem value="Inativação Pessoa"
-							outcome="/inativacoes/InativaPessoa" />
-						<p:menuitem value="Ativação Pessoa" />
-						<p:menuitem value="Altera Senha Usuário"
-							outcome="/AlteraSenhaUsuario" />
-						<p:separator />
+						<p:submenu label="Pedido de Compra">
+							<p:menuitem value="Cadastro de Pedido de Compra"
+								outcome="/pedidos/CadastroPedido" icon="ui-icon-plus" />
+							<p:separator />
+
+							<p:menuitem value="Pesquisa de Pedido de Compra"
+								icon="ui-icon-search" outcome="/pedidos/PesquisaPedidos" />
+							<p:separator />
+
+							<p:menuitem value="Relatório de Pedidos por Data"
+								outcome="/relatorios/RelatorioPedidosEmitidos"
+								icon="ui-icon-document" />
+							<p:separator />
+							<p:menuitem value="Relatório de Itens do Pedido por Data e Forn."
+								outcome="/relatorios/RelatorioPedidosEmitidosFornecedor"
+								icon="ui-icon-document" />
+							<p:separator />
+						</p:submenu>
+
+						<p:submenu label="Fornecedor">
+							<p:menuitem value="Ativa/Inativa Fornecedor"
+								outcome="/inativacoes/InativaFornecedor" icon="ui-icon-refresh" />
+							<p:separator />
+						</p:submenu>
+
+						<p:submenu label="Usuário">
+							<p:menuitem value="Altera Senha Usuário" icon="ui-icon-refresh" />
+							<p:separator />
+						</p:submenu>
+
+						<p:submenu label="Produto">
+							<p:menuitem value="Movimento Saída de Produto"
+								outcome="/saidas/MovimentoSaidaProduto" icon="ui-icon-refresh" />
+						</p:submenu>
+
 					</p:submenu>
 
-					<p:submenu label="Jurídico">
-						<p:menuitem value="Processo" outcome="/processos/CadastroProcesso" />
+
+
+					<p:submenu label="Jurídico Pessoa Física">
+						<p:submenu label="Processo">
+							<p:menuitem value="Cadastro Processo"
+								outcome="/processos/CadastroProcessoPF" />
+							<p:separator />
+							<p:menuitem value="Pesquisa Processo"
+								outcome="/processos/PesquisaProcessoPF" />
+						</p:submenu>
 						<p:separator />
-						<p:menuitem value="Procuração Ad Judicia"
-							outcome="/documentos/CadastroProcuracaoAdJudicia" />
-						<p:menuitem value="Pesquisa Procuração Ad Judicia"
-							outcome="/documentos/PesquisaProcuracaoAdJudicia" />
-						<p:separator />
-						<p:menuitem value="Declaração Justiça Gratuita"
-							outcome="/documentos/CadastroDeclaracaoJusticaGratuita" />
-						<p:menuitem value="Pesquisa Declaração Justiça Gratuita"
-							outcome="/documentos/PesquisaDeclaracaoJusticaGratuita" />
-						<p:menuitem value="Relatório Declaração Justiça Gratuita"
-							outcome="/relatorios/RelatorioDeclaracaoJusticaGratuita" />
+						
+						<p:submenu label="Contas a Receber">
+							<p:menuitem value="Cadastro Contas a Receber"
+								outcome="/contasReceber/CadastroContasReceberPF" />
+							<p:separator />
+							<p:menuitem value="Pesquisa Contas a Receber"
+								 outcome="/contasReceber/PesquisaContasReceberPF"/>
+						    <p:separator/>
+						    <p:menuitem value="Baixa de Contas a Receber"
+						    outcome="/contasReceber/BaixaContasReceberPF"/>
+						    
+						</p:submenu>
 						<p:separator />
 
+						<p:submenu label="Procuração Ad Judicia">
+							<p:menuitem value="Cadastro Procuração Ad Judicia"
+								outcome="/documentos/CadastroProcuracaoAdJudiciaPF" />
+							<p:separator />
+							<p:menuitem value="Pesquisa Procuração Ad Judicia"
+								outcome="/documentos/PesquisaProcuracaoAdJudiciaPF" />
+							<p:separator />
+							<p:menuitem value="Relatório Procuração Ad Judicia"
+								outcome="/relatorios/RelatorioProcuracaoAdJudiciaPF" />
+						</p:submenu>
+						<p:separator />
+
+						<p:submenu label="Contrato Honorário Advocaticio">
+							<p:menuitem value="Cadastro Contrato Honorário Advocaticio"
+								outcome="/documentos/CadastroContratoHonorarioAdvocaticioPF" />
+							<p:separator />
+							<p:menuitem value="Pesquisa Contrato Honorário Advocaticio"
+								outcome="/documentos/PesquisaContratoHonorarioAdvocaticioPF" />
+							<p:separator />
+							<p:menuitem value="Relatório Contrato Honorário Advocaticio" />
+						</p:submenu>
+
+						<p:separator />
+
+						<p:submenu label="Declaração Justiça Gratuita">
+							<p:menuitem value="Cadastro Declaração Justiça Gratuita"
+								outcome="/documentos/CadastroDeclaracaoJusticaGratuitaPF" />
+							<p:separator />
+							<p:menuitem value="Pesquisa Declaração Justiça Gratuita"
+								outcome="/documentos/PesquisaDeclaracaoJusticaGratuitaPF" />
+							<p:separator />
+							<p:menuitem value="Relatório Declaração Justiça Gratuita"
+								outcome="/relatorios/RelatorioDeclaracaoJusticaGratuitaPF" />
+						</p:submenu>
+						<p:separator />
+
+						<p:submenu label="Termo Entrevista Para Demanda">
+							<p:menuitem value="Cadastro Termo Entrevista Para Demanda"
+								outcome="/documentos/CadastroTermoEntrevistaParaDemandaPF" />
+							<p:separator />
+							<p:menuitem value="Pesquisa Termo Entrevista Para Demanda"
+								outcome="/documentos/PesquisaTermoEntrevistaParaDemandaPF" />
+							<p:separator />
+							<p:menuitem value="Relatório Termo Entrevista Para Demanda"
+								outcome="/relatorios/RelatorioTermoEntrevistaParaDemandaPF" />
+						</p:submenu>
+
+
+
 					</p:submenu>
+
+
+
+					<p:submenu label="Jurídico Pessoa Jurídica">
+						<p:submenu label="Processo">
+							<p:menuitem value="Cadastro Processo"
+								outcome="/processos/CadastroProcessoPJ" />
+							<p:separator />
+							<p:menuitem value="Pesquisa Processo"
+								outcome="/processos/PesquisaProcessoPJ" />
+						</p:submenu>
+						<p:separator />
+
+
+						<p:submenu label="Procuração Ad Judicia">
+							<p:menuitem value="Cadastro Procuração Ad Judicia"
+								outcome="/documentos/CadastroProcuracaoAdJudiciaPJ" />
+							<p:separator />
+							<p:menuitem value="Pesquisa Procuração Ad Judicia"
+								outcome="/documentos/PesquisaProcuracaoAdJudiciaPJ" />
+							<p:separator />
+							<p:menuitem value="Relatório Procuração Ad Judicia"
+								outcome="/relatorios/RelatorioProcuracaoAdJudiciaPJ" />
+						</p:submenu>
+						<p:separator />
+
+						<p:submenu label="Contrato Honorário Advocatício">
+							<p:menuitem value="Cadastro Contrato Honorário Advocaticio"
+								outcome="/documentos/CadastroContratoHonorarioAdvocaticioPJ" />
+							<p:separator />
+							<p:menuitem value="Pesquisa Contrato Honorário Advocaticio"
+								outcome="/documentos/PesquisaContratoHonorarioAdvocaticioPJ" />
+							<p:separator />
+							<p:menuitem value="Relatório Contrato Honorário Advocaticio" />
+						</p:submenu>
+						<p:separator />
+
+
+
+						<p:submenu label="Declaração Justiça Gratuita">
+							<p:menuitem value="Cadastro Declaração Justiça Gratuita"
+								outcome="/documentos/CadastroDeclaracaoJusticaGratuitaPJ" />
+							<p:separator />
+							<p:menuitem value="Pesquisa Declaração Justiça Gratuita"
+								outcome="/documentos/PesquisaDeclaracaoJusticaGratuitaPJ" />
+							<p:separator />
+							<p:menuitem value="Relatório Declaração Justiça Gratuita"
+								outcome="/relatorios/RelatorioDeclaracaoJusticaGratuitaPJ" />
+						</p:submenu>
+						<p:separator />
+
+
+						<p:submenu label="Termo Entrevista Para Demanda">
+							<p:menuitem value="Cadastro Termo Entrevista Para Demanda"
+								outcome="/documentos/CadastroTermoEntrevistaParaDemandaPJ" />
+							<p:separator />
+							<p:menuitem value="Pesquisa Termo Entrevista Para Demanda"
+								outcome="/documentos/PesquisaTermoEntrevistaParaDemandaPJ" />
+							<p:separator />
+							<p:menuitem value="Relatório Termo Entrevista Para Demanda"
+								outcome="/relatorios/RelatorioTermoEntrevistaParaDemandaPJ" />
+						</p:submenu>
+					</p:submenu>
+
+
+
+
 
 					<p:submenu label="Ajuda">
-						<p:menuitem value="Ajuda" />
+						<p:menuitem value="Editor de Texto" outcome="/ajudas/Editor" />
 						<p:separator />
-
+						<p:menuitem value="Mensagens de Erro" 
+						outcome="/ajudas/Ajuda"/>
+						<p:separator />
+						<p:menuitem value="Ajuda" 
+						outcome="/ajudas/AjudaUsuario"/>
+						<p:separator />
+						<p:menuitem value="Backup"  
+						outcome="/ajudas/Backup"/>
 					</p:submenu>
 
+					
+
 					<p:menuitem value="Sair" url="/logout" />
+
 				</p:menubar>
 			</h:form>
 		</div>
@@ -126,6 +376,39 @@
 	<footer>SGJ - Sistema de Gerenciamento Jurídico. </footer>
 
 	<script>
+		//Faz com que a tecla enter tenha efeito de TAB pulando de campo em campo
+		function gerenciaTeclaEnter() {
+			$(document).ready(function() {
+				$('input').keypress(function(e) {
+					var code = null;
+					code = (e.keyCode ? e.keyCode : e.which);
+					return (code === 13) ? false : true;
+
+				});
+
+				$('input[type=text]').keydown(function(e) {
+					// Obter o próximo índice do elemento de entrada de texto
+					var next_idx = $('input[type=text]').index(this) + 1;
+
+					// Obter o número de elemento de entrada de texto em um documento html
+					var tot_idx = $('body').find('input[type=text]').length;
+
+					// Entra na tecla no código ASCII
+					if (e.keyCode === 13) {
+						if (tot_idx === next_idx)
+							// Vá para o primeiro elemento de texto
+							$('input[type=text]:eq(0)').focus();
+						else
+							// Vá para o elemento de entrada de texto seguinte
+							$('input[type=text]:eq(' + next_idx + ')').focus();
+					}
+				});
+			});
+
+		}
+	</script>
+
+	<script>
 		function configurarMoeda() {
 			$(".moeda").maskMoney({
 				decimal : ",",
@@ -138,5 +421,27 @@
 
 		});
 	</script>
+
+	<script>
+		function validatePhone() {
+
+			var masks = [ '(00) 00000-0000', '(00) 0000-00009' ], maskBehavior = function(
+					val, e, field, options) {
+				return val.length > 14 ? masks[0] : masks[1];
+			};
+
+			$('.phone').mask(maskBehavior, {
+				onKeyPress : function(val, e, field, options) {
+					field.mask(maskBehavior(val, e, field, options), options);
+				}
+			});
+		}
+		$(document).ready(function() {
+			validatePhone()
+		});
+	</script>
+
+
+
 </h:body>
 </html>

@@ -1,0 +1,105 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa: Procuracões Ad Judicia de Pessoa Jurídica</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frm">
+
+			<h1>Pesquisa Procuracao Ad Judicia de Pessoa Jurídica</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+
+			<p:toolbar style="margin-top: 20px">
+
+				<p:toolbarGroup>
+				<p:button value="Limpar"
+						outcome="/documentos/PesquisaProcuracaoAdJudiciaPJ" />
+						<p:separator />
+					<p:commandButton value="Pesquisar"
+						action="#{pesquisaProcuracaoAdJudiciaPJBean.pesquisar}"
+						update="@form" />
+				</p:toolbarGroup>	
+				
+				<p:toolbarGroup align="right">
+				<p:button value="Imprimir" 
+					outcome="/relatorios/RelatorioProcuracaoAdJudiciaPJ" />
+					<p:separator />
+					<p:button value="Cadastrar nova procuração" 
+					outcome="/documentos/CadastroProcuracaoAdJudiciaPJ" />
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:focus />
+
+			<p:panelGrid columns="2" id="painel"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Código" />
+				<h:panelGroup>
+					<p:inputText size="12"
+						value="#{pesquisaProcuracaoAdJudiciaPJBean.filtro.numeroDe}"/>
+					a
+					<p:inputText size="12"
+						value="#{pesquisaProcuracaoAdJudiciaPJBean.filtro.numeroAte}" />
+				</h:panelGroup>
+
+				<p:outputLabel value="Data de criação" />
+				<h:panelGroup>
+					<p:calendar size="12" pattern="dd/MM/yyyy"
+						value="#{pesquisaProcuracaoAdJudiciaPJBean.filtro.dataDocumentoDe}" />
+					a
+					<p:calendar size="12" pattern="dd/MM/yyyy"
+						value="#{pesquisaProcuracaoAdJudiciaPJBean.filtro.dataDocumentoAte}" />
+				</h:panelGroup>
+
+				
+				<p:outputLabel value="Pessoa" for="pessoa" />
+				<p:inputText id="pessoa" size="32"
+					value="#{pesquisaProcuracaoAdJudiciaPJBean.filtro.nomePessoa}" />
+
+
+			</p:panelGrid>
+
+			<p:dataTable id="tableProcuracao"
+				value="#{pesquisaProcuracaoAdJudiciaPJBean.procuracoesAdJudiciaPessoaJuridicasFiltradas}"
+				emptyMessage="Não existe procurações para serem exibidas!"
+				style="margin-top: 20px" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				var="procuracaoAdJudiciaPJ" rows="10">
+
+				<p:column headerText="Código"
+					style="text-align: center; width: 60px">
+					<h:outputText value="#{procuracaoAdJudiciaPJ.id}" />
+				</p:column>
+
+				<p:column headerText="Nome Contratante" style="text-align: left; width: 600px"
+				sortBy="#{procuracaoAdJudiciaPJ.clientePessoaJuridica.nomeContratante}">
+					<h:outputText value="#{procuracaoAdJudiciaPJ.clientePessoaJuridica.nomeContratante}" />
+				</p:column>
+
+				<p:column headerText="Data do Documento"
+					style="text-align: left; width: 100px">
+					<h:outputText value="#{procuracaoAdJudiciaPJ.dataDocumento}" >
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column style="width: 100px; text-align: center" headerText="Opções:">
+					<p:button icon="ui-icon-pencil" title="Editar"
+						outcome="/documentos/CadastroProcuracaoAdJudiciaPJ">
+						<f:param name="procuracaoAdJudiciaPJ"
+							value="#{procuracaoAdJudiciaPJ.id}" />
+					</p:button>
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

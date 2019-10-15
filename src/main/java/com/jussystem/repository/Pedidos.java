@@ -118,12 +118,12 @@ public class Pedidos implements Serializable{
 		
 		if (StringUtils.isNotBlank(filtro.getNomeFornecedor())) {
 			// acessamos o nome do cliente associado ao pedido pelo alias "f", criado anteriormente
-			criteria.add(Restrictions.ilike("f.fornecedor", filtro.getNomeFornecedor(), MatchMode.ANYWHERE));
+			criteria.add(Restrictions.ilike("f.nomeFantasia", filtro.getNomeFornecedor(), MatchMode.ANYWHERE));
 		}
 		
 		if (StringUtils.isNotBlank(filtro.getNomeVendedor())) {
 			// acessamos o nome do vendedor associado ao pedido pelo alias "v", criado anteriormente
-			criteria.add(Restrictions.ilike("v.nome", filtro.getNomeVendedor(), MatchMode.ANYWHERE));
+			criteria.add(Restrictions.ilike("c.nome", filtro.getNomeVendedor(), MatchMode.ANYWHERE));
 		}
 		
 		if (filtro.getStatuses() != null && filtro.getStatuses().length > 0) {

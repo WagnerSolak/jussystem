@@ -40,7 +40,7 @@ public class Pedido implements Serializable {
 	private StatusPedido status = StatusPedido.ORCAMENTO;
 	private FormaPagamento formaPagamento;
 	private Usuario comprador;
-	private Pessoa fornecedor;
+	private Fornecedor fornecedor;
 	private List<ItemPedido> itens = new ArrayList<>();
 	
 	
@@ -156,8 +156,20 @@ public class Pedido implements Serializable {
 	public void setComprador(Usuario comprador) {
 		this.comprador = comprador;
 	}
-
+	
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+	
 	@NotNull
+	@ManyToOne
+	@JoinColumn(nullable = false, name = "fornecedor_id")
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+	
+
+	/*@NotNull
 	@ManyToOne
 	@JoinColumn(nullable = false, name = "fornecedor_id")
 	public Pessoa getFornecedor() {
@@ -166,7 +178,7 @@ public class Pedido implements Serializable {
 
 	public void setFornecedor(Pessoa fornecedor) {
 		this.fornecedor = fornecedor;
-	}
+	}*/
 
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<ItemPedido> getItens() {
@@ -220,7 +232,13 @@ public class Pedido implements Serializable {
 
 	public void recalcularValorTotal() {
 		BigDecimal total = BigDecimal.ZERO;
-
+		if (this.getValorFrete() == null){
+			this.setValorFrete(BigDecimal.ZERO);
+		}
+		if(this.getValorDesconto() == null){
+			this.setValorDesconto(BigDecimal.ZERO);
+		}
+		
 		total = total.add(this.getValorFrete()).subtract(this.getValorDesconto());
 
 		for (ItemPedido item : this.getItens()) {

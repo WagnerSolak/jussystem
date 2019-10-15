@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 public class FormaPagamento implements Serializable{
@@ -31,7 +33,7 @@ public class FormaPagamento implements Serializable{
 		this.descricao = descricao;
 	}
 	
-	@NotNull
+	@NotBlank
 	@Column(nullable = false, length = 80)
 	public String getDescricao() {
 		return descricao;
