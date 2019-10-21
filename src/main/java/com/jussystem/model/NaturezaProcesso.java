@@ -4,7 +4,7 @@ public enum NaturezaProcesso {
 
 	
 	TRABALHO("Trabalho"),
-	CIVIL("Civil");
+	CIVIL("Cívil");
 
 	private String descricao;
 

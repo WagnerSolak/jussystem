@@ -27,7 +27,7 @@ public class CadastroMovimentoSaidaProdutoService implements Serializable{
 	public MovimentoSaidaProduto salvar(MovimentoSaidaProduto movimentoSaidaProduto) {
 		
 		Produto produto = movimentoSaidaProduto.getProduto();
-		int qtde =  produto.getEstoque() - movimentoSaidaProduto.getQuantidade();
+		int qtde =  produto.getEstoque() - movimentoSaidaProduto.getQuantidadeNova();
 		
 		if(qtde >= 0){
 			

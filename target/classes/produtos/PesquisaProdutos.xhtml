@@ -58,11 +58,6 @@
 					<h:outputText value="#{produto.nome}" />
 				</p:column>
 
-				<p:column headerText="Categoria" style="text-align: center; width: 270px">
-					<h:outputText
-						value="#{produto.categoria.categoriaPai.descricao} - #{produto.categoria.descricao}" />
-				</p:column>
-
 				<p:column headerText="Valor Unitário"
 					style="text-align: center; width: 120px">
 					<h:outputText value="#{produto.valorUnitario}">

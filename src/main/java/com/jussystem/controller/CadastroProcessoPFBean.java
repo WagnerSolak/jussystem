@@ -3,9 +3,14 @@ package com.jussystem.controller;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Produces;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+
+
 
 
 
@@ -28,6 +33,8 @@ public class CadastroProcessoPFBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Produces
+	@ProcessoPFEncerramento
 	private ProcessoPF processoPF;
 
 	@Inject
@@ -49,7 +56,7 @@ public class CadastroProcessoPFBean implements Serializable {
 		processoPF = processoService.salvar(processoPF);
 		FacesUtil.addInfoMessage("Processo: " + processoPF.getNumeroProcesso() 
 				+ " salvo com sucesso!");
-		limpar();
+		
 	}
 
 	public void recalcularProcesso() {
@@ -64,7 +71,10 @@ public class CadastroProcessoPFBean implements Serializable {
 		}
 	}
 	
-	
+	public void processoPFAlterado(@Observes ProcessoPFAlteradoEvent event){
+		this.processoPF = event.getProcessoPF();
+		
+	}
 	
 	public Date getDataHoje() {
 		return new Date();

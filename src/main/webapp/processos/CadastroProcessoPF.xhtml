@@ -25,17 +25,17 @@
 				<p:button value="Limpar" outcome="/processos/CadastroProcessoPF" />
 					<p:separator/>
 					<p:separator/>
-					<p:commandButton value="Salvar" id="botaoSalvar"
-						action="#{cadastroProcessoPFBean.salvar}" update="@form"
-						process="@form" />
+					<p:commandButton value="Salvar" action="#{cadastroProcessoPFBean.salvar}" 
+						update="@form" disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}"/>
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">
 				
-				<p:commandButton value="Encerrar" action="#{cadastroProcessoPFBean.encerrarProcesso}"
-				process="@form" update="@form"/>
+				<p:commandButton value="Encerrar" action="#{encerramentoProcessoPFBean.encerrarProcesso}"
+				process="@form" update="@form" disabled="#{cadastroProcessoPFBean.processoPF.naoEncerravel}"/>
 				<p:separator/>
-				<p:commandButton value="Cancelar"/>
+				<p:commandButton value="Cancelar" action="#{cancelamentoProcessoPFBean.cancelarProcesso}"
+				process="@this" update="@form" disabled="#{cadastroProcessoPFBean.processoPF.naoCancelavel}"/>
 				<p:separator/>
 				<p:button value="Cadastro Cliente" outcome="/pessoas/CadastroClientePessoaFisica" />
 					<p:separator/>
@@ -55,11 +55,13 @@
 				<h:panelGroup>
 					<p:inputText id="pessoaFisica" size="60"
 						value="#{cadastroProcessoPFBean.nomeCliente}"
-						readonly="#{facesContext.currentPhaseId.name eq 'RENDER_RESPONSE'}" />
+						readonly="#{facesContext.currentPhaseId.name eq 'RENDER_RESPONSE'}"
+						disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}" />
 
 					<p:commandButton icon="ui-icon-search" title="Pesquisar"
 						process="@this" action="#{selecaoClientePessoaFisicaBean.abrirDialogo}"
-						ignoreAutoUpdate="true">
+						ignoreAutoUpdate="true"
+						disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}">
 						<p:ajax event="dialogReturn"
 							listener="#{cadastroProcessoPFBean.clienteSelecionado}"
 							update="pessoaFisica" />
@@ -67,27 +69,32 @@
 				</h:panelGroup>
 				
 				<p:outputLabel value="Status" />
-				<h:outputText value="#{cadastroProcessoPFBean.processoPF.statusProcesso.descricao}" 
-				/>
-
+				<h:outputText value="#{cadastroProcessoPFBean.processoPF.statusProcesso.descricao}"
+				style="#{cadastroProcessoPFBean.processoPF.statusProcesso.descricao == 'Cancelado' ? 'color:red' : 'color:black'}" />
+				
+				
 				<p:outputLabel value="Data *" />
 				<p:calendar value="#{cadastroProcessoPFBean.processoPF.dataEntrada}"
 					navigator="true" locale="pt" pattern="dd/MM/yyyy" 
 					maxdate="#{cadastroProcessoPFBean.dataHoje}"
 					required="true"
-					requiredMessage="O campo Data deve ser informado!"/>
+					requiredMessage="O campo Data deve ser informado!"
+					disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}"/>
 
 				<p:outputLabel value="Número do Processo *" for="numeroProcesso" />
 				<p:inputText value="#{cadastroProcessoPFBean.processoPF.numeroProcesso}"
-					id="numeroProcesso" size="20" maxlength="20"/>	
+					id="numeroProcesso" size="20" maxlength="20"
+					disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}"/>	
 
 				<p:outputLabel value="Natureza do Processo *" for="natureza" />
 				<h:panelGroup>
-				<p:selectOneRadio id="natureza"
+				<p:selectOneRadio id="natureza" 
+					disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}"
 					value="#{cadastroProcessoPFBean.processoPF.naturezaProcesso}">
 					<f:selectItems value="#{cadastroProcessoPFBean.naturezasProcesso}"
 						var="naturezaProcesso" itemValue="#{naturezaProcesso}"
-						itemLabel="#{naturezaProcesso.descricao}" />
+						itemLabel="#{naturezaProcesso.descricao}" 
+						/>
 
 				<p:ajax event="change" process="@this" update="grupoLabel, grupoInput"/>
 				</p:selectOneRadio>
@@ -95,7 +102,8 @@
 
 				<p:outputLabel value="Valor Total *" for="vlTotal" />
 				<p:inputText value="#{cadastroProcessoPFBean.processoPF.valorTotal}"
-					id="vlTotal" size="20" styleClass="moeda">
+					id="vlTotal" size="20" styleClass="moeda"
+					disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}">
 					<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 
 					<p:ajax event="change" process="@this" update="vlLiquido"
@@ -111,7 +119,8 @@
 	<h:panelGroup id="grupoInput">
 		<p:inputText value="#{cadastroProcessoPFBean.processoPF.valorDescontos}" id="vlDescontos"
 				 size="20" styleClass="moeda"
-				 rendered="#{cadastroProcessoPFBean.processoPF.naturezaProcesso eq 'TRABALHO'}">
+				 rendered="#{cadastroProcessoPFBean.processoPF.naturezaProcesso eq 'TRABALHO'}"
+				 disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}">
 			
 			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 					
@@ -121,7 +130,8 @@
 	
 		<p:inputText value="#{cadastroProcessoPFBean.processoPF.valorSalariosMinimos}" id="vlSalarios"
 				 size="20" styleClass="moeda"
-				 rendered="#{cadastroProcessoPFBean.processoPF.naturezaProcesso eq 'CIVIL'}">
+				 rendered="#{cadastroProcessoPFBean.processoPF.naturezaProcesso eq 'CIVIL'}"
+				 disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}">
 			
 			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 	
@@ -135,7 +145,8 @@
 	
 				<p:outputLabel value="Percentual *" for="percentual" />
 				<p:inputText value="#{cadastroProcessoPFBean.processoPF.percentual}"
-					id="percentual" size="20">
+					id="percentual" size="20"
+					disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}">
 					<p:ajax event="change" process="@this"
 						update="vlLiquido valorRecebeCliente valorRecebe"
 						listener="#{cadastroProcessoPFBean.recalcularProcesso}" />

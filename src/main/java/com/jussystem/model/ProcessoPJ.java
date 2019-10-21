@@ -3,11 +3,8 @@ package com.jussystem.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -46,11 +42,11 @@ public class ProcessoPJ implements Serializable {
 	private BigDecimal valorRecebimentoProcesso = BigDecimal.ZERO;
 
 	private ClientePessoaJuridica clientePessoaJuridica;
-	private StatusProcesso statusProcesso;
+	private StatusProcesso statusProcesso = StatusProcesso.ANDAMENTO;
 	private NaturezaProcesso naturezaProcesso;
-	private CondicaoPagamento condicaoPagamento;
+	
 
-	private List<ContasReceberPF> contasReceber = new ArrayList<>();
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,7 +68,7 @@ public class ProcessoPJ implements Serializable {
 		this.numeroProcesso = numeroProcesso;
 	}
 	
-	@NotNull
+	
 	@Column(precision = 10, scale = 2)
 	public BigDecimal getValorTotal() {
 		return valorTotal;
@@ -116,8 +112,8 @@ public class ProcessoPJ implements Serializable {
 		
 	}
 
-	@NotNull(message = "Percentual é obrigatório!")
-	@Column(nullable = false, precision = 5, scale = 2)
+	
+	@Column(precision = 5, scale = 2)
 	public BigDecimal getPercentual() {
 		return percentual;
 	}
@@ -173,15 +169,7 @@ public class ProcessoPJ implements Serializable {
 		this.naturezaProcesso = naturezaProcesso;
 	}
 
-	@OneToMany(mappedBy = "processo", cascade = CascadeType.ALL, orphanRemoval = true)
-	public List<ContasReceberPF> getContasReceber() {
-		return contasReceber;
-	}
-
-	public void setContasReceber(List<ContasReceberPF> contasReceber) {
-		this.contasReceber = contasReceber;
-	}
-
+	
 	public void setDataEntrada(Date dataEntrada) {
 		this.dataEntrada = dataEntrada;
 	}
@@ -198,16 +186,6 @@ public class ProcessoPJ implements Serializable {
 		
 	}
 	
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false, length = 10)
-	public CondicaoPagamento getCondicaoPagamento() {
-		return condicaoPagamento;
-	}
-	
-	public void setCondicaoPagamento(CondicaoPagamento condicaoPagamento) {
-		this.condicaoPagamento = condicaoPagamento;
-	}
 	
 	@Column(nullable = false, precision = 10, scale = 2)
 	public BigDecimal getValorRecebimentoProcesso() {
@@ -293,6 +271,69 @@ public class ProcessoPJ implements Serializable {
 		
 		
 	}
+	
+	@Transient
+	public boolean isValorTotalNaoAceito(){
+		return this.getValorTotal().compareTo(BigDecimal.ZERO) <= 0;
+	}
+
+	@Transient
+	public boolean isPercentualNaoAceito() {
+		return this.getPercentual().compareTo(BigDecimal.ZERO) <= 0;
+	}
+
+	@Transient
+	public boolean isNaoEncerravel() {
+		return !this.isEncerravel();
+	}
+
+	@Transient
+	private boolean isEncerravel() {
+		return this.isExistente() && this.isAndamento();
+				
+	}
+
+	@Transient
+	private boolean isAndamento() {
+		return StatusProcesso.ANDAMENTO.equals(getStatusProcesso());
+	}
+
+	@Transient
+	private boolean isExistente() {
+		return !isNovo();
+	}
+
+	@Transient
+	public boolean isNaoCancelavel() {
+		return !this.isCancelavel();
+	}
+
+	@Transient
+	private boolean isCancelavel() {
+		return this.isExistente() && !this.isCancelado();
+	}
+
+	@Transient
+	private boolean isCancelado() {
+		return StatusProcesso.CANCELADO.equals(getStatusProcesso());
+	}
+
+	@Transient
+	public boolean isNaoAlteravel() {
+		return !this.isAlteravel();
+	}
+
+	@Transient
+	private boolean isAlteravel() {
+		return this.isAndamento();
+	}
+	
+
+	
+	
+	
+
+	
 
 	
 

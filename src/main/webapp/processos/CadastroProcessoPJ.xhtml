@@ -28,12 +28,20 @@
 					<p:button value="Limpar" outcome="/processos/CadastroProcessoPJ" />
 					<p:separator />
 					<p:separator />
-					<p:commandButton value="Salvar" id="botaoSalvar"
-						action="#{cadastroProcessoPJBean.salvar}" update="@form"
-						process="@form" />
+					<p:commandButton value="Salvar" action="#{cadastroProcessoPJBean.salvar}"
+						update="@form"
+						disabled="#{cadastroProcessoPJBean.processoPJ.naoAlteravel}"/>
 				</p:toolbarGroup>
 
 				<p:toolbarGroup align="right">
+				
+				<p:commandButton value="Encerrar" action="#{encerramentoProcessoPJBean.encerrarProcesso}"
+				process="@form" update="@form" disabled="#{cadastroProcessoPJBean.processoPJ.naoEncerravel}"/>
+				<p:separator/>
+				<p:commandButton value="Cancelar" action="#{cancelamentoProcessoPJBean.cancelarProcesso}"
+				process="@this" update="@form" disabled="#{cadastroProcessoPJBean.processoPJ.naoCancelavel}"/>
+				<p:separator/>
+				
 				<p:button value="Cadastro Cliente" outcome="/pessoas/CadastroClientePessoaJuridica" />
 					<p:separator/>
 					<h:outputLink
@@ -53,34 +61,43 @@
 				<h:panelGroup>
 					<p:inputText id="pessoa" size="60"
 						value="#{cadastroProcessoPJBean.nomeCliente}"
-						readonly="#{facesContext.currentPhaseId.name eq 'RENDER_RESPONSE'}" />
+						readonly="#{facesContext.currentPhaseId.name eq 'RENDER_RESPONSE'}" 
+						disabled="#{cadastroProcessoPJBean.processoPJ.naoAlteravel}"/>
 
 					<p:commandButton icon="ui-icon-search" title="Pesquisar"
 						process="@this"
 						action="#{selecaoClientePessoaJuridicaBean.abrirDialogo}"
-						ignoreAutoUpdate="true">
+						ignoreAutoUpdate="true"
+						disabled="#{cadastroProcessoPJBean.processoPJ.naoAlteravel}">
 						<p:ajax event="dialogReturn"
 							listener="#{cadastroProcessoPJBean.clienteSelecionado}"
 							update="pessoa" />
 					</p:commandButton>
 				</h:panelGroup>
+				
+				<p:outputLabel value="Status" />
+				<h:outputText value="#{cadastroProcessoPJBean.processoPJ.statusProcesso.descricao}"
+				style="#{cadastroProcessoPJBean.processoPJ.statusProcesso.descricao == 'Cancelado' ? 'color:red' : 'color:black'}" />
+				
 
 				<p:outputLabel value="Data *" />
 				<p:calendar value="#{cadastroProcessoPJBean.processoPJ.dataEntrada}" 
 					navigator="true" locale="pt" pattern="dd/MM/yyyy"
 					maxdate="#{cadastroProcessoPJBean.dataHoje}" 
 					required="true"
-					requiredMessage="O campo Data deve ser informado!"/>
+					requiredMessage="O campo Data deve ser informado!"
+					disabled="#{cadastroProcessoPJBean.processoPJ.naoAlteravel}"/>
 
 
 				<p:outputLabel value="Número do Processo *" for="numeroProcesso" />
 				<p:inputText
 					value="#{cadastroProcessoPJBean.processoPJ.numeroProcesso}"
-					id="numeroProcesso" size="20" maxlength="20" />
+					id="numeroProcesso" size="20" maxlength="20" 
+					disabled="#{cadastroProcessoPJBean.processoPJ.naoAlteravel}"/>
 
 				<p:outputLabel value="Natureza do Processo *" for="natureza" />
 				<h:panelGroup>
-				<p:selectOneRadio id="natureza"
+				<p:selectOneRadio id="natureza" disabled="#{cadastroProcessoPJBean.processoPJ.naoAlteravel}"
 					value="#{cadastroProcessoPJBean.processoPJ.naturezaProcesso}">
 					<f:selectItems value="#{cadastroProcessoPJBean.naturezasProcesso}"
 						var="naturezaProcesso" itemValue="#{naturezaProcesso}"
@@ -92,7 +109,8 @@
 				
 				<p:outputLabel value="Valor Total *" for="vlTotal" />
 				<p:inputText value="#{cadastroProcessoPJBean.processoPJ.valorTotal}"
-					id="vlTotal" size="20" styleClass="moeda">
+					id="vlTotal" size="20" styleClass="moeda"
+					disabled="#{cadastroProcessoPJBean.processoPJ.naoAlteravel}">
 					<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 					<p:ajax event="change" process="@this" update="vlLiquido"
 						listener="#{cadastroProcessoPJBean.recalcularProcesso}" />
@@ -108,7 +126,8 @@
 	<h:panelGroup id="grupoInput">
 		<p:inputText value="#{cadastroProcessoPJBean.processoPJ.valorDescontos}" id="vlDescontos"
 				 size="20" styleClass="moeda"
-				 rendered="#{cadastroProcessoPJBean.processoPJ.naturezaProcesso eq 'TRABALHO'}">
+				 rendered="#{cadastroProcessoPJBean.processoPJ.naturezaProcesso eq 'TRABALHO'}"
+				 disabled="#{cadastroProcessoPJBean.processoPJ.naoAlteravel}">
 			
 			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 					
@@ -118,7 +137,8 @@
 	
 		<p:inputText value="#{cadastroProcessoPJBean.processoPJ.valorSalariosMinimos}" id="vlSalarios"
 				 size="20" styleClass="moeda"
-				 rendered="#{cadastroProcessoPJBean.processoPJ.naturezaProcesso eq 'CIVIL'}">
+				 rendered="#{cadastroProcessoPJBean.processoPJ.naturezaProcesso eq 'CIVIL'}"
+				 disabled="#{cadastroProcessoPJBean.processoPJ.naoAlteravel}">
 			
 			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 	
@@ -132,7 +152,8 @@
 				
 				<p:outputLabel value="Percentual *" for="percentual" />
 				<p:inputText value="#{cadastroProcessoPJBean.processoPJ.percentual}"
-					id="percentual" size="20">
+					id="percentual" size="20"
+					disabled="#{cadastroProcessoPJBean.processoPJ.naoAlteravel}">
 
 					<p:ajax event="change" process="@this"
 						update="vlLiquido valorRecebeCliente valorRecebe"

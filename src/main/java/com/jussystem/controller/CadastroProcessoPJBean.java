@@ -3,6 +3,8 @@ package com.jussystem.controller;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Produces;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,6 +25,8 @@ public class CadastroProcessoPJBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Produces
+	@ProcessoPJEdicao
 	private ProcessoPJ processoPJ;
 	
 	@Inject
@@ -51,7 +55,11 @@ public class CadastroProcessoPJBean implements Serializable {
 		
 	}
 	
-public void recalcularProcesso() {
+	public void processoAlterado(@Observes ProcessoPJAlteradoEvent event){
+		this.processoPJ = event.getProcessoPJ();
+	}
+	
+	public void recalcularProcesso() {
 		
 		if(this.processoPJ != null){
 			if(processoPJ.getNaturezaProcesso().equals(NaturezaProcesso.TRABALHO)){

@@ -3,24 +3,20 @@ package com.jussystem.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
 
-import javax.persistence.CascadeType;
+import java.util.Date;
+
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -52,11 +48,11 @@ public class ProcessoPF implements Serializable {
 
 	
 	private ClientePessoaFisica clientePessoaFisica;
-	private StatusProcesso statusProcesso;
+	private StatusProcesso statusProcesso = StatusProcesso.ANDAMENTO;
 	private NaturezaProcesso naturezaProcesso;
-	private CondicaoPagamento condicaoPagamento;
 
-	private List<ContasReceberPF> contasReceberPF = new ArrayList<>();
+
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -78,8 +74,8 @@ public class ProcessoPF implements Serializable {
 		this.numeroProcesso = numeroProcesso;
 	}
 	
-	@NotNull
-	@Column(nullable = false, precision = 10, scale = 2)
+	
+	@Column(precision = 10, scale = 2)
 	public BigDecimal getValorTotal() {
 		return valorTotal;
 	}
@@ -121,8 +117,8 @@ public class ProcessoPF implements Serializable {
 		this.valorLiquido = valorLiquido;
 	}
 
-	@NotNull(message = "Percentual é obrigatório!")
-	@Column(nullable = false, precision = 5, scale = 2)
+	
+	@Column(precision = 5, scale = 2)
 	public BigDecimal getPercentual() {
 		return percentual;
 	}
@@ -162,17 +158,7 @@ public class ProcessoPF implements Serializable {
 		this.statusProcesso = statusProcesso;
 	}
 	
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false, length = 10)
-	public CondicaoPagamento getCondicaoPagamento() {
-		return condicaoPagamento;
-	}
 	
-	public void setCondicaoPagamento(CondicaoPagamento condicaoPagamento) {
-		this.condicaoPagamento = condicaoPagamento;
-	}
-
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 20)
@@ -184,14 +170,6 @@ public class ProcessoPF implements Serializable {
 		this.naturezaProcesso = naturezaProcesso;
 	}
 
-	@OneToMany(mappedBy = "processo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	public List<ContasReceberPF> getContasReceberPF() {
-		return contasReceberPF;
-	}
-	
-	public void setContasReceberPF(List<ContasReceberPF> contasReceberPF) {
-		this.contasReceberPF = contasReceberPF;
-	}
 
 	public void setDataEntrada(Date dataEntrada) {
 		this.dataEntrada = dataEntrada;
@@ -272,69 +250,7 @@ public class ProcessoPF implements Serializable {
 		
 	}
 	
-	private Integer qtdParcela;
 	
-	@Transient
-	public Integer getQtdParcela() {
-        return qtdParcela;
-    }
-
-    public void setQtdParcela(Integer qtdParcela) {
-        this.qtdParcela = qtdParcela;
-    }
-	
-	
-	public void gerarParcela(Integer qtdParcela){
-		if(!this.condicaoPagamento.getDescricao().equals(CondicaoPagamento.AVISTA)){
-			if(qtdParcela == null){
-				qtdParcela = 1;
-				this.setQtdParcela(qtdParcela);
-			}
-			contasReceberPF = new ArrayList<>();
-			for(int i = 1; i <= qtdParcela; i++){
-				
-				
-				ContasReceberPF cr = new ContasReceberPF();
-				cr.setProcesso(this);
-				cr.setClientePessoaFisica(getClientePessoaFisica());
-				cr.setNumeroParcela(i+"/"+qtdParcela);
-				cr.setDataEmissao(new Date());
-				cr.setValorMoraMulta(BigDecimal.ZERO);
-				cr.setValorAbatimento(BigDecimal.ZERO);
-				cr.setValorPago(BigDecimal.ZERO);
-				cr.setStatus(StatusContasReceber.ABERTO);
-				cr.setCondicaoPagamento(getCondicaoPagamento());
-				Calendar vencimento = Calendar.getInstance();
-				vencimento.add(Calendar.DAY_OF_MONTH, 30 * i);
-				cr.setDataVencimento(vencimento.getTime());
-				cr.setValorTotal(valorRecebimentoProcesso.divide(new BigDecimal(qtdParcela), BigDecimal.ROUND_HALF_UP));
-				cr.setValorRestante(valorRecebimentoProcesso.divide(new BigDecimal(qtdParcela), BigDecimal.ROUND_HALF_UP));
-				contasReceberPF.add(cr);
-				
-			}
-		}
-	}
-	
-	public void recalcularParcela(){
-		Integer par = qtdParcela;
-		par = par - 1;
-		BigDecimal retotal = BigDecimal.ZERO;
-		BigDecimal ultimaParcela = BigDecimal.ZERO;
-		
-		for(int i = 0; i < qtdParcela; i++){
-			System.out.println("Teste Recalculando a parcela!");
-			
-			if(par.equals(i)){
-				contasReceberPF.get(i).setValorTotal(ultimaParcela);
-				System.out.println("Teste Ultima parcela"+ ultimaParcela);
-				
-			}else{
-				retotal = retotal.add(contasReceberPF.get(i).getValorTotal());
-				System.out.println(retotal);
-				System.out.println(i);
-			}
-		}
-	}
 	
 	@Transient
 	public String getPercentualStr(){
@@ -359,11 +275,69 @@ public class ProcessoPF implements Serializable {
 	}
 	
 	
+
+	@Transient
+	public boolean isNaoEncerravel() {
+		return !this.isEncerravel();
+	}
+
+	@Transient
+	private boolean isEncerravel() {
+		return this.isExistente() && this.isAndamento();
+	}
+
+	@Transient
+	private boolean isExistente() {
+		return !isNovo();
+	}
+
+	@Transient
+	public boolean isNaoCancelavel() {
+		return !this.isCancelavel();
+	}
 	
 	@Transient
-	public boolean isComParcelamento(){
-		return CondicaoPagamento.APRAZO.equals(this.getCondicaoPagamento());
+	private boolean isCancelavel() {
+		return this.isExistente() && !this.isCancelado();
 	}
+
+	@Transient
+	private boolean isCancelado() {
+		return StatusProcesso.CANCELADO.equals(this.getStatusProcesso());
+	}
+
+	@Transient
+	public boolean isNaoAlteravel() {
+		return !this.isAlteravel();
+	}
+
+	@Transient
+	private boolean isAlteravel() {
+		return this.isAndamento();
+	}
+
+	@Transient
+	private boolean isAndamento() {
+		return StatusProcesso.ANDAMENTO.equals(this.getStatusProcesso());
+	}
+
+	
+	@Transient
+	public boolean isNaoEncerravelZerado() {
+		BigDecimal total = getValorTotal().subtract(BigDecimal.ZERO);
+		if(total.signum() <= 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	@Transient
+	public boolean isNaoEncerravelPercentualZerado() {
+		return (getPercentual().compareTo(BigDecimal.ZERO) <= 0);
+	}
+
+	
 
 
 }

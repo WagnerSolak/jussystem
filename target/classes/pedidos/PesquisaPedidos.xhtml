@@ -28,8 +28,8 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<p:panelGrid columns="2" id="painel"
-				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+			<p:panelGrid columns="4" id="painel"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo, rotulo, campo">
 
 				<p:outputLabel value="Código" />
 				<h:panelGroup>
@@ -50,7 +50,7 @@
 				</h:panelGroup>
 
 				<p:outputLabel value="Usuário" for="usuario" />
-				<p:inputText id="usuario" size="40"
+				<p:inputText id="usuario" size="28"
 					value="#{pesquisaPedidoBean.filtro.nomeVendedor}" />
 
 				<p:outputLabel value="Fornecedor" for="fornecedor" />
@@ -105,7 +105,8 @@
 
 				<p:column headerText="Status" 
 				style="text-align: center; width: 100px">
-					<h:outputText value="#{pedido.status.descricao}" />
+					<h:outputText value="#{pedido.status.descricao}" 
+					style="#{pedido.status.descricao == 'Cancelado' ? 'color:red' : 'color:black'}"/>
 				</p:column>
 
 				<p:column style="text-align: center; width: 50px" headerText="Opções:">

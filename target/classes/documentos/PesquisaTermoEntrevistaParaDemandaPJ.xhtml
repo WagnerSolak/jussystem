@@ -37,7 +37,7 @@
 			
 			<p:focus />
 
-			<p:panelGrid columns="2" id="painel"
+			<p:panelGrid columns="8" id="painel"
 				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
 
 				<p:outputLabel value="Código" />
@@ -60,7 +60,7 @@
 
 				
 				<p:outputLabel value="Autor" for="pessoa" />
-				<p:inputText id="pessoa" size="32"
+				<p:inputText id="pessoa" size="56"
 					value="#{pesquisaTermoEntrevistaParaDemandaPJBean.filtro.nomePessoa}" />
 
 
@@ -78,17 +78,21 @@
 					<h:outputText value="#{termoEntrevistaParaDemandaPJ.id}" />
 				</p:column>
 
-				<p:column headerText="Autor" style="text-align: left; width: 300px"
+				<p:column headerText="Autor" style="text-align: left; width: 250px"
 				sortBy="#{termoEntrevistaParaDemandaPJ.clientePessoaJuridica.nomeContratante}">
 					<h:outputText value="#{termoEntrevistaParaDemandaPJ.clientePessoaJuridica.nomeContratante}" />
 				</p:column>
 				
-				<p:column headerText="Réu" style="text-align: left; width: 300px">
+				<p:column headerText="Cidade-Estado" style="text-align: left; width: 150px">
+					<h:outputText value="#{termoEntrevistaParaDemandaPJ.clientePessoaJuridica.cidade.nome} - #{termoEntrevistaParaDemandaPJ.clientePessoaJuridica.cidade.ufCliente}" />
+				</p:column>
+				
+				<p:column headerText="Réu" style="text-align: left; width: 200px">
 					<h:outputText value="#{termoEntrevistaParaDemandaPJ.reu}" />
 				</p:column>
 
 				<p:column headerText="Data do Documento"
-					style="text-align: left; width: 100px">
+					style="text-align: center; width: 100px">
 					<h:outputText value="#{termoEntrevistaParaDemandaPJ.dataDocumento}" >
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>

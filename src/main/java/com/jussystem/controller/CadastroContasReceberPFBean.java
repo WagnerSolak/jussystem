@@ -16,11 +16,9 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.primefaces.event.SelectEvent;
 
 import com.jussystem.model.ClientePessoaFisica;
-import com.jussystem.model.CondicaoDePagamento;
 //import com.jussystem.model.CondicaoPagamento;
 import com.jussystem.model.ContasReceberPF;
 import com.jussystem.model.StatusContasReceber;
-import com.jussystem.repository.CondicaoDePagamentos;
 import com.jussystem.util.jsf.FacesUtil;
 import com.jusystem.service.CadastroContasReceberPFService;
 
@@ -37,8 +35,7 @@ public class CadastroContasReceberPFBean implements Serializable {
 	@Inject
 	private CadastroContasReceberPFService contasReceberPFService;
 	
-	@Inject
-	private CondicaoDePagamentos condicoesCondicaoDePagamentos;
+
 	
 	public CadastroContasReceberPFBean(){
 		limpar();
@@ -65,10 +62,7 @@ public class CadastroContasReceberPFBean implements Serializable {
 		limpar();
 	}
 	
-	public List<CondicaoDePagamento> completarCondicaoDePagamento(String descricao){
-		return this.condicoesCondicaoDePagamentos.porNomeCondicaoDePagamento(descricao);
-	}
-
+	
 	
 	/*public List<CondicaoPagamento> getCondicoesPagamento(){
 		return Arrays.asList(CondicaoPagamento.values());

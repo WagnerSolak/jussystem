@@ -4,8 +4,7 @@ import java.io.Serializable;
 
 import javax.inject.Inject;
 
-import com.jussystem.model.CondicaoPagamento;
-import com.jussystem.model.NaturezaProcesso;
+
 import com.jussystem.model.ProcessoPF;
 import com.jussystem.model.StatusProcesso;
 import com.jussystem.repository.ProcessosPF;
@@ -27,6 +26,12 @@ public class CadastroProcessoPFService implements Serializable{
 			throw new NegocioException("Já existe um processo com este número cadastrado!");
 		}
 		
+		if(processo.isNaoAlteravel()){
+			throw new NegocioException("O processo não pode ser alterado no status "
+					+ processo.getStatusProcesso().getDescricao() + ".");
+		}
+		
+		
 		if(processo.isNovo()){
 			processo.setStatusProcesso(StatusProcesso.ANDAMENTO);
 			
@@ -40,13 +45,7 @@ public class CadastroProcessoPFService implements Serializable{
 			throw new NegocioException("O valor total líquido não pode ser negativo!");
 		}
 		
-		if(processo.getNaturezaProcesso().equals(NaturezaProcesso.CIVIL)){
-			processo.setCondicaoPagamento(CondicaoPagamento.APRAZO);
-		}
 		
-		if(processo.getNaturezaProcesso().equals(NaturezaProcesso.TRABALHO)){
-			processo.setCondicaoPagamento(CondicaoPagamento.AVISTA);
-		}
 			return processos.guardar(processo);
 	}
 	

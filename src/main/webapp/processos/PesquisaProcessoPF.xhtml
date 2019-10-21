@@ -121,7 +121,8 @@
 				
 				<p:column headerText="Status" style="text-align: center; width: 50px">
 					<h:outputText
-						value="#{processoPF.statusProcesso.descricao}" />
+						value="#{processoPF.statusProcesso.descricao}" 
+						style="#{processoPF.statusProcesso.descricao == 'Cancelado' ? 'color:red' : 'color:black'}"/>
 				</p:column>
 
 				<p:column headerText="Data"

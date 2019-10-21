@@ -1,0 +1,67 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">JusSystem</ui:define>
+<f:metadata>
+			<f:viewParam name="movimentoSaidaProduto"
+				value="#{movimentoSaidaProdutoBean.movimentoSaidaProduto}" />
+			<f:event listener="#{movimentoSaidaProdutoBean.inicializar}"
+				type="preRenderView" />
+		</f:metadata>
+
+	<ui:define name="corpo">
+	
+	
+		<h:form id="frmPesquisa">
+			<h1>Movimento Saída de Produto</h1>
+		
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa de Produto"
+						outcome="/produtos/PesquisaProdutos" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:focus />
+
+			<p:panelGrid columns="3" id="painel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Código" for="cod" />
+				<p:inputText id="cod" size="20"
+					value="#{movimentoSaidaProdutoBean.produto.id}" 
+					required="true"
+					requiredMessage="O campo código deve ser inforado!"/>
+			
+				<p:commandButton icon="ui-icon-search"
+					action="#{movimentoSaidaProdutoBean.buscar}"/>
+			</p:panelGrid>
+			
+			
+			<p:panelGrid columns="2" id="painel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+		
+				
+				
+				<p:outputLabel value="Nome: "/>
+				<h:outputText value="#{movimentoSaidaProdutoBean.produto.nome}"/>
+				
+				<p:outputLabel value="Preço: "/>
+				<h:outputText value="#{movimentoSaidaProdutoBean.produto.valorUnitario}"/>
+				
+				<p:outputLabel value="Estoque: "/>
+				<h:outputText value="#{movimentoSaidaProdutoBean.produto.estoque}"/>
+				
+			</p:panelGrid>
+			
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

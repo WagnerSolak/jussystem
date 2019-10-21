@@ -13,7 +13,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import com.jussystem.model.CondicaoDePagamento;
+
 import com.jussystem.model.CondicaoPagamento;
 import com.jussystem.model.ContasReceberPF;
 import com.jussystem.repository.filter.ContasReceberPFFilter;

@@ -1,5 +1,6 @@
 package com.jussystem.model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -10,25 +11,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
 
-import com.jussystem.security.UsuarioSistema;
 
 @Entity
-public class MovimentoSaidaProduto {
+public class MovimentoSaidaProduto implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private Long id;
 	private Date dataSaida;
 	private String observacao;
 	private String usuario;
 	
-	private Integer quantidade;
+	private Integer quantidadeNova;
 
 	private Produto produto;
 	private MotivoSaidaProduto motivoSaida;
@@ -98,12 +98,12 @@ public class MovimentoSaidaProduto {
 	
 	@NotNull
 	@Column(nullable = false, length = 4)
-	public Integer getQuantidade() {
-		return quantidade;
+	public Integer getQuantidadeNova() {
+		return quantidadeNova;
 	}
 	
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
+	public void setQuantidadeNova(Integer quantidadeNova) {
+		this.quantidadeNova = quantidadeNova;
 	}
 
 	@Override

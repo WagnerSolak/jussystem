@@ -42,8 +42,8 @@
 
 			<p:focus />
 
-			<p:panelGrid columns="2" id="panel"
-				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+			<p:panelGrid columns="4" id="panel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo, rotulo, campo">
 
 
 
@@ -56,7 +56,7 @@
 					value="#{pesquisaFornecedorBean.filtro.razao}" />
 
 				<p:outputLabel value="CNPJ" for="cnpj" />
-				<p:inputText id="cnpj" size="40"
+				<p:inputText id="cnpj" size="20"
 					value="#{pesquisaFornecedorBean.filtro.cnpj}" />
 
 				<p:outputLabel value="Status" />

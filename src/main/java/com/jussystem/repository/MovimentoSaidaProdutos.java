@@ -14,7 +14,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import com.jussystem.model.Fornecedor;
+
 import com.jussystem.model.MovimentoSaidaProduto;
 import com.jussystem.repository.filter.MovimentoSaidaProdutoFilter;
 

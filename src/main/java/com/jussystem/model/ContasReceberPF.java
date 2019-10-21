@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -18,7 +17,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
-@Entity
+//@Entity
 public class ContasReceberPF implements Serializable{
 
 
@@ -42,8 +41,7 @@ public class ContasReceberPF implements Serializable{
 	private ClientePessoaFisica clientePessoaFisica;
 	private ProcessoPF processo;
 	
-	//testeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-	private CondicaoDePagamento CondicaoDePagamento;
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -221,16 +219,6 @@ public class ContasReceberPF implements Serializable{
 	}
 	
 	
-	//testeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-	public void setCondicaoDePagamento(CondicaoDePagamento condicaoDePagamento) {
-		CondicaoDePagamento = condicaoDePagamento;
-	}
 	
-	@NotNull
-	@ManyToOne
-	@JoinColumn(nullable = false, name = "condicaoDePagamento_id")
-	public CondicaoDePagamento getCondicaoDePagamento() {
-		return CondicaoDePagamento;
-	}
 	
 }
