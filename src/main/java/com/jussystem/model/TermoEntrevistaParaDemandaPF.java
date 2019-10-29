@@ -22,6 +22,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import com.jussystem.model.validation.FisicaGroups;
 import com.jussystem.model.validation.JuridicaGroups;
+import com.jussystem.validation.OnlyLetters;
 
 @Entity
 public class TermoEntrevistaParaDemandaPF implements Serializable {
@@ -122,6 +123,7 @@ public class TermoEntrevistaParaDemandaPF implements Serializable {
 		this.clientePessoaFisica = clientePessoaFisica;
 	}
 
+	@OnlyLetters
 	@Column(nullable = false, length = 100)
 	public String getReu() {
 		return reu;

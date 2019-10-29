@@ -5,28 +5,31 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="titulo">pesquisa pedidos</ui:define>
+	<ui:define name="titulo">Pesquisa: pedido com item de compra</ui:define>
 
 	<ui:define name="corpo">
-		<h:form>
-			<h1>Pesquisa pedido de compra</h1>
+		<h:form id="frmPesquisa">
+			<h1>Pesquisa Pedido de Compra Detalhado</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
 
 			<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup>
 				<p:button value="Limpar"
-						outcome="/pedidos/PesquisaPedidos" />
+						outcome="/pedidos/PesquisaPedidoCompraListagem" />
 						<p:separator />
 					<p:commandButton value="Pesquisar"
 						action="#{pesquisaPedidoBean.pesquisar}" update="@form" />
 				</p:toolbarGroup>
 
 				<p:toolbarGroup align="right">
-				<p:button value="Imprimir Pedidos Emitidos" 
-					outcome="/relatorios/RelatorioPedidosEmitidos" />
+				<p:button value="Pesquisa Pedido" outcome="/pedidos/PesquisaPedidos" />
 					<p:separator />
-					<p:button value="Novo pedido" outcome="/pedidos/CadastroPedido.xhtml"/>
+					<p:button value="Novo pedido" outcome="/pedidos/CadastroPedido" />
 				</p:toolbarGroup>
 			</p:toolbar>
+			
+			<p:focus />
 
 			<p:panelGrid columns="4" id="painel"
 				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo, rotulo, campo">
@@ -66,13 +69,18 @@
 
 			</p:panelGrid>
 
+
 			<p:dataTable id="pedidosTable" var="pedido"
 				value="#{pesquisaPedidoBean.pedidosFiltrados}"
 				style="margin-top: 20px" emptyMessage="Nenhum pedido encontrado."
 				rows="10" paginator="true" paginatorAlwaysVisible="false"
 				paginatorPosition="bottom">
 				
+				<p:column style="width: 16px;">
+				<p:rowToggler/>
+				</p:column>
 				
+
 				<p:column headerText="Código"
 					style="text-align: center; width: 30px">
 					<h:outputText value="#{pedido.id}" />
@@ -114,13 +122,28 @@
 					style="#{pedido.status.descricao == 'Cancelado' ? 'color:red' : 'color:black'}"/>
 				</p:column>
 
-				<p:column style="text-align: center; width: 50px" headerText="Opções:">
-					<p:button icon="ui-icon-pencil" title="Editar"
-					outcome="/pedidos/CadastroPedido" >
-					<f:param name="pedido" value="#{pedido.id}"/>
-					</p:button>
-				</p:column>
-
+			<p:rowExpansion>
+				<p:dataTable emptyMessage="Nenhum pedido encontrado." 
+				var="itensCompra" value="#{pedido.itens}">
+				
+						<p:column headerText="Produto">
+						<h:outputText value="#{itensCompra.produto.nome}"/>
+						</p:column>
+						
+						
+						<p:column headerText="Quantidade">
+						<h:outputText value="#{itensCompra.quantidade}"/>
+						</p:column>
+						
+						
+						<p:column headerText="Preço">
+						<h:outputText value="#{itensCompra.valorUnitario}">
+							<f:convertNumber type="currency" />
+						</h:outputText>
+						</p:column>
+						
+					</p:dataTable>
+				</p:rowExpansion>
 			</p:dataTable>
 		</h:form>
 	</ui:define>

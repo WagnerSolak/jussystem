@@ -53,14 +53,16 @@
 				<p:outputLabel for="senhaUm" value="Senha" />
 				<p:password id="senhaUm" required="true" feedback="true" size="20"
 					maxlength="12" value="#{cadastroUsuarioBean.usuario.senha}"
-					validatorMessage="A senha deve possuir no mínimo 6 caracteres!">
+					validatorMessage="A senha deve possuir no mínimo 6 caracteres!"
+					weakLabel="Fraca" goodLabel="Bom" strongLabel="Forte">
 					<f:validateLength minimum="6" maximum="12" />
 				</p:password>
 
 				<p:outputLabel for="senhaDois" value="Confirma Senha" />
 				<p:password id="senhaDois" size="20" maxlength="20"
 					value="#{cadastroUsuarioBean.usuario.confirmaSenha}"
-					validatorMessage="A senha deve possuir no mínimo 6 caracteres!">
+					validatorMessage="A senha deve possuir no mínimo 6 caracteres!"
+					weakLabel="Fraca" goodLabel="Bom" strongLabel="Forte">
 					<f:validateLength minimum="6" maximum="12" />
 				</p:password>
 				

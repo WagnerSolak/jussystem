@@ -111,11 +111,11 @@ public class MySQLBackup {
 
 	        "--user=root",
 
-	        "--password=''",
+	        //"--password=",
 
 	        dbName,
 
-	        "--result-file=" + "." + SEPARATOR + "Backup" + SEPARATOR + dbName + ".sql");
+	        "--result-file=C:\\dev\\" + dbName + ".sql");
 
 	 
 
@@ -179,17 +179,10 @@ public class MySQLBackup {
 
 	 
 
-	    // Termina o aplicativo
-
-	    System.exit(0);
 
 	  }
 
 	 
 
-	  public static void main(String[] args) {
-
-	    MySQLBackup app = new MySQLBackup();
-
-	  } 
+	 
 }

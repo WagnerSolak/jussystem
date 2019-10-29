@@ -6,24 +6,28 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="titulo">JusSystem</ui:define>
-<f:metadata>
-			<f:viewParam name="movimentoSaidaProduto"
-				value="#{movimentoSaidaProdutoBean.movimentoSaidaProduto}" />
-			<f:event listener="#{movimentoSaidaProdutoBean.inicializar}"
-				type="preRenderView" />
-		</f:metadata>
+	<f:metadata>
+		<f:viewParam name="movimentoSaidaProduto"
+			value="#{movimentoSaidaProdutoBean.movimentoSaidaProduto}" />
+		<f:event listener="#{movimentoSaidaProdutoBean.inicializar}"
+			type="preRenderView" />
+	</f:metadata>
 
 	<ui:define name="corpo">
-	
-	
-		<h:form id="frmPesquisa">
+
+
+		<h:form id="formulario">
 			<h1>Movimento Saída de Produto</h1>
-		
+
 			<p:messages autoUpdate="true" closable="true" />
 
 			<p:toolbar style="margin-top: 20px">
-				
+
 				<p:toolbarGroup align="right">
+				
+				<p:button value="Pesquisa Movimento Saída de Produto"
+						outcome="/saidas/PesquisaMovimentoSaidaDeProduto" />
+						<p:separator />
 					<p:button value="Pesquisa de Produto"
 						outcome="/produtos/PesquisaProdutos" />
 				</p:toolbarGroup>
@@ -31,37 +35,108 @@
 
 			<p:focus />
 
-			<p:panelGrid columns="3" id="painel"
+			<p:panelGrid columns="2" id="painelPesquisa"
 				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
 
-				<p:outputLabel value="Código" for="cod" />
-				<p:inputText id="cod" size="20"
-					value="#{movimentoSaidaProdutoBean.produto.id}" 
-					required="true"
-					requiredMessage="O campo código deve ser inforado!"/>
-			
-				<p:commandButton icon="ui-icon-search"
-					action="#{movimentoSaidaProdutoBean.buscar}"/>
+				<p:outputLabel value="Código" for="codigo" />
+				<h:panelGroup>
+					<p:inputText id="codigo" size="15"
+						value="#{movimentoSaidaProdutoBean.produto.id}" required="true"
+						requiredMessage="O campo código deve ser informado!"
+						converterMessage="O valor informado para este campo é inválido!"
+						validatorMessage="Informe um valor entre 1 e 999999999 para este campo!">
+
+						<f:validateLongRange minimum="1" maximum="999999999" />
+					</p:inputText>
+
+					<p:commandButton icon="ui-icon-search"
+						action="#{movimentoSaidaProdutoBean.buscar}"
+						update=":formulario:painelDados"
+						process="@this :formulario:codigo" />
+				</h:panelGroup>
 			</p:panelGrid>
-			
-			
-			<p:panelGrid columns="2" id="painel"
-				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
-		
-				
-				
-				<p:outputLabel value="Nome: "/>
-				<h:outputText value="#{movimentoSaidaProdutoBean.produto.nome}"/>
-				
-				<p:outputLabel value="Preço: "/>
-				<h:outputText value="#{movimentoSaidaProdutoBean.produto.valorUnitario}"/>
-				
-				<p:outputLabel value="Estoque: "/>
-				<h:outputText value="#{movimentoSaidaProdutoBean.produto.estoque}"/>
-				
-			</p:panelGrid>
-			
-			
+
+			<h:panelGroup id="painelDados" layout="block">
+				<p:panelGrid columns="2" style="width: 100%; margin-top: 20px"
+					columnClasses="rotulo, campo"
+					rendered="#{movimentoSaidaProdutoBean.exibePainelDados}">
+
+
+
+					<p:outputLabel value="Nome: " />
+					<h:outputText value="#{movimentoSaidaProdutoBean.produto.nome}" />
+
+					<p:outputLabel value="Preço: " />
+					<h:outputText
+						value="#{movimentoSaidaProdutoBean.produto.valorUnitario}">
+						<f:convertNumber type="currency" />
+					</h:outputText>
+
+					<p:outputLabel value="Estoque: " />
+					<h:outputText value="#{movimentoSaidaProdutoBean.produto.estoque}" />
+
+
+					<p:spacer></p:spacer>
+					<p:spacer></p:spacer>
+
+					
+
+					<p:outputLabel value="Usuário" for="usuario" />
+					<p:selectOneMenu id="usuario"
+						value="#{movimentoSaidaProdutoBean.movimentoSaidaProduto.usuario}">
+						<f:selectItem itemLabel="Selecione..." />
+						<f:selectItems
+							value="#{movimentoSaidaProdutoBean.usuariosListagem}"
+							var="usuario" itemValue="#{usuario}" itemLabel="#{usuario.nome}" />
+					</p:selectOneMenu>
+
+
+
+					<h:outputLabel value="Motivo Saída Produto *" for="mot" />
+					<h:panelGroup>
+						<p:selectOneMenu id="mot"
+							value="#{movimentoSaidaProdutoBean.movimentoSaidaProduto.motivoSaida}"
+							converter="#{motivoSaidaProdutoConverter}" filter="true"
+							filterMatchMode="contains">
+							<f:selectItem itemLabel="Selecione um motivo..."
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{movimentoSaidaProdutoBean.motivosSaidaProduto}"
+								var="motivo" itemValue="#{motivo}"
+								itemLabel="#{motivo.motivoSaida}" />
+						</p:selectOneMenu>
+						<p:button icon="ui-icon-plus" style="margin-left: 30px;"
+							outcome="/saidas/MotivoSaidaProduto" />
+					</h:panelGroup>
+
+
+					<h:outputLabel value="Quantidade Saída *" for="quantidadeSaida" />
+					<p:inputText
+						value="#{movimentoSaidaProdutoBean.movimentoSaidaProduto.quantidadeNova}"
+						validatorMessage="Quantidade Saída * aceita números entre 1 e 9999!"
+						id="quantidadeSaida" size="15">
+						<p:ajax event="change" process="@this" />
+						<f:validateLongRange minimum="1" maximum="9999" />
+					</p:inputText>
+
+					<h4>Observação *</h4>
+					<h:inputTextarea
+						value="#{movimentoSaidaProdutoBean.movimentoSaidaProduto.observacao}"
+						rows="3" cols="36" maxlength="100" required="true"
+						requiredMessage="Observação * deve ser informado!" />
+
+
+				</p:panelGrid>
+
+				<h:panelGrid columns="1"
+					rendered="#{movimentoSaidaProdutoBean.exibePainelDados}">
+					<p:commandButton value="Salvar"
+						action="#{movimentoSaidaProdutoBean.salvarMovimentoSaida}"
+						process="@form" />
+				</h:panelGrid>
+
+			</h:panelGroup>
+
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -172,6 +172,10 @@
 							<p:menuitem value="Pesquisa de Pedido de Compra"
 								icon="ui-icon-search" outcome="/pedidos/PesquisaPedidos" />
 							<p:separator />
+							
+							<p:menuitem value="Pesquisa de Pedido de Compra Detalhado"
+								icon="ui-icon-search" outcome="/pedidos/PesquisaPedidoCompraListagem" />
+							<p:separator />
 
 							<p:menuitem value="Relatório de Pedidos Emitidos por Data"
 								outcome="/relatorios/RelatorioPedidosEmitidos"
@@ -189,7 +193,10 @@
 						
 						<p:submenu label="Produto">
 							<p:menuitem value="Movimento Saída de Produto"
-								outcome="/saidas/MovimentoSaidaProduto" icon="ui-icon-refresh" />
+								outcome="/saidas/MovimentoSaidaDeProduto" icon="ui-icon-refresh" />
+								<p:separator />
+							<p:menuitem value="Pesquisa Movimento Saída de Produto"
+								outcome="/saidas/PesquisaMovimentoSaidaDeProduto" icon="ui-icon-search"/>
 						</p:submenu>
 
 					</p:submenu>

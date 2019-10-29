@@ -93,7 +93,9 @@
 				<p:inputText
 					value="#{cadastroProcessoPJBean.processoPJ.numeroProcesso}"
 					id="numeroProcesso" size="20" maxlength="20" 
-					disabled="#{cadastroProcessoPJBean.processoPJ.naoAlteravel}"/>
+					disabled="#{cadastroProcessoPJBean.processoPJ.naoAlteravel}">
+					<f:validateLongRange minimum="3" maximum="25"/>
+					</p:inputText>	
 
 				<p:outputLabel value="Natureza do Processo *" for="natureza" />
 				<h:panelGroup>

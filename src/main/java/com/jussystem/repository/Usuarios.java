@@ -30,6 +30,11 @@ public class Usuarios implements Serializable {
 	public Usuario porId(Long id) {
 		return this.manager.find(Usuario.class, id);
 	}
+	
+	public List<Usuario> buscarUsuarios() {
+
+		return this.manager.createQuery("from Usuario", Usuario.class).getResultList();
+	}
 
 	public List<Usuario> compradores() {
 

@@ -1,6 +1,7 @@
 package com.jussystem.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -26,10 +27,12 @@ public class MovimentoSaidaProduto implements Serializable {
 	private Long id;
 	private Date dataSaida;
 	private String observacao;
-	private String usuario;
+	
 	
 	private Integer quantidadeNova;
+	private Short quantidadeAntiga;
 
+	private Usuario usuario;
 	private Produto produto;
 	private MotivoSaidaProduto motivoSaida;
 
@@ -65,12 +68,14 @@ public class MovimentoSaidaProduto implements Serializable {
 		this.observacao = observacao;
 	}
 
-	@Column(nullable = false, length = 100)
-	public String getUsuario() {
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "usuario_id", nullable = false)
+	public Usuario getUsuario() {
 		return usuario;
 	}
 	
-	public void setUsuario(String usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
@@ -103,7 +108,20 @@ public class MovimentoSaidaProduto implements Serializable {
 	}
 	
 	public void setQuantidadeNova(Integer quantidadeNova) {
+		if(quantidadeNova == null){
+			quantidadeNova = 0;
+		}
 		this.quantidadeNova = quantidadeNova;
+	}
+	
+	@NotNull
+	@Column(nullable = false, length = 4)
+	public Short getQuantidadeAntiga() {
+		return quantidadeAntiga;
+	}
+	
+	public void setQuantidadeAntiga(Short quantidadeAntiga) {
+		this.quantidadeAntiga = quantidadeAntiga;
 	}
 
 	@Override
@@ -135,6 +153,10 @@ public class MovimentoSaidaProduto implements Serializable {
 	public String getDataSaidaStr(){
 		return new SimpleDateFormat("dd/MM/yyyy").format(dataSaida);
 	}
+
+	
+	
+	
 
 	
 }

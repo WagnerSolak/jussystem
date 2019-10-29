@@ -59,7 +59,7 @@
 				</p:column>
 
 				<p:column headerText="Valor Unitário"
-					style="text-align: center; width: 120px">
+					style="text-align: center; width: 150px">
 					<h:outputText value="#{produto.valorUnitario}">
 						<f:convertNumber type="currency" />
 					</h:outputText>
@@ -67,37 +67,22 @@
 
 
 				<p:column headerText="Estoque"
-					style="text-align: center; width: 100px">
+					style="text-align: center; width: 120px">
 					<h:outputText value="#{produto.estoque}" />
 				</p:column>
 
-				<p:column style="text-align: center">
+				<p:column style="width: 50px; text-align:center" headerText="Opções:">
 					<p:button outcome="/produtos/CadastroProduto" icon="ui-icon-pencil"
 						title="Editar">
 						<f:param name="produto" value="#{produto.id}" />
 					</p:button>
 
-					<p:commandButton icon="ui-icon-trash" title="Excluir"
-						oncomplete="confirmacaoExclusao.show(); " process="@this"
-						update=":frmPesquisa:confirmacaoExclusaoDialog">
-						<f:setPropertyActionListener value="#{produto}" target="#{pesquisaProdutoBean.produtoSelecionado}" />
-						</p:commandButton>
+					
 						
 				</p:column>
 			</p:dataTable>
 
-			<p:confirmDialog id="confirmacaoExclusaoDialog"
-				header="Exclusão de produto"
-				message="Deseja realmente excluir o produto #{pesquisaProdutosBean.produtoSelecionado.nome} ?"
-				widgetVar="confirmacaoExclusao">
-				<p:button value="Não"
-					onclick="confirmacaoExclusao.hide(); return false" />
-
-				<p:commandButton value="Sim" oncomplete="confirmacaoExclusao.hide()"
-					action="#{pesquisaProdutosBean.excluir}" process="@this"
-					update=":frmPesquisa:produtosTable" />
-
-			</p:confirmDialog>
+		
 		</h:form>
 	</ui:define>
 </ui:composition>

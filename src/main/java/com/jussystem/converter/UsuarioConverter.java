@@ -5,7 +5,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 import com.jussystem.model.Usuario;
 import com.jussystem.repository.Usuarios;
 import com.jussystem.util.cdi.CDIServiceLocator;
@@ -23,8 +22,14 @@ public class UsuarioConverter implements Converter{
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		Usuario retorno = null;
 		
-		if(value !=null) {
-			retorno = this.usuarios.porId(new Long(value));
+		/*if(value != null) {
+			retorno = this.usuarios.porId(new Long(value));	
+			
+		}*/
+		
+		if (value != null) {
+			Long id = new Long(value);
+			retorno = usuarios.porId(id);
 		}
 		return retorno;
 	}

@@ -1,0 +1,94 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa: movimento saída de produto</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frmPesquisa">
+			<h1>Pesquisa Movimento Saída de Produto</h1>
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+				<p:button value="Limpar"
+						outcome="/saidas/PesquisaMovimentoSaidaDeProduto" />
+						<p:separator />
+					<p:commandButton value="Pesquisar"
+						action="#{pesquisaMovimentoSaidaDeProdutoBean.pesquisar}" 
+						update="@form" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Novo movimento" outcome="/saidas/MovimentoSaidaDeProduto" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:focus />
+
+			<p:panelGrid columns="2" id="panel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Código" for="codigo" />
+				<p:inputText id="codigo" size="20"
+					value="#{pesquisaMovimentoSaidaDeProdutoBean.filtro.id}" />
+
+				
+
+
+			</p:panelGrid>
+
+			<p:dataTable id="movimentoTable" var="movimentoSaida" style="margin-top: 20px"
+				paginatorPosition="bottom" emptyMessage="Nenhum movimento encontrado."
+				rows="10" paginator="true" paginatorAlwaysVisible="false"
+				value="#{pesquisaMovimentoSaidaDeProdutoBean.movimentosFiltrados}">
+
+				<p:column headerText="Código"
+					style="text-align: center; width: 40px">
+					<h:outputText value="#{movimentoSaida.id}" />
+				</p:column>
+				
+				<p:column headerText="Data"
+					style="text-align: center; width: 40px">
+					<h:outputText value="#{movimentoSaida.dataSaida}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Produto"
+					style="text-align: left; width: 120px">
+					<h:outputText value="#{movimentoSaida.produto.nome}" />
+				</p:column>
+				
+				<p:column headerText="Estoque Anterior"
+					style="text-align: center; width: 50px">
+					<h:outputText value="#{movimentoSaida.quantidadeAntiga}" />
+				</p:column>
+				
+				<p:column headerText="Saída"
+					style="text-align: center; width: 10px">
+					<h:outputText value="#{movimentoSaida.quantidadeNova}" />
+				</p:column>
+
+				<p:column headerText="Motivo Saída" style="text-align: center; width: 100px">
+					<h:outputText value="#{movimentoSaida.motivoSaida.motivoSaida}" />
+				</p:column>
+				
+				<p:column headerText="Usuário" style="text-align: center; width: 70px">
+					<h:outputText value="#{movimentoSaida.usuario.nome}" />
+				</p:column>
+			
+
+				<p:column style="width: 50px; text-align:center" headerText="Opções:">
+					<p:button outcome="/saidas/MotivoSaidaProduto" icon="ui-icon-pencil"
+						title="Estornar">
+						<f:param name="movimentoSaida" value="#{movimentoSaida.id}" />
+					</p:button>
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

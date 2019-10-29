@@ -71,7 +71,8 @@
 				style="margin-top: 20px" emptyMessage="Nenhum pedido encontrado."
 				rows="10" paginator="true" paginatorAlwaysVisible="false"
 				paginatorPosition="bottom">
-
+				
+				
 				<p:column headerText="Código"
 					style="text-align: center; width: 30px">
 					<h:outputText value="#{pedido.id}" />
@@ -84,27 +85,31 @@
 				</p:column>
 
 				<p:column headerText="Usuário"
-				style="text-align: center; width: 160px">
+				style="text-align: center; width: 160px"
+				sortBy="#{pedido.comprador.nome}">
 					<h:outputText value="#{pedido.comprador.nome}" />
 				</p:column>
 
 
 				<p:column headerText="Data da Criação"
-					style="text-align: center; width: 100px">
+					style="text-align: center; width: 100px"
+					sortBy="#{pedido.dataCriacao}">
 					<h:outputText value="#{pedido.dataCriacao}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Valor Total"
-					style="text-align: center; width: 120px">
+					style="text-align: center; width: 120px"
+					sortBy="#{pedido.valorTotal}">
 					<h:outputText value="#{pedido.valorTotal}">
 						<f:convertNumber type="currency" />
 					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Status" 
-				style="text-align: center; width: 100px">
+				style="text-align: center; width: 100px"
+				sortBy="#{pedido.status.descricao}">
 					<h:outputText value="#{pedido.status.descricao}" 
 					style="#{pedido.status.descricao == 'Cancelado' ? 'color:red' : 'color:black'}"/>
 				</p:column>

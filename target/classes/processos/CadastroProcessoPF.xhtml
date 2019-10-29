@@ -84,7 +84,9 @@
 				<p:outputLabel value="Número do Processo *" for="numeroProcesso" />
 				<p:inputText value="#{cadastroProcessoPFBean.processoPF.numeroProcesso}"
 					id="numeroProcesso" size="20" maxlength="20"
-					disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}"/>	
+					disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}">
+					<f:validateLongRange minimum="3" maximum="25"/>
+					</p:inputText>	
 
 				<p:outputLabel value="Natureza do Processo *" for="natureza" />
 				<h:panelGroup>

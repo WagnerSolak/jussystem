@@ -8,8 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.jussystem.validation.OnlyLetters;
 
 
 
@@ -33,7 +34,7 @@ public class Cargo implements Serializable{
 		this.id = id;
 	}
 
-	
+	@OnlyLetters
 	@NotBlank 
 	@Column(nullable = false, length = 100)
 	public String getCargoEmpresa() {

@@ -11,11 +11,14 @@ import javax.inject.Named;
 import com.jussystem.model.MotivoSaidaProduto;
 import com.jussystem.model.MovimentoSaidaProduto;
 import com.jussystem.model.Produto;
+import com.jussystem.model.Usuario;
 import com.jussystem.repository.MotivoSaidaProdutos;
 import com.jussystem.repository.Produtos;
+import com.jussystem.repository.Usuarios;
 import com.jussystem.security.Seguranca;
 import com.jussystem.util.jsf.FacesUtil;
-import com.jusystem.service.MovimentoSaidaProdutoService;
+import com.jusystem.service.CadastroMovimentoSaidaProdutoService;
+
 
 @Named
 @ViewScoped
@@ -25,22 +28,27 @@ public class MovimentoSaidaProdutoBean implements Serializable{
 	
 	private MovimentoSaidaProduto movimentoSaidaProduto;
 
+	private Boolean exibePainelDados;
+	
+	@Inject
+	private Usuarios usuarios;
 
 	@Inject
 	private Produtos produtos;
 	
 	private Produto produto;
 	
-	@Inject
+	
 	private Seguranca seguranca;
 	
 	@Inject
-	private MovimentoSaidaProdutoService movimentoSaidaProdutoService;
+	private CadastroMovimentoSaidaProdutoService movimentoSaidaProdutoService;
 	
 	@Inject
 	private MotivoSaidaProdutos motivoSaidaProdutos;
 	
 	private List<MotivoSaidaProduto> motivosSaidaProduto;
+	private List<Usuario>usuariosListagem;
 	
 	
 	public MovimentoSaidaProdutoBean() {
@@ -53,9 +61,12 @@ public class MovimentoSaidaProdutoBean implements Serializable{
 			Produto resultado = produtos.porId(produto.getId());
 			
 			if(resultado == null){
+				exibePainelDados = false;
 				FacesUtil.addInfoMessage("Não existe produto cadastrado no sistema com este código!");
 			}else{
+				exibePainelDados = true;
 				produto = resultado;
+				
 			}
 		} catch (RuntimeException e) {
 			e.getMessage();
@@ -69,27 +80,36 @@ public class MovimentoSaidaProdutoBean implements Serializable{
 			
 		}
 		motivosSaidaProduto = motivoSaidaProdutos.buscarMotivos();
+		usuariosListagem = usuarios.buscarUsuarios();
 		
 	}
 	
+	
 	public void salvarMovimentoSaida(){
 		
-		
-		movimentoSaidaProduto.setDataSaida(new Date());
-		movimentoSaidaProduto.setProduto(produto);
-		//movimentoSaidaProduto.setUsuario(seguranca.getUsuarioLogado().getUsuario());
-		
-		movimentoSaidaProduto = movimentoSaidaProdutoService.salvar(movimentoSaidaProduto);
+		try {
+			movimentoSaidaProduto.setDataSaida(new Date());
+			movimentoSaidaProduto.setProduto(produto);
+			movimentoSaidaProduto.setQuantidadeAntiga(produto.getEstoque());
+			
+			
+			movimentoSaidaProdutoService.recalcularNovoEstoque(movimentoSaidaProduto);
 
-		FacesUtil.addInfoMessage("Movimento do produto: " + movimentoSaidaProduto.getProduto().getNome()
-				+ ", salvo com sucesso!");
-		limpar();
+			FacesUtil.addInfoMessage("Movimento do produto: " + movimentoSaidaProduto.getProduto().getNome()
+					+ ", salvo com sucesso!");
+			limpar();
+			
+		} catch (Exception e) {
+			
+			FacesUtil.addErrorMessage("Ocorreu um erro ao tentar salvar o movimento! " + e.getMessage());
+		}
 		
 	}
 	
 	public void limpar(){
 		movimentoSaidaProduto = new MovimentoSaidaProduto();
 		produto = new Produto();
+		exibePainelDados = false;
 	}
 	
 	public Date getMostrarDataAtual(){
@@ -98,6 +118,10 @@ public class MovimentoSaidaProdutoBean implements Serializable{
 
 	public List<MotivoSaidaProduto> getMotivosSaidaProduto() {
 		return motivosSaidaProduto;
+	}
+	
+	public List<Usuario> getUsuariosListagem() {
+		return usuariosListagem;
 	}
 	
 	public void setMovimentoSaidaProduto(
@@ -115,6 +139,14 @@ public class MovimentoSaidaProdutoBean implements Serializable{
 	
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+	
+	public Boolean getExibePainelDados() {
+		return exibePainelDados;
+	}
+	
+	public void setExibePainelDados(Boolean exibePainelDados) {
+		this.exibePainelDados = exibePainelDados;
 	}
 	
 	public Seguranca getSeguranca() {

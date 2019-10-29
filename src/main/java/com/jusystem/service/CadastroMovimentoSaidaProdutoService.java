@@ -18,7 +18,8 @@ public class CadastroMovimentoSaidaProdutoService implements Serializable{
 	@Inject
 	private Produtos produtos;
 	
-
+	@Inject
+	private CadastroProdutoService cadastroProdutoService;
 	
 	@Inject
 	private MovimentoSaidaProdutos movimentoSaidaProdutos;
@@ -29,17 +30,25 @@ public class CadastroMovimentoSaidaProdutoService implements Serializable{
 		Produto produto = movimentoSaidaProduto.getProduto();
 		int qtde =  produto.getEstoque() - movimentoSaidaProduto.getQuantidadeNova();
 		
-		if(qtde >= 0){
-			
-			produto.setEstoque(new Short(qtde + ""));
-			produto = produtos.guardar(produto);
-		}else{
-			FacesUtil.addErrorMessage("A quantidade de saída não pode ser maior que o estoque!");
+		if(qtde < 0){
+			throw new NegocioException("A quantidade de saída não pode ser maior que o estoque!");
 		}
 		
+		produto = movimentoSaidaProduto.getProduto();
+		produto.setEstoque((short) (produto.getEstoque()- movimentoSaidaProduto.getQuantidadeNova()));
+		
+		produtos.guardar(produto);
+	
 		
 		return movimentoSaidaProdutos.guardar(movimentoSaidaProduto); 
 				
+	}
+
+	@Transactional
+	public void recalcularNovoEstoque(MovimentoSaidaProduto movimentoSaidaProduto) {
+	
+		salvar(movimentoSaidaProduto);
+		
 	}
 	
 	

@@ -14,7 +14,6 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-
 import com.jussystem.model.MovimentoSaidaProduto;
 import com.jussystem.repository.filter.MovimentoSaidaProdutoFilter;
 
@@ -54,16 +53,28 @@ public class MovimentoSaidaProdutos implements Serializable {
 	@SuppressWarnings("unchecked")
 	public List<MovimentoSaidaProduto>filtradas(MovimentoSaidaProdutoFilter filtro){
 		Session session = manager.unwrap(Session.class);
-		Criteria criteria = session.createCriteria(MovimentoSaidaProduto.class);
+		Criteria criteria = session.createCriteria(MovimentoSaidaProduto.class)
+				.createAlias("usuario", "u");
 		
 		if(filtro.getId() != null) {                                      
 		criteria.add(Restrictions.eq("id", filtro.getId()));
 		}
 		
-		if(StringUtils.isNotBlank(filtro.getNome())) {
-			criteria.add(Restrictions.ilike("movimentoSaidaProduto", filtro.getNome(), MatchMode.ANYWHERE));
+		if (filtro.getDataSaidaDe() != null) {
+			criteria.add(Restrictions.ge("dataSaida", filtro.getDataSaidaDe()));
 		}
-		return criteria.addOrder(Order.asc("movimentoSaidaProduto")).list();
+		
+		if (filtro.getDataSaidaAte() != null) {
+			criteria.add(Restrictions.le("dataSaida", filtro.getDataSaidaAte()));
+		}
+		
+		if (StringUtils.isNotBlank(filtro.getNomeUsuario())) {
+			// acessamos o nome do cliente associado ao pedido pelo alias "f", criado anteriormente
+			criteria.add(Restrictions.ilike("u.nome", filtro.getNomeUsuario(), MatchMode.ANYWHERE));
+		}
+		
+		
+		return criteria.addOrder(Order.asc("id")).list();
 	}
 
 	public MovimentoSaidaProduto porId(Long id) {
