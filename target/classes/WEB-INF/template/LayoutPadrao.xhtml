@@ -78,8 +78,8 @@
 				<p:menubar styleClass="menu-sistema">
 					<p:submenu label="Cadastros/Pesquisas">
 						<p:submenu label="Cidade">
-							<p:menuitem value="Cadastro de Cidade" style="width: 200px;"
-								styleClass="menu-tamanho" outcome="/cidades/CadastroCidade"
+							<p:menuitem value="Cadastro de Cidade" 
+							    outcome="/cidades/CadastroCidade"
 								icon="ui-icon-plus" />
 							<p:separator />
 							<p:menuitem value="Pesquisa de Cidade" icon="ui-icon-search"
@@ -95,6 +95,9 @@
 							<p:menuitem value="Pesquisa de Cliente Pessoa Física"
 								icon="ui-icon-search"
 								outcome="/pessoas/PesquisaClientesPessoaFisica" />
+								<p:separator/>
+							<p:menuitem value="Relatório Contato do Cliente" icon="ui-icon-document"
+							outcome="/relatorios/RelatorioContatoClientePF"/>
 							<p:separator />
 							<p:menuitem value="Cadastro de Profissão" icon="ui-icon-plus"
 								outcome="/profissoes/CadastroProfissao" />
@@ -105,59 +108,65 @@
 						<p:separator />
 
 						<p:submenu label="Cliente Pessoa Jurídica">
-							<p:menuitem value="Cadastro de Cliente Pessoa Jurídica"
+							<p:menuitem value="Cadastro de Cliente Pessoa Jurídica" icon="ui-icon-plus"
 								outcome="/pessoas/CadastroClientePessoaJuridica" />
 							<p:separator />
-							<p:menuitem value="Pesquisa de Cliente Pessoa Juridica"
+							<p:menuitem value="Pesquisa de Cliente Pessoa Juridica" icon="ui-icon-search"
 								outcome="/pessoas/PesquisaClientesPessoaJuridica" />
+							<p:separator/>
+							<p:menuitem value="Relatório Contato do Cliente" icon="ui-icon-document"
+							outcome="/relatorios/RelatorioContatoClientePJ"/>
 							<p:separator />
-							<p:menuitem value="Cadastro de Cargo"
+							<p:menuitem value="Cadastro de Cargo" icon="ui-icon-plus"
 								outcome="/cargos/CadastroCargo" />
 							<p:separator />
-							<p:menuitem value="Pesquisa de Cargo"
+							<p:menuitem value="Pesquisa de Cargo" icon="ui-icon-search"
 								outcome="/cargos/PesquisaCargos" />
 						</p:submenu>
 						<p:separator />
 
 						<p:submenu label="Fornecedor">
-							<p:menuitem value="Cadastro de Fornecedor"
+							<p:menuitem value="Cadastro de Fornecedor" icon="ui-icon-plus"
 								outcome="/fornecedores/CadastroFornecedor" />
 							<p:separator />
-							<p:menuitem value="Pesquisa de Fornecedor"
+							<p:menuitem value="Pesquisa de Fornecedor" icon="ui-icon-search"
 								outcome="/fornecedores/PesquisaFornecedores" />
+								<p:separator/>
+							<p:menuitem value="Relatório Contato do Fornecedor" icon="ui-icon-document"
+							outcome="/relatorios/RelatorioContatoFornecedor"/>
 
 						</p:submenu>
 						<p:separator />
 
 						<p:submenu label="Usuário">
-							<p:menuitem value="Cadastro de Usuário"
+							<p:menuitem value="Cadastro de Usuário" icon="ui-icon-plus"
 								outcome="/usuarios/CadastroUsuario" />
 							<p:separator />
-							<p:menuitem value="Pesquisa de Usuário"
+							<p:menuitem value="Pesquisa de Usuário" icon="ui-icon-search"
 								outcome="/usuarios/PesquisaUsuarios" />
 						</p:submenu>
 						<p:separator />
 
 						<p:submenu label="Produto">
-							<p:menuitem value="Cadastro de Produto"
+							<p:menuitem value="Cadastro de Produto" icon="ui-icon-plus"
 								outcome="/produtos/CadastroProduto" />
 							<p:separator />
-							<p:menuitem value="Pesquisa de Produto"
+							<p:menuitem value="Pesquisa de Produto" icon="ui-icon-search"
 								outcome="/produtos/PesquisaProdutos" />
 							<p:separator />
-							<p:menuitem value="Motivo Saída de Produto"
+							<p:menuitem value="Cadastro Motivo Saída de Produto" icon="ui-icon-plus"
 								outcome="/saidas/MotivoSaidaProduto" />
-							<p:separator />
-							<p:menuitem value="Pesquisa Motivo Saída de Produto"
+							<p:separator /> 
+							<p:menuitem value="Pesquisa Motivo Saída de Produto" icon="ui-icon-search"
 								outcome="/saidas/PesquisaMotivoSaidaProdutos" />
 						</p:submenu>
 						<p:separator />
 
 						<p:submenu label="Forma Pagamento">
-							<p:menuitem value="Cadastro de Forma Pagamento"
+							<p:menuitem value="Cadastro de Forma Pagamento" icon="ui-icon-plus"
 								outcome="/formaPagamentos/CadastroFormaPagamento" />
 							<p:separator />
-							<p:menuitem value="Pesquisa de Forma Pagamento"
+							<p:menuitem value="Pesquisa de Forma Pagamento" icon="ui-icon-search"
 								outcome="/formaPagamentos/PesquisaFormaPagamentos" />
 						</p:submenu>
 					</p:submenu>
@@ -165,16 +174,16 @@
 
 					<p:submenu label="Movimentos">
 						<p:submenu label="Pedido de Compra">
-							<p:menuitem value="Cadastro de Pedido de Compra"
-								outcome="/pedidos/CadastroPedido" icon="ui-icon-plus" />
+							<p:menuitem value="Cadastro de Pedido de Compra" icon="ui-icon-plus"
+								outcome="/pedidos/CadastroPedido"  />
 							<p:separator />
 
-							<p:menuitem value="Pesquisa de Pedido de Compra"
+							<p:menuitem value="Pesquisa de Pedido de Compra" 
 								icon="ui-icon-search" outcome="/pedidos/PesquisaPedidos" />
 							<p:separator />
 							
-							<p:menuitem value="Pesquisa de Pedido de Compra Detalhado"
-								icon="ui-icon-search" outcome="/pedidos/PesquisaPedidoCompraListagem" />
+							<p:menuitem value="Pesquisa de Pedido de Compra Detalhado" icon="ui-icon-search"
+								outcome="/pedidos/PesquisaPedidoCompraListagem" />
 							<p:separator />
 
 							<p:menuitem value="Relatório de Pedidos Emitidos por Data"
@@ -215,19 +224,19 @@
 
 					<p:submenu label="Jurídico Pessoa Física">
 						<p:submenu label="Processo">
-							<p:menuitem value="Cadastro Processo"
+							<p:menuitem value="Cadastro Processo" icon="ui-icon-plus"
 								outcome="/processos/CadastroProcessoPF" />
 							<p:separator />
-							<p:menuitem value="Pesquisa Processo"
+							<p:menuitem value="Pesquisa Processo" icon="ui-icon-search"
 								outcome="/processos/PesquisaProcessoPF" />
 								<p:separator/>
-								<p:menuitem value="Relatório Provisionamento de Processos"
+								<p:menuitem value="Relatório Provisionamento de Processos" icon="ui-icon-document"
 							outcome="/relatorios/RelatorioProvisionamentoProcessoPF"/>
 							<p:separator/>
-							<p:menuitem value="Relatório Processos Encerrados"
+							<p:menuitem value="Relatório Processos Encerrados" icon="ui-icon-document"
 							outcome="/relatorios/RelatorioProcessoEncerradoPF"/>
 							<p:separator/>
-							<p:menuitem value="Relatório Processos Cancelados"
+							<p:menuitem value="Relatório Processos Cancelados" icon="ui-icon-document"
 							outcome="/relatorios/RelatorioProcessoCanceladoPF"/>
 							<p:separator/>
 							
@@ -238,49 +247,51 @@
 						
 
 						<p:submenu label="Procuração Ad Judicia">
-							<p:menuitem value="Cadastro Procuração Ad Judicia"
+							<p:menuitem value="Cadastro Procuração Ad Judicia" icon="ui-icon-plus"
 								outcome="/documentos/CadastroProcuracaoAdJudiciaPF" />
 							<p:separator />
-							<p:menuitem value="Pesquisa Procuração Ad Judicia"
+							<p:menuitem value="Pesquisa Procuração Ad Judicia" icon="ui-icon-search"
 								outcome="/documentos/PesquisaProcuracaoAdJudiciaPF" />
 							<p:separator />
-							<p:menuitem value="Relatório Procuração Ad Judicia"
+							<p:menuitem value="Relatório Procuração Ad Judicia" icon="ui-icon-document"
 								outcome="/relatorios/RelatorioProcuracaoAdJudiciaPF" />
 						</p:submenu>
 						<p:separator />
 
 						<p:submenu label="Contrato Honorário Advocaticio">
-							<p:menuitem value="Cadastro Contrato Honorário Advocaticio"
+							<p:menuitem value="Cadastro Contrato Honorário Advocaticio" icon="ui-icon-plus"
 								outcome="/documentos/CadastroContratoHonorarioAdvocaticioPF" />
 							<p:separator />
-							<p:menuitem value="Pesquisa Contrato Honorário Advocaticio"
+							<p:menuitem value="Pesquisa Contrato Honorário Advocaticio" icon="ui-icon-search"
 								outcome="/documentos/PesquisaContratoHonorarioAdvocaticioPF" />
 							<p:separator />
-							<p:menuitem value="Relatório Contrato Honorário Advocaticio" />
+							<p:menuitem value="Relatório Contrato Honorário Advocaticio" 
+							outcome="/relatorios/RelatorioContratoHonorarioAdvocaticioPF"
+							icon="ui-icon-document"/>
 						</p:submenu>
 
 						<p:separator />
 
 						<p:submenu label="Declaração Justiça Gratuita">
-							<p:menuitem value="Cadastro Declaração Justiça Gratuita"
+							<p:menuitem value="Cadastro Declaração Justiça Gratuita" icon="ui-icon-plus"
 								outcome="/documentos/CadastroDeclaracaoJusticaGratuitaPF" />
 							<p:separator />
-							<p:menuitem value="Pesquisa Declaração Justiça Gratuita"
+							<p:menuitem value="Pesquisa Declaração Justiça Gratuita" icon="ui-icon-search"
 								outcome="/documentos/PesquisaDeclaracaoJusticaGratuitaPF" />
 							<p:separator />
-							<p:menuitem value="Relatório Declaração Justiça Gratuita"
+							<p:menuitem value="Relatório Declaração Justiça Gratuita" icon="ui-icon-document"
 								outcome="/relatorios/RelatorioDeclaracaoJusticaGratuitaPF" />
 						</p:submenu>
 						<p:separator />
 
 						<p:submenu label="Termo Entrevista Para Demanda">
-							<p:menuitem value="Cadastro Termo Entrevista Para Demanda"
+							<p:menuitem value="Cadastro Termo Entrevista Para Demanda" icon="ui-icon-plus"
 								outcome="/documentos/CadastroTermoEntrevistaParaDemandaPF" />
 							<p:separator />
-							<p:menuitem value="Pesquisa Termo Entrevista Para Demanda"
+							<p:menuitem value="Pesquisa Termo Entrevista Para Demanda" icon="ui-icon-search"
 								outcome="/documentos/PesquisaTermoEntrevistaParaDemandaPF" />
 							<p:separator />
-							<p:menuitem value="Relatório Termo Entrevista Para Demanda"
+							<p:menuitem value="Relatório Termo Entrevista Para Demanda" icon="ui-icon-document"
 								outcome="/relatorios/RelatorioTermoEntrevistaParaDemandaPF" />
 						</p:submenu>
 
@@ -291,21 +302,21 @@
 
 					<p:submenu label="Jurídico Pessoa Jurídica">
 						<p:submenu label="Processo">
-							<p:menuitem value="Cadastro Processo"
+							<p:menuitem value="Cadastro Processo" icon="ui-icon-plus"
 								outcome="/processos/CadastroProcessoPJ" />
 							<p:separator />
-							<p:menuitem value="Pesquisa Processo"
+							<p:menuitem value="Pesquisa Processo" icon="ui-icon-search"
 								outcome="/processos/PesquisaProcessoPJ" />
 								<p:separator/>
 					
-							<p:menuitem value="Relatório Provisionamento de Processos"
+							<p:menuitem value="Relatório Provisionamento de Processos" icon="ui-icon-document"
 							outcome="/relatorios/RelatorioProvisionamentoProcessoPJ"/>
 							<p:separator/>
-							<p:menuitem value="Relatório Processos Encerrados"
+							<p:menuitem value="Relatório Processos Encerrados" icon="ui-icon-document"
 							outcome="/relatorios/RelatorioProcessoEncerradoPJ"/>
 									
 							<p:separator/>
-							<p:menuitem value="Relatório Processos Cancelados"
+							<p:menuitem value="Relatório Processos Cancelados" icon="ui-icon-document"
 							outcome="/relatorios/RelatorioProcessoCanceladoPJ"/>
 							
 						</p:submenu>
@@ -313,51 +324,53 @@
 
 
 						<p:submenu label="Procuração Ad Judicia">
-							<p:menuitem value="Cadastro Procuração Ad Judicia"
+							<p:menuitem value="Cadastro Procuração Ad Judicia" icon="ui-icon-plus"
 								outcome="/documentos/CadastroProcuracaoAdJudiciaPJ" />
 							<p:separator />
-							<p:menuitem value="Pesquisa Procuração Ad Judicia"
+							<p:menuitem value="Pesquisa Procuração Ad Judicia" icon="ui-icon-search"
 								outcome="/documentos/PesquisaProcuracaoAdJudiciaPJ" />
 							<p:separator />
-							<p:menuitem value="Relatório Procuração Ad Judicia"
+							<p:menuitem value="Relatório Procuração Ad Judicia" icon="ui-icon-document"
 								outcome="/relatorios/RelatorioProcuracaoAdJudiciaPJ" />
 						</p:submenu>
 						<p:separator />
 
 						<p:submenu label="Contrato Honorário Advocatício">
-							<p:menuitem value="Cadastro Contrato Honorário Advocaticio"
+							<p:menuitem value="Cadastro Contrato Honorário Advocaticio" icon="ui-icon-plus"
 								outcome="/documentos/CadastroContratoHonorarioAdvocaticioPJ" />
 							<p:separator />
-							<p:menuitem value="Pesquisa Contrato Honorário Advocaticio"
+							<p:menuitem value="Pesquisa Contrato Honorário Advocaticio" icon="ui-icon-search"
 								outcome="/documentos/PesquisaContratoHonorarioAdvocaticioPJ" />
 							<p:separator />
-							<p:menuitem value="Relatório Contrato Honorário Advocaticio" />
+							<p:menuitem value="Relatório Contrato Honorário Advocaticio" 
+							outcome="/relatorios/RelatorioContratoHonorarioAdvocaticioPJ"
+							icon="ui-icon-document"/>
 						</p:submenu>
 						<p:separator />
 
 
 
 						<p:submenu label="Declaração Justiça Gratuita">
-							<p:menuitem value="Cadastro Declaração Justiça Gratuita"
+							<p:menuitem value="Cadastro Declaração Justiça Gratuita" icon="ui-icon-plus"
 								outcome="/documentos/CadastroDeclaracaoJusticaGratuitaPJ" />
 							<p:separator />
-							<p:menuitem value="Pesquisa Declaração Justiça Gratuita"
+							<p:menuitem value="Pesquisa Declaração Justiça Gratuita" icon="ui-icon-search"
 								outcome="/documentos/PesquisaDeclaracaoJusticaGratuitaPJ" />
 							<p:separator />
-							<p:menuitem value="Relatório Declaração Justiça Gratuita"
+							<p:menuitem value="Relatório Declaração Justiça Gratuita" icon="ui-icon-document"
 								outcome="/relatorios/RelatorioDeclaracaoJusticaGratuitaPJ" />
 						</p:submenu>
 						<p:separator />
 
 
 						<p:submenu label="Termo Entrevista Para Demanda">
-							<p:menuitem value="Cadastro Termo Entrevista Para Demanda"
+							<p:menuitem value="Cadastro Termo Entrevista Para Demanda" icon="ui-icon-plus"
 								outcome="/documentos/CadastroTermoEntrevistaParaDemandaPJ" />
 							<p:separator />
-							<p:menuitem value="Pesquisa Termo Entrevista Para Demanda"
+							<p:menuitem value="Pesquisa Termo Entrevista Para Demanda" icon="ui-icon-search"
 								outcome="/documentos/PesquisaTermoEntrevistaParaDemandaPJ" />
 							<p:separator />
-							<p:menuitem value="Relatório Termo Entrevista Para Demanda"
+							<p:menuitem value="Relatório Termo Entrevista Para Demanda" icon="ui-icon-document"
 								outcome="/relatorios/RelatorioTermoEntrevistaParaDemandaPJ" />
 						</p:submenu>
 					</p:submenu>
@@ -367,15 +380,16 @@
 
 
 					<p:submenu label="Ajuda">
-						<p:menuitem value="Editor de Texto" outcome="/ajudas/Editor" />
+						<p:menuitem value="Editor de Texto" icon="ui-icon-pencil" 
+						outcome="/ajudas/Editor" />
 						<p:separator />
-						<p:menuitem value="Mensagens de Erro" 
+						<p:menuitem value="Mensagens de Erro" icon="ui-icon-notice"
 						outcome="/ajudas/Ajuda"/>
 						<p:separator />
-						<p:menuitem value="Ajuda" 
+						<p:menuitem value="Ajuda" icon="ui-icon-help"
 						outcome="/ajudas/AjudaUsuario"/>
 						<p:separator />
-						<p:menuitem value="Backup"  
+						<p:menuitem value="Backup"  icon="ui-icon-disk"
 						outcome="/ajudas/Backup"/>
 					</p:submenu>
 
