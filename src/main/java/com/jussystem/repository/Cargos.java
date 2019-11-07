@@ -55,8 +55,12 @@ public class Cargos implements Serializable{
 		Session session = manager.unwrap(Session.class);
 		Criteria criteria = session.createCriteria(Cargo.class);
 		
-		if(filtro.getId() != null) {                                      
-		criteria.add(Restrictions.eq("id", filtro.getId()));
+		if (filtro.getNumeroDe() != null) {
+			criteria.add(Restrictions.ge("id", filtro.getNumeroDe()));
+		}
+
+		if (filtro.getNumeroAte() != null) {
+			criteria.add(Restrictions.le("id", filtro.getNumeroAte()));
 		}
 		
 		if(StringUtils.isNotBlank(filtro.getNome())) {

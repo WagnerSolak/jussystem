@@ -68,11 +68,21 @@
 
 				<p:outputLabel value="CPF" for="cpf" />
 				<p:inputText id="cpf" size="28"
-					value="#{pesquisaClientePessoaFisicaBean.filtro.cpf}" />
+					value="#{pesquisaClientePessoaFisicaBean.filtro.cpf}" 
+					placeholder="Utilize pontuação para pesquisar"/>
 
 				<p:outputLabel value="Nome" for="nome" />
 				<p:inputText id="nome" size="60"
 					value="#{pesquisaClientePessoaFisicaBean.filtro.nome}" />
+					
+				<p:outputLabel value="RG" for="rg" />
+				<p:inputText id="rg" size="28"
+					value="#{pesquisaClientePessoaFisicaBean.filtro.rg}" />
+					
+					<p:outputLabel value="Data de Nascimento" for="dt" />
+				    <p:calendar size="28" pattern="dd/MM/yyyy"
+				    	id="dt"
+						value="#{pesquisaClientePessoaFisicaBean.filtro.dataNascimento}" />
 
 			</p:panelGrid>
 
@@ -120,7 +130,8 @@
 				</p:column>
 
 				<p:column headerText="Dt. Cadastro"
-					style="text-align: center; width: 40px">
+					style="text-align: center; width: 50px"
+					sortBy="#{clientePessoaFisica.dataCadastroStr}">
 					<h:outputText value="#{clientePessoaFisica.dataCadastroStr}" />
 				</p:column>
 

@@ -67,10 +67,18 @@
 				<p:outputLabel value="CNPJ" for="cnpj" />
 				<p:inputText id="cnpj" size="28"
 					value="#{pesquisaClientePessoaJuridicaBean.filtro.cnpj}" />
+					
+				<p:outputLabel value="CPF" for="cpf" />
+				<p:inputText id="cpf" size="28"
+					value="#{pesquisaClientePessoaJuridicaBean.filtro.cpf}" />	
 
-				<p:outputLabel value="Nome" for="nome" />
-				<p:inputText id="nome" size="60"
+				<p:outputLabel value="Nome Contratante" for="nomeContratante" />
+				<p:inputText id="nomeContratante" size="60"
 					value="#{pesquisaClientePessoaJuridicaBean.filtro.nome}" />
+					
+				<p:outputLabel value="Nome Representada" for="nomeRepresentada" />
+				<p:inputText id="nomeRepresentada" size="60"
+					value="#{pesquisaClientePessoaJuridicaBean.filtro.nomeRepresentada}" />	
 
 			</p:panelGrid>
 
@@ -114,7 +122,8 @@
 				</p:column>
 
 				<p:column headerText="Dt. Cadastro"
-					style="text-align: center; width: 40px">
+					style="text-align: center; width: 50px"
+					sortBy="#{clientePessoaJuridica.dataCadastroStr}">
 					<h:outputText value="#{clientePessoaJuridica.dataCadastroStr}" />
 				</p:column>
 				

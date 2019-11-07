@@ -52,10 +52,14 @@ public class CadastroProcessoPFBean implements Serializable {
 	}
 
 	public void salvar() {
+	
+			processoPF = processoService.salvar(processoPF);
+			FacesUtil.addInfoMessage("Processo: " + processoPF.getNumeroProcesso() 
+					+ " salvo com sucesso!");
+			
+	
 		
-		processoPF = processoService.salvar(processoPF);
-		FacesUtil.addInfoMessage("Processo: " + processoPF.getNumeroProcesso() 
-				+ " salvo com sucesso!");
+		
 		
 	}
 

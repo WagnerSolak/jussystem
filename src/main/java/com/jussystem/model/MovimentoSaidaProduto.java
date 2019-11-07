@@ -1,12 +1,13 @@
 package com.jussystem.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,6 +28,7 @@ public class MovimentoSaidaProduto implements Serializable {
 	private Long id;
 	private Date dataSaida;
 	private String observacao;
+	private Date dataCancelamento;
 	
 	
 	private Integer quantidadeNova;
@@ -35,6 +37,7 @@ public class MovimentoSaidaProduto implements Serializable {
 	private Usuario usuario;
 	private Produto produto;
 	private MotivoSaidaProduto motivoSaida;
+	private StatusMovimentoSaidaProduto statusMovimentoSaidaProduto;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +51,7 @@ public class MovimentoSaidaProduto implements Serializable {
 
 	@NotNull
 	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	public Date getDataSaida() {
 		return dataSaida;
 	}
@@ -58,8 +61,8 @@ public class MovimentoSaidaProduto implements Serializable {
 		this.dataSaida = dataSaida;
 	}
 
-	
-	@Column(nullable = false, length = 100)
+	@NotNull
+	@Column(nullable = false, length = 210)
 	public String getObservacao() {
 		return observacao;
 	}
@@ -124,6 +127,29 @@ public class MovimentoSaidaProduto implements Serializable {
 		this.quantidadeAntiga = quantidadeAntiga;
 	}
 
+	public void setStatusMovimentoSaidaProduto(
+			StatusMovimentoSaidaProduto statusMovimentoSaidaProduto) {
+		this.statusMovimentoSaidaProduto = statusMovimentoSaidaProduto;
+	}
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 10)
+	public StatusMovimentoSaidaProduto getStatusMovimentoSaidaProduto() {
+		return statusMovimentoSaidaProduto;
+	}
+	
+	public void setDataCancelamento(Date dataCancelamento) {
+		this.dataCancelamento = dataCancelamento;
+	}
+	
+	
+	@Temporal(TemporalType.DATE)
+	public Date getDataCancelamento() {
+		return dataCancelamento;
+	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -154,7 +180,37 @@ public class MovimentoSaidaProduto implements Serializable {
 		return new SimpleDateFormat("dd/MM/yyyy").format(dataSaida);
 	}
 
+	/*@Transient
+	public boolean isNaoCancelavel(){
+		return StatusMovimentoSaidaProduto.CANCELADO.equals(this.getStatusMovimentoSaidaProduto());
+	}*/
 	
+	@Transient
+	public boolean isNaoCancelavel() {
+		return !isCancelavel();
+	}
+
+	@Transient
+	private boolean isCancelavel() {
+		return this.isExistente() && !this.isCancelado();
+	}
+	
+	@Transient
+	private boolean isExistente() {
+		return ! isNovo();
+		
+	}
+	
+	@Transient
+	private boolean isNovo() {
+		return getId() == null;
+	}
+	
+	@Transient
+	private boolean isCancelado() {
+		return StatusPedido.CANCELADO.equals(this.getStatusMovimentoSaidaProduto());
+	}
+
 	
 	
 

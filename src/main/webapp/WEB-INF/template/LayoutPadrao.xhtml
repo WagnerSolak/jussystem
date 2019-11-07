@@ -189,14 +189,24 @@
 								outcome="/inativacoes/InativaFornecedor" icon="ui-icon-refresh" />
 							<p:separator />
 						</p:submenu>
+						
+						<p:submenu label="Usuário">
+							<p:menuitem value="Ativa/Inativa Usuário"
+								outcome="/inativacoes/InativaUsuario" icon="ui-icon-refresh" />
+							<p:separator />
+						</p:submenu>
 
 						
 						<p:submenu label="Produto">
 							<p:menuitem value="Movimento Saída de Produto"
 								outcome="/saidas/MovimentoSaidaDeProduto" icon="ui-icon-refresh" />
 								<p:separator />
-							<p:menuitem value="Pesquisa Movimento Saída de Produto"
+						     <p:menuitem value="Pesquisa Movimento Saída de Produto"
 								outcome="/saidas/PesquisaMovimentoSaidaDeProduto" icon="ui-icon-search"/>
+								<p:separator />
+							 <p:menuitem value="Cancelamento Movimento Saída de Produto"
+								outcome="/saidas/CancelamentoMovimentoSaidaDeProduto" icon="ui-icon-refresh" />
+						
 						</p:submenu>
 
 					</p:submenu>
@@ -210,6 +220,18 @@
 							<p:separator />
 							<p:menuitem value="Pesquisa Processo"
 								outcome="/processos/PesquisaProcessoPF" />
+								<p:separator/>
+								<p:menuitem value="Relatório Provisionamento de Processos"
+							outcome="/relatorios/RelatorioProvisionamentoProcessoPF"/>
+							<p:separator/>
+							<p:menuitem value="Relatório Processos Encerrados"
+							outcome="/relatorios/RelatorioProcessoEncerradoPF"/>
+							<p:separator/>
+							<p:menuitem value="Relatório Processos Cancelados"
+							outcome="/relatorios/RelatorioProcessoCanceladoPF"/>
+							<p:separator/>
+							
+							
 						</p:submenu>
 						<p:separator />
 						
@@ -262,9 +284,8 @@
 								outcome="/relatorios/RelatorioTermoEntrevistaParaDemandaPF" />
 						</p:submenu>
 
-
-
-					</p:submenu>
+						</p:submenu>
+		
 
 
 
@@ -275,6 +296,18 @@
 							<p:separator />
 							<p:menuitem value="Pesquisa Processo"
 								outcome="/processos/PesquisaProcessoPJ" />
+								<p:separator/>
+					
+							<p:menuitem value="Relatório Provisionamento de Processos"
+							outcome="/relatorios/RelatorioProvisionamentoProcessoPJ"/>
+							<p:separator/>
+							<p:menuitem value="Relatório Processos Encerrados"
+							outcome="/relatorios/RelatorioProcessoEncerradoPJ"/>
+									
+							<p:separator/>
+							<p:menuitem value="Relatório Processos Cancelados"
+							outcome="/relatorios/RelatorioProcessoCanceladoPJ"/>
+							
 						</p:submenu>
 						<p:separator />
 

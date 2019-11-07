@@ -22,6 +22,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.jussystem.validation.OnlyNumbers;
+
 @Entity
 public class ProcessoPJ implements Serializable {
 
@@ -58,8 +60,8 @@ public class ProcessoPJ implements Serializable {
 		this.id = id;
 	}
 
-	@NotBlank
-	@Column(nullable = false, length = 25, unique = true)
+	@OnlyNumbers
+	@Column(nullable = false, length = 25)
 	public String getNumeroProcesso() {
 		return numeroProcesso;
 	}

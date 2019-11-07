@@ -77,12 +77,12 @@ public class ClientePessoaFisicas implements Serializable {
 		}
 
 		if (filtro.getDataCriacaoDe() != null) {
-			criteria.add(Restrictions.ge("dataCriacao",
+			criteria.add(Restrictions.ge("dataCadastro",
 					filtro.getDataCriacaoDe()));
 		}
 
 		if (filtro.getDataCriacaoAte() != null) {
-			criteria.add(Restrictions.le("dataCriacao",
+			criteria.add(Restrictions.le("dataCadastro",
 					filtro.getDataCriacaoAte()));
 		}
 
@@ -90,10 +90,18 @@ public class ClientePessoaFisicas implements Serializable {
 			criteria.add(Restrictions.ilike("nomePessoa", filtro.getNome(),
 					MatchMode.ANYWHERE));
 		}
-
-		if (StringUtils.isNotBlank(filtro.getCpf())) {
-			criteria.add(Restrictions.ilike("cpf", filtro.getCpf(),
+		
+		if (StringUtils.isNotBlank(filtro.getRg())) {
+			criteria.add(Restrictions.ilike("rg", filtro.getRg(),
 					MatchMode.ANYWHERE));
+		}
+		
+		if (filtro.getDataNascimento() != null) {
+			criteria.add(Restrictions.eq("dataNascimento", filtro.getDataNascimento()));
+		}
+		
+		if(StringUtils.isNotBlank(filtro.getCpf())){
+			criteria.add(Restrictions.ilike("cpf", filtro.getCpf()));
 		}
 
 		return criteria.addOrder(Order.asc("nomePessoa")).list();

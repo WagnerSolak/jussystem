@@ -55,9 +55,13 @@ public class MotivoSaidaProdutos implements Serializable {
 	public List<MotivoSaidaProduto>filtradas(MotivoSaidaProdutoFilter filtro){
 		Session session = manager.unwrap(Session.class);
 		Criteria criteria = session.createCriteria(MotivoSaidaProduto.class);
-		
-		if(filtro.getId() != null) {                                      
-		criteria.add(Restrictions.eq("id", filtro.getId()));
+	
+		if (filtro.getNumeroDe() != null) {
+			criteria.add(Restrictions.ge("id", filtro.getNumeroDe()));
+		}
+
+		if (filtro.getNumeroAte() != null) {
+			criteria.add(Restrictions.le("id", filtro.getNumeroAte()));
 		}
 		
 		if(StringUtils.isNotBlank(filtro.getNome())) {

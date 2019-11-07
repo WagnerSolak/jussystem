@@ -2,7 +2,6 @@ package com.jusystem.service;
 
 import java.io.Serializable;
 
-
 import javax.inject.Inject;
 
 import com.jussystem.model.ProcessoPF;
@@ -24,7 +23,7 @@ public class EncerramentoProcessoPFService implements Serializable{
 	private CadastroProcessoPFService cadastroProcessoPFService;
 	
 	@Transactional
-	public ProcessoPF encerrar(ProcessoPF processoPF){
+	public ProcessoPF encerrar(ProcessoPF processoPF) throws Exception{
 		processoPF = this.cadastroProcessoPFService.salvar(processoPF);
 		
 		if(processoPF.isNaoEncerravelZerado()){

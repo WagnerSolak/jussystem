@@ -9,7 +9,7 @@ import com.jussystem.model.Produto;
 import com.jussystem.repository.MovimentoSaidaProdutos;
 import com.jussystem.repository.Produtos;
 import com.jussystem.util.jpa.Transactional;
-import com.jussystem.util.jsf.FacesUtil;
+
 
 public class CadastroMovimentoSaidaProdutoService implements Serializable{
 
@@ -17,9 +17,6 @@ public class CadastroMovimentoSaidaProdutoService implements Serializable{
 
 	@Inject
 	private Produtos produtos;
-	
-	@Inject
-	private CadastroProdutoService cadastroProdutoService;
 	
 	@Inject
 	private MovimentoSaidaProdutos movimentoSaidaProdutos;
@@ -48,6 +45,26 @@ public class CadastroMovimentoSaidaProdutoService implements Serializable{
 	public void recalcularNovoEstoque(MovimentoSaidaProduto movimentoSaidaProduto) {
 	
 		salvar(movimentoSaidaProduto);
+		
+	}
+
+	@Transactional
+	public void recalcularNovoEstoqueCancelado(MovimentoSaidaProduto movimentoSaidaProdutoSelecionado) {
+		cancelar(movimentoSaidaProdutoSelecionado);
+		
+	}
+
+	@Transactional
+	private MovimentoSaidaProduto cancelar(MovimentoSaidaProduto movimentoSaidaProdutoSelecionado) {
+		Produto produto = movimentoSaidaProdutoSelecionado.getProduto();
+		produto = movimentoSaidaProdutoSelecionado.getProduto();
+		
+		produto.setEstoque((short) (movimentoSaidaProdutoSelecionado.getProduto().getEstoque() + movimentoSaidaProdutoSelecionado.getQuantidadeNova()));
+		
+	
+		produtos.guardar(produto);
+		
+		return movimentoSaidaProdutos.guardar(movimentoSaidaProdutoSelecionado);
 		
 	}
 	

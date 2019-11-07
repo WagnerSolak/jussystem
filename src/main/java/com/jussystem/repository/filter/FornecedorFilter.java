@@ -14,7 +14,8 @@ public class FornecedorFilter implements Serializable{
 	private String razao;
 	private String cnpj;
 	private StatusFornecedor[] statuses;
-	
+	private Long numeroDe;
+	private Long numeroAte;
 	
 	public String getNome() {
 		return nome;
@@ -40,6 +41,18 @@ public class FornecedorFilter implements Serializable{
 	
 	public StatusFornecedor[] getStatuses() {
 		return statuses;
+	}
+	public Long getNumeroDe() {
+		return numeroDe;
+	}
+	public void setNumeroDe(Long numeroDe) {
+		this.numeroDe = numeroDe;
+	}
+	public Long getNumeroAte() {
+		return numeroAte;
+	}
+	public void setNumeroAte(Long numeroAte) {
+		this.numeroAte = numeroAte;
 	}
 	
 	

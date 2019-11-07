@@ -65,21 +65,7 @@ public class PesquisaFornecedorBean implements Serializable {
 			}
 		}
 		
-		/*StatusFornecedor situacao = null;
-		if (situacao == StatusFornecedor.ATIVO) {
-			fornecedorSelecionado.setStatus(StatusFornecedor.INATIVO);
-			FacesUtil.addInfoMessage("Fornecedor "
-					+ fornecedorSelecionado.getNomeFantasia()
-					+ " inativado com sucesso!");
-			salvarRemoverDaLista();
-
-		} else {
-			fornecedorSelecionado.setStatus(StatusFornecedor.ATIVO);
-			FacesUtil.addInfoMessage("Fornecedor "
-					+ fornecedorSelecionado.getNomeFantasia()
-					+ " ativado com sucesso!");
-			salvarRemoverDaLista();
-		}*/
+	
 
 	}
 	

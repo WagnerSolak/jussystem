@@ -214,7 +214,7 @@ public class ClientePessoaJuridica implements Serializable {
 	}
 
 	@Email(message = "O e-mail informado é inválido!")
-	@Column(unique = true, length = 100)
+	@Column(length = 100)
 	public String getEmail() {
 		return email;
 	}

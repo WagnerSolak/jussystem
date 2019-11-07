@@ -11,6 +11,7 @@ import javax.inject.Named;
 import com.jussystem.model.MotivoSaidaProduto;
 import com.jussystem.model.MovimentoSaidaProduto;
 import com.jussystem.model.Produto;
+import com.jussystem.model.StatusMovimentoSaidaProduto;
 import com.jussystem.model.Usuario;
 import com.jussystem.repository.MotivoSaidaProdutos;
 import com.jussystem.repository.Produtos;
@@ -69,8 +70,7 @@ public class MovimentoSaidaProdutoBean implements Serializable{
 				
 			}
 		} catch (RuntimeException e) {
-			e.getMessage();
-			FacesUtil.addErrorMessage("Ocorreu um erro ao tentar buscar o produto!");
+			FacesUtil.addErrorMessage("Ocorreu um erro ao tentar buscar o produto!" + e.getMessage());
 		}
 	}
 	
@@ -91,17 +91,20 @@ public class MovimentoSaidaProdutoBean implements Serializable{
 			movimentoSaidaProduto.setDataSaida(new Date());
 			movimentoSaidaProduto.setProduto(produto);
 			movimentoSaidaProduto.setQuantidadeAntiga(produto.getEstoque());
+			movimentoSaidaProduto.setStatusMovimentoSaidaProduto(StatusMovimentoSaidaProduto.ATIVO);
 			
 			
 			movimentoSaidaProdutoService.recalcularNovoEstoque(movimentoSaidaProduto);
 
 			FacesUtil.addInfoMessage("Movimento do produto: " + movimentoSaidaProduto.getProduto().getNome()
 					+ ", salvo com sucesso!");
-			limpar();
 			
+			exibePainelDados = false;
+			movimentoSaidaProduto.setId(null);
 		} catch (Exception e) {
 			
-			FacesUtil.addErrorMessage("Ocorreu um erro ao tentar salvar o movimento! " + e.getMessage());
+			FacesUtil.addErrorMessage("Quantidade de saída maior que o estoque, verifique! ");
+			e.getMessage();
 		}
 		
 	}
@@ -110,6 +113,7 @@ public class MovimentoSaidaProdutoBean implements Serializable{
 		movimentoSaidaProduto = new MovimentoSaidaProduto();
 		produto = new Produto();
 		exibePainelDados = false;
+		movimentoSaidaProduto.setStatusMovimentoSaidaProduto(StatusMovimentoSaidaProduto.ATIVO);
 	}
 	
 	public Date getMostrarDataAtual(){

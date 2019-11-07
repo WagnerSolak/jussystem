@@ -6,7 +6,8 @@ public class FormaPagamentoFilter implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
+	private Long numeroDe;
+	private Long numeroAte;
 	private String descricao;
 	
 	public String getDescricao() {
@@ -16,14 +17,24 @@ public class FormaPagamentoFilter implements Serializable{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao == null ? null : descricao.toUpperCase();
 	}
-	
-	public void setId(Long id) {
-		this.id = id;
+
+	public Long getNumeroDe() {
+		return numeroDe;
+	}
+
+	public void setNumeroDe(Long numeroDe) {
+		this.numeroDe = numeroDe;
+	}
+
+	public Long getNumeroAte() {
+		return numeroAte;
+	}
+
+	public void setNumeroAte(Long numeroAte) {
+		this.numeroAte = numeroAte;
 	}
 	
-	public Long getId() {
-		return id;
-	}
+	
 	
 	
 }

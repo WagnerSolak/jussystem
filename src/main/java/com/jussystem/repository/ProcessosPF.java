@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
+
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -29,16 +30,14 @@ public class ProcessosPF implements Serializable {
 		return this.manager.find(ProcessoPF.class, id);
 	}
 
-	public ProcessoPF guardar(ProcessoPF processo) {
+	public ProcessoPF guardar(ProcessoPF processo){
 		return manager.merge(processo);
 	}
 
 	public ProcessoPF porNumeroProcesso(String numeroProcesso) {
 		try {
 			return manager
-					.createQuery(
-							"from ProcessoPF where numeroProcesso = :numeroProcesso",
-							ProcessoPF.class)
+					.createQuery("from ProcessoPF where numeroProcesso = :numeroProcesso", ProcessoPF.class)
 					.setParameter("numeroProcesso", numeroProcesso)
 					.getSingleResult();
 		} catch (NoResultException e) {

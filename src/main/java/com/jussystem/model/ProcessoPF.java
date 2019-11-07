@@ -3,8 +3,8 @@ package com.jussystem.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-
 import java.util.Date;
+
 
 
 
@@ -24,6 +24,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.jussystem.validation.OnlyNumbers;
 
 
 
@@ -64,8 +66,8 @@ public class ProcessoPF implements Serializable {
 		this.id = id;
 	}
 
-	@NotBlank
-	@Column(nullable = false, length = 25, unique = true)
+	@OnlyNumbers
+	@Column(nullable = false, length = 25)
 	public String getNumeroProcesso() {
 		return numeroProcesso;
 	}

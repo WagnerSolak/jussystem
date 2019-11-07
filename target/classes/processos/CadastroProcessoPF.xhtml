@@ -78,15 +78,16 @@
 					navigator="true" locale="pt" pattern="dd/MM/yyyy" 
 					maxdate="#{cadastroProcessoPFBean.dataHoje}"
 					required="true"
-					requiredMessage="O campo Data deve ser informado!"
+					requiredMessage="Data * deve ser informado!"
 					disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}"/>
 
-				<p:outputLabel value="Número do Processo *" for="numeroProcesso" />
+				<p:outputLabel value="Número do Processo" for="numeroProcesso" />
 				<p:inputText value="#{cadastroProcessoPFBean.processoPF.numeroProcesso}"
 					id="numeroProcesso" size="20" maxlength="20"
-					disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}">
-					<f:validateLongRange minimum="3" maximum="25"/>
-					</p:inputText>	
+					disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}"
+					required="true" requiredMessage="Número do Processo * deve ser informado!" />
+					
+					
 
 				<p:outputLabel value="Natureza do Processo *" for="natureza" />
 				<h:panelGroup>

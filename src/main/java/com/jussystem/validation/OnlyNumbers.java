@@ -15,7 +15,7 @@ import javax.validation.constraints.Pattern;
 @Target({ ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {})
-@Pattern(regexp = "([\\d])?")
+@Pattern(regexp = "[0-9]{3,}")
 public @interface OnlyNumbers {
 	
 	@OverridesAttribute(constraint = Pattern.class, name = "message")

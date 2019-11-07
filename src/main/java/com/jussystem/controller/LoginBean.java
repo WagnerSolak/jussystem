@@ -33,6 +33,7 @@ public class LoginBean implements Serializable{
 	
 	
 	public void login() throws ServletException, IOException {
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/Login.xhtml");
 		dispatcher.forward(request, response);
 		

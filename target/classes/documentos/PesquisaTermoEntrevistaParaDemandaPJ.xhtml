@@ -92,7 +92,8 @@
 				</p:column>
 
 				<p:column headerText="Data do Documento"
-					style="text-align: center; width: 100px">
+					style="text-align: center; width: 100px"
+					sortBy="#{termoEntrevistaParaDemandaPJ.dataDocumento}">
 					<h:outputText value="#{termoEntrevistaParaDemandaPJ.dataDocumento}" >
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>

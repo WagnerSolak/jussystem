@@ -32,9 +32,14 @@
 			<p:panelGrid columns="2" id="painel"
 				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
 
-				<p:outputLabel value="Código" for="cod" />
-				<p:inputText id="cod" size="20"
-					value="#{pesquisaProdutosBean.filtro.id}" />
+				<p:outputLabel value="Código" />
+				<h:panelGroup>
+					<p:inputText size="10"
+						value="#{pesquisaProdutosBean.filtro.numeroDe}" />
+					a
+					<p:inputText size="10"
+						value="#{pesquisaProdutosBean.filtro.numeroAte}" />
+				</h:panelGroup>
 
 				<p:outputLabel value="Nome" for="nome" />
 				<p:inputText id="nome" size="60"
@@ -59,7 +64,8 @@
 				</p:column>
 
 				<p:column headerText="Valor Unitário"
-					style="text-align: center; width: 150px">
+					style="text-align: center; width: 150px"
+					sortBy="#{produto.valorUnitario}">
 					<h:outputText value="#{produto.valorUnitario}">
 						<f:convertNumber type="currency" />
 					</h:outputText>
@@ -67,7 +73,8 @@
 
 
 				<p:column headerText="Estoque"
-					style="text-align: center; width: 120px">
+					style="text-align: center; width: 120px"
+					sortBy="#{produto.estoque}">
 					<h:outputText value="#{produto.estoque}" />
 				</p:column>
 

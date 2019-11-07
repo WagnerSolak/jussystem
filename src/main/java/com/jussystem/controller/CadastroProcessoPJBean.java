@@ -51,7 +51,7 @@ public class CadastroProcessoPJBean implements Serializable {
 		processoPJ = cadastroProcessoPJService.salvar(processoPJ);
 		FacesUtil.addInfoMessage("Processo: " + processoPJ.getNumeroProcesso() 
 				+ " salvo com sucesso!");
-		limpar();
+		
 		
 	}
 	

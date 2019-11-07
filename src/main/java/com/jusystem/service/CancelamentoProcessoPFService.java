@@ -19,7 +19,7 @@ public class CancelamentoProcessoPFService implements Serializable{
 
 	
 	@Transactional
-	public ProcessoPF cancelar(ProcessoPF processoPF) {
+	public ProcessoPF cancelar(ProcessoPF processoPF) throws Exception {
 		processoPF = this.processosPF.porId(processoPF.getId());
 		
 		if(processoPF.isNaoCancelavel()){

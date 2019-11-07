@@ -28,7 +28,7 @@ public class CancelamentoProcessoPFBean implements Serializable{
 	@ProcessoPFEncerramento
 	private ProcessoPF processoPF;
 	
-	public void cancelarProcesso(){
+	public void cancelarProcesso() throws Exception{
 		this.processoPF = this.cancelamentoProcessoPFService.cancelar(this.processoPF);
 		this.processoPFAlteradoEvent.fire(new ProcessoPFAlteradoEvent(this.processoPF));
 		

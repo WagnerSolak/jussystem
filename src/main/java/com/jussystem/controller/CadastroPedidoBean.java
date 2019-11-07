@@ -9,7 +9,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-
 import org.hibernate.validator.constraints.NotBlank;
 import org.primefaces.event.SelectEvent;
 
@@ -18,6 +17,7 @@ import com.jussystem.model.Fornecedor;
 import com.jussystem.model.ItemPedido;
 import com.jussystem.model.Pedido;
 import com.jussystem.model.Produto;
+import com.jussystem.model.StatusUsuario;
 import com.jussystem.model.Usuario;
 import com.jussystem.repository.FormaPagamentos;
 import com.jussystem.repository.Produtos;
@@ -48,7 +48,9 @@ public class CadastroPedidoBean implements Serializable {
 	@PedidoEdicao
 	private Pedido pedido;
 	
+	
 	private List<Usuario> compradores;
+	
 	private List<FormaPagamento>formasPagamento;
 	
 	private Produto produtoLinhaEditavel;
@@ -65,7 +67,7 @@ public class CadastroPedidoBean implements Serializable {
 
 	public void inicializar() {
 		if (FacesUtil.isNotPostBack()) {
-			this.compradores = this.usuarios.compradores();
+			this.compradores = this.usuarios.todosCompradoresAtivos(StatusUsuario.ATIVO);
 			this.formasPagamento = this.formaPagamentos.formaPagamentos();
 			
 			

@@ -71,8 +71,12 @@ public class Produtos implements Serializable {
 			criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
 		}
 		
-		if(filtro.getId() != null) {
-			criteria.add(Restrictions.eq("id", filtro.getId()));
+		if (filtro.getNumeroDe() != null) {
+			criteria.add(Restrictions.ge("id", filtro.getNumeroDe()));
+		}
+
+		if (filtro.getNumeroAte() != null) {
+			criteria.add(Restrictions.le("id", filtro.getNumeroAte()));
 		}
 		
 		return criteria.addOrder(Order.asc("nome")).list();

@@ -122,7 +122,7 @@
 					<h4>Observação *</h4>
 					<h:inputTextarea
 						value="#{movimentoSaidaProdutoBean.movimentoSaidaProduto.observacao}"
-						rows="3" cols="36" maxlength="100" required="true"
+						rows="3" cols="70" maxlength="210" required="true"
 						requiredMessage="Observação * deve ser informado!" />
 
 
@@ -132,7 +132,7 @@
 					rendered="#{movimentoSaidaProdutoBean.exibePainelDados}">
 					<p:commandButton value="Salvar"
 						action="#{movimentoSaidaProdutoBean.salvarMovimentoSaida}"
-						process="@form" />
+						process="@form" update="@form"/>
 				</h:panelGrid>
 
 			</h:panelGroup>

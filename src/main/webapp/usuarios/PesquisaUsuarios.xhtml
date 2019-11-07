@@ -29,16 +29,33 @@
 			
 			<p:focus />
 
-			<p:panelGrid columns="2" id="painel"
-				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+			<p:panelGrid columns="4" id="painel"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo, rotulo, campo">
 				
-				<p:outputLabel value="Código" for="cod" />
-				<p:inputText id="cod" size="20"
-					value="#{pesquisaUsuarioBean.filtro.id}" />
+				<p:outputLabel value="Código" />
+				<h:panelGroup>
+					<p:inputText size="12"
+						value="#{pesquisaUsuarioBean.filtro.numeroDe}" />
+					a
+					<p:inputText size="12"
+						value="#{pesquisaUsuarioBean.filtro.numeroAte}" />
+				</h:panelGroup>
+
 
 				<p:outputLabel value="Nome" for="nome" />
 				<p:inputText id="nome" size="60"
 					value="#{pesquisaUsuarioBean.filtro.nome}" />
+				
+				<p:outputLabel value="Email" for="email" />
+				<p:inputText id="email" size="60"
+					value="#{pesquisaUsuarioBean.filtro.email}" />	
+
+				<p:outputLabel value="Status" />
+				<p:selectManyCheckbox
+					value="#{pesquisaUsuarioBean.filtro.statuses}">
+					<f:selectItems value="#{pesquisaUsuarioBean.statuses}"
+						var="status" itemValue="#{status}" itemLabel="#{status.descricao}" />
+				</p:selectManyCheckbox>
 
 			</p:panelGrid>
 
@@ -54,16 +71,18 @@
 
 
 				<p:column headerText="Nome" style="text-align: left; width: 500px"
-				sortBy="#{usuario.nome}">
+					sortBy="#{usuario.nome}">
 					<h:outputText value="#{usuario.nome}" />
 				</p:column>
 
-				<p:column headerText="E-mail" style="text-align: center; width: 300px">
+				<p:column headerText="E-mail" style="text-align: center; width: 300px"
+				sortBy="#{usuario.email}">
 					<h:outputText value="#{usuario.email}" />
 				</p:column>
 
 				<p:column headerText="Status do Usuário"
-					style="text-align: center; width: 150px">
+					style="text-align: center; width: 150px"
+					sortBy="#{usuario.statusUsuario.descricao}">
 					<h:outputText value="#{usuario.statusUsuario.descricao}" />
 				</p:column>
 				

@@ -11,8 +11,10 @@ public class ClientePessoaJuridicaFilter implements Serializable {
 	private Long numeroAte;
 	private String cnpj;
 	private String nome;
+	private String nomeRepresentada;
 	private Date dataCriacaoDe;
 	private Date dataCriacaoAte;
+	private String cpf;
 
 	public void setNumeroDe(Long numeroDe) {
 		this.numeroDe = numeroDe;
@@ -62,4 +64,19 @@ public class ClientePessoaJuridicaFilter implements Serializable {
 		this.dataCriacaoAte = dataCriacaoAte;
 	}
 
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	
+	public String getCpf() {
+		return cpf;
+	}
+	
+	public void setNomeRepresentada(String nomeRepresentada) {
+		this.nomeRepresentada = nomeRepresentada;
+	}
+	
+	public String getNomeRepresentada() {
+		return nomeRepresentada;
+	}
 }

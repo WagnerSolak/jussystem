@@ -3,17 +3,31 @@ package com.jussystem.repository.filter;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.jussystem.model.StatusMovimentoSaidaProduto;
+
 public class MovimentoSaidaProdutoFilter implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
+	
+	private Long numeroDe;
+	private Long numeroAte;
+	private String nomeProduto;
 	private Date dataSaidaDe;
 	private Date dataSaidaAte;
 	private String nomeUsuario;
+	private StatusMovimentoSaidaProduto[] statuses;
 	
 	
 	
+	public StatusMovimentoSaidaProduto[] getStatuses() {
+		return statuses;
+	}
+
+	public void setStatuses(StatusMovimentoSaidaProduto[] statuses) {
+		this.statuses = statuses;
+	}
+
 	public Date getDataSaidaDe() {
 		return dataSaidaDe;
 	}
@@ -38,13 +52,31 @@ public class MovimentoSaidaProdutoFilter implements Serializable{
 		this.nomeUsuario = nomeUsuario;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public Long getNumeroDe() {
+		return numeroDe;
+	}
+
+	public void setNumeroDe(Long numeroDe) {
+		this.numeroDe = numeroDe;
+	}
+
+	public Long getNumeroAte() {
+		return numeroAte;
+	}
+
+	public void setNumeroAte(Long numeroAte) {
+		this.numeroAte = numeroAte;
+	}
+
+	public void setNomeProduto(String nomeProduto) {
+		this.nomeProduto = nomeProduto;
 	}
 	
-	public Long getId() {
-		return id;
+	public String getNomeProduto() {
+		return nomeProduto;
 	}
+	
+	
 }
 
 

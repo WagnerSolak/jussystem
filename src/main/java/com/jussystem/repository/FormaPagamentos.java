@@ -49,9 +49,14 @@ public class FormaPagamentos implements Serializable {
 		Criteria criteria = session.createCriteria(FormaPagamento.class);
 		
 		
-		if(filtro.getId() != null){
-			criteria.add(Restrictions.eq("id", filtro.getId()));
+		if(filtro.getNumeroDe() != null){
+			criteria.add(Restrictions.ge("id", filtro.getNumeroDe()));
 		}
+		
+		if(filtro.getNumeroAte() != null){
+			criteria.add(Restrictions.le("id", filtro.getNumeroAte()));
+		}
+		
 		
 		if(StringUtils.isNotBlank(filtro.getDescricao())) {
 			criteria.add(Restrictions.ilike("descricao", filtro.getDescricao(), MatchMode.ANYWHERE));

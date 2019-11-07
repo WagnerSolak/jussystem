@@ -126,7 +126,8 @@
 				</p:column>
 
 				<p:column headerText="Data"
-					style="text-align: center; width: 60px">
+					style="text-align: center; width: 60px"
+					sortBy="#{processoPF.dataEntrada}">
 					<h:outputText value="#{processoPF.dataEntrada}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>

@@ -78,22 +78,36 @@ public class ClientePessoaJuridicas implements Serializable{
 		}
 
 		if (filtro.getDataCriacaoDe() != null) {
-			criteria.add(Restrictions.ge("dataCriacao",
+			criteria.add(Restrictions.ge("dataCadastro",
 					filtro.getDataCriacaoDe()));
 		}
 
 		if (filtro.getDataCriacaoAte() != null) {
-			criteria.add(Restrictions.le("dataCriacao",
+			criteria.add(Restrictions.le("dataCadastro",
 					filtro.getDataCriacaoAte()));
+		}
+		
+		if(StringUtils.isNotBlank(filtro.getCpf())){
+			criteria.add(Restrictions.eq("telefoneCelular1", filtro.getCpf()));
 		}
 
 		if (StringUtils.isNotBlank(filtro.getNome())) {
 			criteria.add(Restrictions.ilike("nomeContratante", filtro.getNome(),
 					MatchMode.ANYWHERE));
 		}
+		
+		if (StringUtils.isNotBlank(filtro.getNomeRepresentada())) {
+			criteria.add(Restrictions.ilike("nomeRepresentada", filtro.getNomeRepresentada(),
+					MatchMode.ANYWHERE));
+		}
 
 		if (StringUtils.isNotBlank(filtro.getCnpj())) {
 			criteria.add(Restrictions.ilike("cnpj", filtro.getCnpj(),
+					MatchMode.ANYWHERE));
+		}
+		
+		if (StringUtils.isNotBlank(filtro.getCpf())) {
+			criteria.add(Restrictions.ilike("cpfContratante", filtro.getCpf(),
 					MatchMode.ANYWHERE));
 		}
 

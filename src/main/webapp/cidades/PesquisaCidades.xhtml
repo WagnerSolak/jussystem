@@ -29,12 +29,18 @@
 			
 			<p:focus />
 
-			<p:panelGrid columns="2" id="painel"
+			<p:panelGrid columns="4" id="painel"
 				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
 
-				<p:outputLabel value="Código" for="cod" />
-				<p:inputText id="cod" size="20"
-					value="#{pesquisaCidadeBean.filtro.id}" />
+					
+					<p:outputLabel value="Código" />
+				<h:panelGroup>
+					<p:inputText size="12"
+						value="#{pesquisaCidadeBean.filtro.numeroDe}" />
+					a
+					<p:inputText size="12"
+						value="#{pesquisaCidadeBean.filtro.numeroAte}" />
+				</h:panelGroup>
 
 				<p:outputLabel value="Nome" for="nome" />
 				<p:inputText id="nome" size="60"

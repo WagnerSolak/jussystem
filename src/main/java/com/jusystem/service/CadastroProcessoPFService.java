@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.inject.Inject;
 
-
 import com.jussystem.model.ProcessoPF;
 import com.jussystem.model.StatusProcesso;
 import com.jussystem.repository.ProcessosPF;
@@ -19,7 +18,7 @@ public class CadastroProcessoPFService implements Serializable{
 	private ProcessosPF processos;
 	
 	@Transactional
-	public ProcessoPF salvar(ProcessoPF processo) {
+	public ProcessoPF salvar(ProcessoPF processo){
 		
 		ProcessoPF processoExistente = processos.porNumeroProcesso(processo.getNumeroProcesso());
 		if(processoExistente != null && !processoExistente.equals(processo)){
@@ -44,7 +43,6 @@ public class CadastroProcessoPFService implements Serializable{
 		if(processo.isValorLiquidoNegativo()){
 			throw new NegocioException("O valor total líquido não pode ser negativo!");
 		}
-		
 		
 			return processos.guardar(processo);
 	}

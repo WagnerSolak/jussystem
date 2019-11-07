@@ -30,9 +30,16 @@
 			<p:panelGrid columns="2" id="panel"
 				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
 
-				<p:outputLabel value="Código" for="codigo" />
-				<p:inputText id="codigo" size="20"
-					value="#{pesquisaProfissaoBean.filtro.id}" />
+				<p:outputLabel value="Código" />
+				<h:panelGroup>
+					<p:inputText size="10"
+						value="#{pesquisaProfissaoBean.filtro.numeroDe}" />
+					a
+					<p:inputText size="10"
+						value="#{pesquisaProfissaoBean.filtro.numeroAte}" />
+				</h:panelGroup>
+
+
 
 				<p:outputLabel value="Descrição" for="descricao" />
 				<p:inputText id="descricao" size="60"

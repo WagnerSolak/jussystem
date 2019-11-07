@@ -15,6 +15,8 @@ public class ClientePessoaFisicaFilter implements Serializable {
 	private String nome;
 	private Date dataCriacaoDe;
 	private Date dataCriacaoAte;
+	private String rg;
+	private Date dataNascimento;
 	
 	
 	public void setNumeroDe(Long numeroDe) {
@@ -64,6 +66,24 @@ public class ClientePessoaFisicaFilter implements Serializable {
 	public void setDataCriacaoAte(Date dataCriacaoAte) {
 		this.dataCriacaoAte = dataCriacaoAte;
 	}
+
+
+	public String getRg() {
+		return rg;
+	}
+
+	public void setRg(String rg) {
+		this.rg = rg;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+	
 	
 	
 	

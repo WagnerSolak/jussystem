@@ -45,7 +45,7 @@
 			<p:panelGrid columns="4" id="panel"
 				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo, rotulo, campo">
 
-
+				
 
 				<p:outputLabel value="Nome Fantasia" for="fantasia" />
 				<p:inputText id="fantasia" size="60"
@@ -54,6 +54,21 @@
 				<p:outputLabel value="Razão Social" for="razao" />
 				<p:inputText id="razao" size="60"
 					value="#{pesquisaFornecedorBean.filtro.razao}" />
+					
+					</p:panelGrid>
+					
+				<p:panelGrid columns="7" id="panel2"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo, rotulo, campo, rotulo, campo, rotulo, campo">	
+					
+					<p:outputLabel value="Código" />
+				<h:panelGroup>
+					<p:inputText size="10"
+						value="#{pesquisaFornecedorBean.filtro.numeroDe}" />
+					a
+					<p:inputText size="10"
+						value="#{pesquisaFornecedorBean.filtro.numeroAte}" />
+				</h:panelGroup>
+					
 
 				<p:outputLabel value="CNPJ" for="cnpj" />
 				<p:inputText id="cnpj" size="20"
@@ -65,10 +80,10 @@
 					<f:selectItems value="#{pesquisaFornecedorBean.statuses}"
 						var="status" itemValue="#{status}" itemLabel="#{status.descricao}" />
 				</p:selectManyCheckbox>
+</p:panelGrid>
 
 
-
-			</p:panelGrid>
+			
 
 			<p:dataTable id="fornecedorTable" var="fornecedor"
 				style="margin-top: 20px" paginatorPosition="bottom"
@@ -88,7 +103,8 @@
 				</p:column>
 
 				<p:column headerText="Razão Social"
-					style="text-align: center; width: 90px">
+					style="text-align: center; width: 90px"
+					sortBy="#{fornecedor.razao}">
 					<h:outputText value="#{fornecedor.razao}" />
 				</p:column>
 

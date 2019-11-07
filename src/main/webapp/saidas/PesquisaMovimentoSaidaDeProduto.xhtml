@@ -8,8 +8,36 @@
 	<ui:define name="titulo">Pesquisa: movimento saída de produto</ui:define>
 
 	<ui:define name="corpo">
+	
+	<style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+     
+    .ui-datatable {
+        margin-bottom: 25px
+    }
+     
+    .ui-datatable .ui-datatable-footer {
+        text-align:left;
+    }
+     
+    .ui-datalist ul {
+        padding: 0 0 0 10px;
+        margin: 5px 0;
+    }
+     
+    .ui-datatable .ui-button-icon-only .ui-button-text {
+        padding: 0;
+        line-height: 1.2;
+    }
+</style>
 		<h:form id="frmPesquisa">
 			<h1>Pesquisa Movimento Saída de Produto</h1>
+			
+			
+			<p:messages autoUpdate="true" closable="true" />
+			
 
 			<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup>
@@ -22,21 +50,60 @@
 				</p:toolbarGroup>
 
 				<p:toolbarGroup align="right">
+				<p:commandButton value="Exportar XLS" 
+				disabled="#{empty pesquisaMovimentoSaidaDeProdutoBean.movimentosFiltrados}"
+				ajax="false">
+				
+					<p:dataExporter type="xls" target="movimentoTable"
+					fileName="Movimentos" 
+					postProcessor="#{pesquisaMovimentoSaidaDeProdutoBean.posProcessarXls}"/>
+					</p:commandButton>
+					
+						<p:separator/>
 					<p:button value="Novo movimento" outcome="/saidas/MovimentoSaidaDeProduto" />
 				</p:toolbarGroup>
 			</p:toolbar>
 
 			<p:focus />
 
-			<p:panelGrid columns="2" id="panel"
-				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+			<p:panelGrid columns="4" id="painel"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo, rotulo, campo">
 
-				<p:outputLabel value="Código" for="codigo" />
-				<p:inputText id="codigo" size="20"
-					value="#{pesquisaMovimentoSaidaDeProdutoBean.filtro.id}" />
 
+				<p:outputLabel value="Código" />
+				<h:panelGroup>
+					<p:inputText size="12"
+						value="#{pesquisaMovimentoSaidaDeProdutoBean.filtro.numeroDe}" />
+					a
+					<p:inputText size="12"
+						value="#{pesquisaMovimentoSaidaDeProdutoBean.filtro.numeroAte}" />
+				</h:panelGroup>
+				
 				
 
+				<p:outputLabel value="Data do Movimento" />
+				<h:panelGroup>
+					<p:calendar size="12" pattern="dd/MM/yyyy"
+						value="#{pesquisaMovimentoSaidaDeProdutoBean.filtro.dataSaidaDe}" />
+					a
+					<p:calendar size="12" pattern="dd/MM/yyyy"
+						value="#{pesquisaMovimentoSaidaDeProdutoBean.filtro.dataSaidaAte}" />
+				</h:panelGroup>
+				
+				<p:outputLabel value="Produto" for="prod" />
+			    <p:inputText id="prod" size="32"
+						value="#{pesquisaMovimentoSaidaDeProdutoBean.filtro.nomeProduto}" />
+						
+				<p:outputLabel value="Usuário" for="usu" />
+			    <p:inputText id="usu" size="32"
+						value="#{pesquisaMovimentoSaidaDeProdutoBean.filtro.nomeUsuario}" />
+						
+				<p:outputLabel value="Status" />
+				<p:selectManyCheckbox value="#{pesquisaMovimentoSaidaDeProdutoBean.filtro.statuses}">
+					<f:selectItems value="#{pesquisaMovimentoSaidaDeProdutoBean.statuses}" var="statusMovimento"
+						itemValue="#{statusMovimento}" itemLabel="#{statusMovimento.descricao}" />
+				</p:selectManyCheckbox> 
+				
 
 			</p:panelGrid>
 
@@ -44,21 +111,25 @@
 				paginatorPosition="bottom" emptyMessage="Nenhum movimento encontrado."
 				rows="10" paginator="true" paginatorAlwaysVisible="false"
 				value="#{pesquisaMovimentoSaidaDeProdutoBean.movimentosFiltrados}">
-
+				
+				
+				
 				<p:column headerText="Código"
 					style="text-align: center; width: 40px">
 					<h:outputText value="#{movimentoSaida.id}" />
 				</p:column>
 				
 				<p:column headerText="Data"
-					style="text-align: center; width: 40px">
+					style="text-align: center; width: 40px"
+					sortBy="#{movimentoSaida.dataSaida}">
 					<h:outputText value="#{movimentoSaida.dataSaida}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 				
 				<p:column headerText="Produto"
-					style="text-align: left; width: 120px">
+					style="text-align: left; width: 120px"
+					sortBy="#{movimentoSaida.produto.nome}">
 					<h:outputText value="#{movimentoSaida.produto.nome}" />
 				</p:column>
 				
@@ -79,16 +150,38 @@
 				<p:column headerText="Usuário" style="text-align: center; width: 70px">
 					<h:outputText value="#{movimentoSaida.usuario.nome}" />
 				</p:column>
-			
-
-				<p:column style="width: 50px; text-align:center" headerText="Opções:">
-					<p:button outcome="/saidas/MotivoSaidaProduto" icon="ui-icon-pencil"
-						title="Estornar">
-						<f:param name="movimentoSaida" value="#{movimentoSaida.id}" />
-					</p:button>
+				
+				<p:column headerText="Status" style="text-align: center; width: 60px">
+					<h:outputText value="#{movimentoSaida.statusMovimentoSaidaProduto.descricao}" 
+					style="#{movimentoSaida.statusMovimentoSaidaProduto.descricao == 'Cancelado' ? 'color:red' : 'color:black'}"/>
 				</p:column>
-			</p:dataTable>
-
+			
+			 <p:column style="width:32px;text-align: center" headerText="Observação"
+			 exportable="false">
+             <p:commandButton update=":frmPesquisa:movimentoDetail" oncomplete="PF('movDialog').show()" 
+              icon="ui-icon-search" title="Observação">
+                <f:setPropertyActionListener value="#{movimentoSaida}" target="#{pesquisaMovimentoSaidaDeProdutoBean.movimentoSaidaProdutoSelecionado}" />
+            	</p:commandButton>
+      			</p:column>
+		
+	
+				</p:dataTable>
+					
+		<p:dialog header="Observação do Movimento" widgetVar="movDialog" modal="true" 
+		showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="movimentoDetail" style="text-align:center;">
+           
+            <p:panelGrid  columns="2" 
+            columnClasses="label,value">
+              
+                <h:outputText value="Observação:" />
+                <h:outputText value="#{pesquisaMovimentoSaidaDeProdutoBean.movimentoSaidaProdutoSelecionado.observacao}" />
+ 
+           	 </p:panelGrid>
+       			 </p:outputPanel>
+    		</p:dialog>
+				
+	
 		</h:form>
 	</ui:define>
 </ui:composition>
