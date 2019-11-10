@@ -5,19 +5,42 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
-	<ui:define name="titulo">Pesquisa: Termos Entrevistas para Demanda de Pessoa Física</ui:define>
+	<ui:define name="titulo">JusSystem</ui:define>
 
 	<ui:define name="corpo">
+		<style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+     
+    .ui-datatable {
+        margin-bottom: 25px
+    }
+     
+    .ui-datatable .ui-datatable-footer {
+        text-align:left;
+    }
+     
+    .ui-datalist ul {
+        padding: 0 0 0 10px;
+        margin: 5px 0;
+    }
+     
+    .ui-datatable .ui-button-icon-only .ui-button-text {
+        padding: 0;
+        line-height: 1.2;
+    }
+</style>
 		<h:form id="frm">
 
-			<h1>Pesquisa Termo Entrevista para Demanda de Pessoa Física</h1>
+			<h1>Pesquisa termo entrevista para demanda de pessoa física</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
 
 
 			<p:toolbar style="margin-top: 20px">
 
-				<p:toolbarGroup>
+				<p:toolbarGroup >
 				<p:button value="Limpar"
 						outcome="/documentos/PesquisaTermoEntrevistaParaDemandaPF" />
 						<p:separator />
@@ -37,8 +60,8 @@
 			
 			<p:focus />
 
-			<p:panelGrid columns="8" id="painel"
-				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+			<p:panelGrid columns="4" id="painel"
+				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo, rotulo, campo">
 
 				<p:outputLabel value="Código" />
 				<h:panelGroup>
@@ -52,13 +75,15 @@
 				<p:outputLabel value="Data de criação" />
 				<h:panelGroup>
 					<p:calendar size="12" pattern="dd/MM/yyyy"
-						value="#{pesquisaTermoEntrevistaParaDemandaPFBean.filtro.dataDocumentoDe}" />
+						value="#{pesquisaTermoEntrevistaParaDemandaPFBean.filtro.dataDocumentoDe}" 
+						navigator="true" locale="pt"/>
 					a
 					<p:calendar size="12" pattern="dd/MM/yyyy"
-						value="#{pesquisaTermoEntrevistaParaDemandaPFBean.filtro.dataDocumentoAte}" />
+						value="#{pesquisaTermoEntrevistaParaDemandaPFBean.filtro.dataDocumentoAte}" 
+						navigator="true" locale="pt"/>
 				</h:panelGroup>
 				
-				<p:outputLabel value="Autor" for="pessoa" />
+				<p:outputLabel value="Pessoa" for="pessoa" />
 				<p:inputText id="pessoa" size="56"
 					value="#{pesquisaTermoEntrevistaParaDemandaPFBean.filtro.nomePessoa}" />
 

@@ -45,6 +45,8 @@ public class CadastroContratoHonorarioAdvocaticioPJBean implements Serializable 
 		contratoHonorarioAdvocaticioPJ = cadastroContratoHonorarioAdvocaticioPJService.salvar(contratoHonorarioAdvocaticioPJ);
 		FacesUtil.addInfoMessage("Contrato Honorário Advocatício do cliente: " 
 				+contratoHonorarioAdvocaticioPJ.getClientePessoaJuridica().getNomeContratante()
+				+", com CÓDIGO: "
+				+contratoHonorarioAdvocaticioPJ.getId()
 				+", salvo com sucesso!");
 		limpar();
 	}

@@ -44,7 +44,10 @@ public class CadastroTermoEntrevistaParaDemandaPJBean implements Serializable {
 					.salvar(termoEntrevistaParaDemandaPJ);
 			FacesUtil.addInfoMessage("Entrevista do cliente: "
 					+ termoEntrevistaParaDemandaPJ.getClientePessoaJuridica()
-							.getNomeContratante() + ", salva com sucesso!");
+							.getNomeContratante()
+					+ ", com CÓDIGO: "
+					+ termoEntrevistaParaDemandaPJ.getId()
+					+ ", salva com sucesso!");
 			limpar();
 
 		} catch (NegocioException e) {

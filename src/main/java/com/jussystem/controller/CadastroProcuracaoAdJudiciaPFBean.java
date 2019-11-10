@@ -41,6 +41,8 @@ public class CadastroProcuracaoAdJudiciaPFBean implements Serializable {
 		procuracaoAdJudiciaPF = cadastroProcuracaoAdJudiciaPFService
 				.salvar(procuracaoAdJudiciaPF);
 		FacesUtil.addInfoMessage("Procuração do cliente: " + procuracaoAdJudiciaPF.getClientePessoaFisica().getNomePessoa()
+				+ ", com CÓDIGO: "
+				+ procuracaoAdJudiciaPF.getId()
 				+ ", salva com sucesso!");
 		limpar();
 	}

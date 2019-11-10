@@ -29,15 +29,22 @@
 		<h:form>
 
 			<h1>#{cadastroTermoEntrevistaParaDemandaPJBean.editando ?
-				'Edição de Termo Entrevista para Demanda de Pessoa Jurídica' : 'Novo
-				Termo Entrevista para Demanda de Pessoa Jurídica'}</h1>
+				'Edição de termo entrevista para demanda de pessoa jurídica' : 'Novo
+				termo entrevista para demanda de pessoa jurídica'}</h1>
 
-
+			<p:messages autoUpdate="true" closable="true" />
 
 			<p:toolbar style="margin-top: 20px">
+			<p:toolbarGroup>
+				<p:commandButton value="Salvar" id="botaoSalvar1"
+						action="#{cadastroTermoEntrevistaParaDemandaPJBean.salvar}"
+						update="@form" />
+			</p:toolbarGroup>
 
 
 				<p:toolbarGroup align="right">
+				<p:button value="Imprimir" outcome="/relatorios/RelatorioTermoEntrevistaParaDemandaPJ"/>
+				<p:separator/>
 
 					<p:button value="Pesquisar Termo"
 						outcome="/documentos/PesquisaTermoEntrevistaParaDemandaPJ" />
@@ -45,7 +52,7 @@
 
 			</p:toolbar>
 			
-			<p:outputLabel style="margin-left: 4px; color: gray"  value="Salvar (está no fim do formulário)"/>
+			<p:outputLabel style="margin-left: 4px; color: gray"  value="Salvar (se encontra também no fim do formulário)"/>
 			
 
 			<p:panelGrid columns="4" id="painelPessoa"
@@ -761,7 +768,7 @@
 
 			<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup>
-					<p:commandButton value="Salvar" id="botaoSalvar"
+					<p:commandButton value="Salvar" id="botaoSalvar2"
 						action="#{cadastroTermoEntrevistaParaDemandaPJBean.salvar}"
 						update="@form" />
 				</p:toolbarGroup>

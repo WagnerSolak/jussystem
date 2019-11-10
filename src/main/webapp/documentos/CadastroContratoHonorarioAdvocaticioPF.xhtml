@@ -21,7 +21,7 @@
 
 		<h:form>
 
-			<h1>#{cadastroContratoAdvocaticioPFBean.editando ? 'Edição de Contrato Advocatício de Pessoa Física' : 'Novo Contrato Advocatício de Pessoa Física'}</h1>
+			<h1>#{cadastroContratoAdvocaticioPFBean.editando ? 'Edição de contrato advocatício de pessoa física' : 'Novo contrato advocatício de pessoa física'}</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
 
@@ -35,6 +35,8 @@
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">
+				<p:button value="Imprimir" outcome="/relatorios/RelatorioContratoHonorarioAdvocaticioPF"/>
+				<p:separator/>
 					<p:button value="Pesquisar Contrato" 
 					outcome="/documentos/PesquisaContratoHonorarioAdvocaticioPF" />
 				</p:toolbarGroup>

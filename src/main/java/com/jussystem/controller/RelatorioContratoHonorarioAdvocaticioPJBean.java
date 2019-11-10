@@ -42,7 +42,7 @@ public class RelatorioContratoHonorarioAdvocaticioPJBean implements Serializable
 			parametros.put("codigo", codigo);
 			
 			
-			ExecutorRelatorio executor = new ExecutorRelatorio("/META-INF/relatorios/doc_contrato_honorario_advocaticio_pf.jasper",
+			ExecutorRelatorio executor = new ExecutorRelatorio("/META-INF/relatorios/doc_contrato_honorario_advocaticio_pj.jasper",
 					response, parametros, "ContratoHonorarioAdvocaticioPJ.pdf");
 			 
 			Session session = manager.unwrap(Session.class);

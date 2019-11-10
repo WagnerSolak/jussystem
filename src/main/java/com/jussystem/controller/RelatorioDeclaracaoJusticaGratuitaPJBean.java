@@ -42,7 +42,7 @@ public class RelatorioDeclaracaoJusticaGratuitaPJBean implements Serializable{
 			parametros.put("codigo", codigo);
 			
 			
-			ExecutorRelatorio executor = new ExecutorRelatorio("/META-INF/relatorios/doc_declaracao_justica_gratuita_pj.jasper",
+			ExecutorRelatorio executor = new ExecutorRelatorio("/META-INF/relatorios/cod_declaracao_justica_gratuita_pj.jasper",
 					response, parametros, "DeclaracaoJusticaGratuitaPF.pdf");
 			 
 			Session session = manager.unwrap(Session.class);

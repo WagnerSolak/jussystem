@@ -5,9 +5,34 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="titulo">pesquisa pedidos</ui:define>
+	<ui:define name="titulo">JusSystem</ui:define>
 
 	<ui:define name="corpo">
+	
+			<style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+     
+    .ui-datatable {
+        margin-bottom: 25px
+    }
+     
+    .ui-datatable .ui-datatable-footer {
+        text-align:left;
+    }
+     
+    .ui-datalist ul {
+        padding: 0 0 0 10px;
+        margin: 5px 0;
+    }
+     
+    .ui-datatable .ui-button-icon-only .ui-button-text {
+        padding: 0;
+        line-height: 1.2;
+    }
+</style>
+
 		<h:form>
 		<p:focus />
 			<h1>Pesquisa pedido de compra</h1>
@@ -44,10 +69,12 @@
 				<p:outputLabel value="Data de criação" />
 				<h:panelGroup>
 					<p:calendar size="10" pattern="dd/MM/yyyy"
-						value="#{pesquisaPedidoBean.filtro.dataCriacaoDe}" />
+						value="#{pesquisaPedidoBean.filtro.dataCriacaoDe}" 
+						navigator="true" locale="pt"/>
 					a
 					<p:calendar size="10" pattern="dd/MM/yyyy"
-						value="#{pesquisaPedidoBean.filtro.dataCriacaoAte}" />
+						value="#{pesquisaPedidoBean.filtro.dataCriacaoAte}" 
+						navigator="true" locale="pt"/>
 				</h:panelGroup>
 
 				<p:outputLabel value="Usuário" for="usuario" />

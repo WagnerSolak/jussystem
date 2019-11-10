@@ -36,7 +36,7 @@
 				</p:toolbarGroup>
 
 				<p:toolbarGroup align="right">
-					<p:button value="Pesquisa"
+					<p:button value="Pesquisar Fornecedor"
 						outcome="/fornecedores/PesquisaFornecedores" />
 				</p:toolbarGroup>
 			</p:toolbar>
@@ -46,7 +46,7 @@
 				columnClasses="rotulo, campo, rotulo, campo">
 
 				<p:outputLabel value="Nome Fantasia *" for="nomeFantasia" />
-				<p:inputText id="nomeFantasia" size="70" maxlength="90"
+				<p:inputText id="nomeFantasia" size="70" maxlength="80"
 					value="#{cadastroFornecedorBean.fornecedor.nomeFantasia}" />
 
 				<p:outputLabel value="Status" for="status"
@@ -70,27 +70,27 @@
 					mask="99.999.999/9999-99" />
 
 				<p:outputLabel value="Inscrição Estadual" for="inscricao" />
-				<p:inputText id="inscricao" size="20" maxlength="20"
+				<p:inputText id="inscricao" size="20" maxlength="18"
 					value="#{cadastroFornecedorBean.fornecedor.inscricao}" />
 
 				<p:outputLabel value="E-mail" for="email" />
-				<p:inputText id="email" size="50" maxlength="50"
+				<p:inputText id="email" size="50" maxlength="100"
 					value="#{cadastroFornecedorBean.fornecedor.email}" />
 
 				<p:outputLabel value="Endereço *" for="endereco" />
-				<p:inputText id="endereco" size="70" maxlength="100"
+				<p:inputText id="endereco" size="70" maxlength="80"
 					value="#{cadastroFornecedorBean.fornecedor.endereco}"
 					placeholder="Exemplo: Av. Brasil" />
 
 
 				<p:outputLabel value="Numero *" for="numero" />
-				<p:inputText id="numero" size="10" maxlength="7"
+				<p:inputText id="numero" size="10" maxlength="8"
 					value="#{cadastroFornecedorBean.fornecedor.numero}"
 					placeholder="Exemplo: 500" />
 
 
 				<p:outputLabel value="Bairro *" for="bairro" />
-				<p:inputText id="bairro" size="40" maxlength="40"
+				<p:inputText id="bairro" size="40" maxlength="80"
 					value="#{cadastroFornecedorBean.fornecedor.bairro}" />
 
 				<p:outputLabel value="Complemento" for="complemento" />
@@ -98,7 +98,7 @@
 					value="#{cadastroFornecedorBean.fornecedor.complemento}" />
 
 				<p:outputLabel value="CEP" for="cep" />
-				<p:inputMask id="cep" size="20" maxlength="15"
+				<p:inputMask id="cep" size="20" maxlength="10"
 					value="#{cadastroFornecedorBean.fornecedor.cep}" mask="99.999-999" />
 
 				

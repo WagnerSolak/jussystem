@@ -5,12 +5,36 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
-	<ui:define name="titulo">Pesquisa: Termos Entrevistas para Demanda de Pessoa Jurídica</ui:define>
+	<ui:define name="titulo">JusSystem</ui:define>
 
 	<ui:define name="corpo">
+
+		<style type="text/css">
+.value {
+	font-weight: bold;
+}
+
+.ui-datatable {
+	margin-bottom: 25px
+}
+
+.ui-datatable .ui-datatable-footer {
+	text-align: left;
+}
+
+.ui-datalist ul {
+	padding: 0 0 0 10px;
+	margin: 5px 0;
+}
+
+.ui-datatable .ui-button-icon-only .ui-button-text {
+	padding: 0;
+	line-height: 1.2;
+}
+</style>
 		<h:form id="frm">
 
-			<h1>Pesquisa Termo Entrevista para Demanda de Pessoa Jurídica</h1>
+			<h1>Pesquisa termo entrevista para demanda de pessoa jurídica</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
 
@@ -18,32 +42,32 @@
 			<p:toolbar style="margin-top: 20px">
 
 				<p:toolbarGroup>
-				<p:button value="Limpar"
+					<p:button value="Limpar"
 						outcome="/documentos/PesquisaTermoEntrevistaParaDemandaPJ" />
-						<p:separator />
+					<p:separator />
 					<p:commandButton value="Pesquisar"
 						action="#{pesquisaTermoEntrevistaParaDemandaPJBean.pesquisar}"
 						update="@form" />
-				</p:toolbarGroup>	
-				
+				</p:toolbarGroup>
+
 				<p:toolbarGroup align="right">
-				<p:button value="Imprimir" 
-					outcome="/relatorios/RelatorioTermoEntrevistaParaDemandaPJ" />
+					<p:button value="Imprimir"
+						outcome="/relatorios/RelatorioTermoEntrevistaParaDemandaPJ" />
 					<p:separator />
-					<p:button value="Cadastrar novo termo" 
-					outcome="/documentos/CadastroTermoEntrevistaParaDemandaPJ" />
+					<p:button value="Cadastrar novo termo"
+						outcome="/documentos/CadastroTermoEntrevistaParaDemandaPJ" />
 				</p:toolbarGroup>
 			</p:toolbar>
-			
-			<p:focus />
 
-			<p:panelGrid columns="8" id="painel"
-				style="widht: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+			<p:focus />
+			<p:panelGrid columns="4" id="painel"
+				style="widht: 100%; margin-top: 20px"
+				columnClasses="rotulo, campo, rotulo, campo">
 
 				<p:outputLabel value="Código" />
 				<h:panelGroup>
 					<p:inputText size="12"
-						value="#{pesquisaTermoEntrevistaParaDemandaPJBean.filtro.numeroDe}"/>
+						value="#{pesquisaTermoEntrevistaParaDemandaPJBean.filtro.numeroDe}" />
 					a
 					<p:inputText size="12"
 						value="#{pesquisaTermoEntrevistaParaDemandaPJBean.filtro.numeroAte}" />
@@ -52,14 +76,16 @@
 				<p:outputLabel value="Data de criação" />
 				<h:panelGroup>
 					<p:calendar size="12" pattern="dd/MM/yyyy"
-						value="#{pesquisaTermoEntrevistaParaDemandaPJBean.filtro.dataDocumentoDe}" />
+						value="#{pesquisaTermoEntrevistaParaDemandaPJBean.filtro.dataDocumentoDe}" 
+						navigator="true" locale="pt"/>
 					a
 					<p:calendar size="12" pattern="dd/MM/yyyy"
-						value="#{pesquisaTermoEntrevistaParaDemandaPJBean.filtro.dataDocumentoAte}" />
+						value="#{pesquisaTermoEntrevistaParaDemandaPJBean.filtro.dataDocumentoAte}" 
+						navigator="true" locale="pt"/>
 				</h:panelGroup>
 
-				
-				<p:outputLabel value="Autor" for="pessoa" />
+
+				<p:outputLabel value="Nome Contratante" for="pessoa" />
 				<p:inputText id="pessoa" size="56"
 					value="#{pesquisaTermoEntrevistaParaDemandaPJBean.filtro.nomePessoa}" />
 
@@ -79,14 +105,17 @@
 				</p:column>
 
 				<p:column headerText="Autor" style="text-align: left; width: 250px"
-				sortBy="#{termoEntrevistaParaDemandaPJ.clientePessoaJuridica.nomeContratante}">
-					<h:outputText value="#{termoEntrevistaParaDemandaPJ.clientePessoaJuridica.nomeContratante}" />
+					sortBy="#{termoEntrevistaParaDemandaPJ.clientePessoaJuridica.nomeContratante}">
+					<h:outputText
+						value="#{termoEntrevistaParaDemandaPJ.clientePessoaJuridica.nomeContratante}" />
 				</p:column>
-				
-				<p:column headerText="Cidade-Estado" style="text-align: left; width: 150px">
-					<h:outputText value="#{termoEntrevistaParaDemandaPJ.clientePessoaJuridica.cidade.nome} - #{termoEntrevistaParaDemandaPJ.clientePessoaJuridica.cidade.ufCliente}" />
+
+				<p:column headerText="Cidade-Estado"
+					style="text-align: left; width: 150px">
+					<h:outputText
+						value="#{termoEntrevistaParaDemandaPJ.clientePessoaJuridica.cidade.nome} - #{termoEntrevistaParaDemandaPJ.clientePessoaJuridica.cidade.ufCliente}" />
 				</p:column>
-				
+
 				<p:column headerText="Réu" style="text-align: left; width: 200px">
 					<h:outputText value="#{termoEntrevistaParaDemandaPJ.reu}" />
 				</p:column>
@@ -94,12 +123,13 @@
 				<p:column headerText="Data do Documento"
 					style="text-align: center; width: 100px"
 					sortBy="#{termoEntrevistaParaDemandaPJ.dataDocumento}">
-					<h:outputText value="#{termoEntrevistaParaDemandaPJ.dataDocumento}" >
-					<f:convertDateTime pattern="dd/MM/yyyy" />
+					<h:outputText value="#{termoEntrevistaParaDemandaPJ.dataDocumento}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 
-				<p:column style="width: 100px; text-align: center" headerText="Opções:">
+				<p:column style="width: 100px; text-align: center"
+					headerText="Opções:">
 					<p:button icon="ui-icon-pencil" title="Editar"
 						outcome="/documentos/CadastroTermoEntrevistaParaDemandaPJ">
 						<f:param name="termoEntrevistaParaDemandaPJ"

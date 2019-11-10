@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 @Target({ ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {})
-@Pattern(regexp = "([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\\s]{3,})?")
+@Pattern(regexp = "([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'´`\\s]{3,})?")
 public @interface OnlyLetters {
 	
 	@OverridesAttribute(constraint = Pattern.class, name = "message")

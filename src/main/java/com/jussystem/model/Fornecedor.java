@@ -79,7 +79,7 @@ private static final long serialVersionUID = 1L;
 		this.razao = razao;
 	}
 
-	@NumbersAndCharacters
+	//@NumbersAndCharacters
 	@Column(length = 18)
 	public String getInscricao() {
 		return inscricao;

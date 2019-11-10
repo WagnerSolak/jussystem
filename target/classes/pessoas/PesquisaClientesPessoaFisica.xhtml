@@ -5,9 +5,34 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="titulo">Pesquisa: clientes pessoa física</ui:define>
+	<ui:define name="titulo">JusSystem</ui:define>
 
 	<ui:define name="corpo">
+	
+		<style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+     
+    .ui-datatable {
+        margin-bottom: 25px
+    }
+     
+    .ui-datatable .ui-datatable-footer {
+        text-align:left;
+    }
+     
+    .ui-datalist ul {
+        padding: 0 0 0 10px;
+        margin: 5px 0;
+    }
+     
+    .ui-datatable .ui-button-icon-only .ui-button-text {
+        padding: 0;
+        line-height: 1.2;
+    }
+</style>
+
 		<h:form id="frmPesquisa">
 			<h1>Pesquisa clientes pessoa física</h1>
 
@@ -71,7 +96,7 @@
 					value="#{pesquisaClientePessoaFisicaBean.filtro.cpf}" 
 					placeholder="Utilize pontuação para pesquisar"/>
 
-				<p:outputLabel value="Nome" for="nome" />
+				<p:outputLabel value="Pessoa" for="nome" />
 				<p:inputText id="nome" size="60"
 					value="#{pesquisaClientePessoaFisicaBean.filtro.nome}" />
 					
@@ -80,9 +105,10 @@
 					value="#{pesquisaClientePessoaFisicaBean.filtro.rg}" />
 					
 					<p:outputLabel value="Data de Nascimento" for="dt" />
-				    <p:calendar size="28" pattern="dd/MM/yyyy"
+				    <p:calendar size="10" pattern="dd/MM/yyyy"
 				    	id="dt"
-						value="#{pesquisaClientePessoaFisicaBean.filtro.dataNascimento}" />
+						value="#{pesquisaClientePessoaFisicaBean.filtro.dataNascimento}" 
+						navigator="true" locale="pt"/>
 
 			</p:panelGrid>
 
@@ -105,7 +131,8 @@
 
 
 				<p:column headerText="Cidade - Estado"
-					style="text-align: center; width: 128px">
+					style="text-align: center; width: 128px"
+					sortBy="#{clientePessoaFisica.cidade.nome} - #{clientePessoaFisica.cidade.ufCliente}">
 					<h:outputText
 						value="#{clientePessoaFisica.cidade.nome} - #{clientePessoaFisica.cidade.ufCliente}" />
 				</p:column>

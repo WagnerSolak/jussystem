@@ -20,7 +20,7 @@
 
 		<h:form>
 
-			<h1>#{cadastroDeclaracaoJusticaGratuitaPFBean.editando ? 'Edição de Declaração Justiça Gratuita de Pessoa Física' : 'Nova Declaração Justiça Gratuita de Pessoa Física'}</h1>
+			<h1>#{cadastroDeclaracaoJusticaGratuitaPFBean.editando ? 'Edição de declaração justiça gratuita de pessoa física' : 'Nova declaração justiça gratuita de pessoa física'}</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
 
@@ -34,6 +34,8 @@
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">
+				<p:button value="Imprimir" outcome="/relatorios/RelatorioDeclaracaoJusticaGratuitaPF"/>
+				<p:separator/>
 					<p:button value="Pesquisar Declaração" 
 					outcome="/documentos/PesquisaDeclaracaoJusticaGratuitaPF" />
 				</p:toolbarGroup>

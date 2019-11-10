@@ -206,6 +206,7 @@ public class TermoEntrevistaParaDemandaPF implements Serializable {
 
 	@Column(length = 1)
 	public String getRecebeuVerbaRecisoria() {
+	
 		return recebeuVerbaRecisoria;
 	}
 	
@@ -215,6 +216,9 @@ public class TermoEntrevistaParaDemandaPF implements Serializable {
 
 	@Column(precision = 10, scale = 2)
 	public BigDecimal getValorVerbaRecisoria() {
+		if(valorVerbaRecisoria == null){
+			return BigDecimal.ZERO;
+		}
 		return valorVerbaRecisoria;
 	}
 
@@ -359,6 +363,9 @@ public class TermoEntrevistaParaDemandaPF implements Serializable {
 
 	@Column(precision = 10, scale = 2)
 	public BigDecimal getCestaBasica() {
+		if(cestaBasica == null){
+			return BigDecimal.ZERO;
+		}
 		return cestaBasica;
 	}
 

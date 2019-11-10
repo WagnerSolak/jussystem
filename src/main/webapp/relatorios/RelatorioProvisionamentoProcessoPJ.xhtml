@@ -37,12 +37,14 @@
 				<p:outputLabel value="Data de criação" />
 				<h:panelGroup>
 					<p:calendar value="#{relatorioProvisionamentoProcessoPJBean.dataInicio}"
-						label="Data inicial" pattern="dd/MM/yyyy" size="10" />
+						label="Data inicial" pattern="dd/MM/yyyy" size="10"
+						navigator="true" locale="pt" />
 					<p:spacer width="8" />
 					<h:outputText value="a" />
 					<p:spacer width="8" />
 					<p:calendar value="#{relatorioProvisionamentoProcessoPJBean.dataFim}"
-						label="Data final" pattern="dd/MM/yyyy" size="10" />
+						label="Data final" pattern="dd/MM/yyyy" size="10" 
+						navigator="true" locale="pt"/>
 				</h:panelGroup>
 			</p:panelGrid>
 

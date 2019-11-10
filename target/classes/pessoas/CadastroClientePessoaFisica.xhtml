@@ -175,6 +175,7 @@
 
 
 				<p:outputLabel value="Cidade *" for="cidades" />
+				<h:panelGroup>
 				<p:selectOneMenu id="cidades"
 					value="#{cadastroClientePessoaFisicaBean.clientePessoaFisica.cidade}"
 					converter="#{cidadeConverter}" filter="true">
@@ -185,8 +186,10 @@
 						itemLabel="#{cid.nome} - #{cid.ufCliente}" />
 				</p:selectOneMenu>
 
-
-
+					<p:button icon="ui-icon-plus" style="margin-left: 196px;"
+					outcome="/cidades/CadastroCidade"/>
+				</h:panelGroup>
+				
 				<p:outputLabel value="Telefone/Celular" for="telefone1" />
 				<p:inputText id="telefone1" size="20" 
 					value="#{cadastroClientePessoaFisicaBean.clientePessoaFisica.telefoneCelular1}"

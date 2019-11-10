@@ -18,8 +18,8 @@
 		<h:form>
 
 			<h1>#{cadastroDeclaracaoJusticaGratuitaPJBean.editando ? 'Edição
-				de Cadastro de Processo de pessoa jurídica' : 'Novo Cadastro de
-				Processo de pessoa jurídica'}</h1>
+				de cadastro de processo de pessoa jurídica' : 'Novo cadastro de
+				processo de pessoa jurídica'}</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
 
@@ -110,10 +110,11 @@
 				</p:selectOneRadio>
 				</h:panelGroup>
 				
-				<p:outputLabel value="Valor Total *" for="vlTotal" />
+				<p:outputLabel value="Valor Total" for="vlTotal" />
 				<p:inputText value="#{cadastroProcessoPJBean.processoPJ.valorTotal}"
 					id="vlTotal" size="20" styleClass="moeda"
-					disabled="#{cadastroProcessoPJBean.processoPJ.naoAlteravel}">
+					disabled="#{cadastroProcessoPJBean.processoPJ.naoAlteravel}"
+					required="true" requiredMessage="Valor Total * deve ser informado!">
 					<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 					<p:ajax event="change" process="@this" update="vlLiquido"
 						listener="#{cadastroProcessoPJBean.recalcularProcesso}" />
@@ -153,10 +154,11 @@
 	</h:panelGroup>
 
 				
-				<p:outputLabel value="Percentual *" for="percentual" />
+				<p:outputLabel value="Percentual" for="percentual" />
 				<p:inputText value="#{cadastroProcessoPJBean.processoPJ.percentual}"
 					id="percentual" size="20"
-					disabled="#{cadastroProcessoPJBean.processoPJ.naoAlteravel}">
+					disabled="#{cadastroProcessoPJBean.processoPJ.naoAlteravel}"
+					required="true" requiredMessage="Percentual * deve ser informado!">
 
 					<p:ajax event="change" process="@this"
 						update="vlLiquido valorRecebeCliente valorRecebe"

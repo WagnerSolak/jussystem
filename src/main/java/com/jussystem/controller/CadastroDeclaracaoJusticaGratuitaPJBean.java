@@ -39,8 +39,10 @@ public class CadastroDeclaracaoJusticaGratuitaPJBean implements Serializable {
 		declaracaoJusticaGratuitaPJ = cadastroDeclaracaoJusticaGratuitaPJService
 				.salvar(declaracaoJusticaGratuitaPJ);
 		FacesUtil.addInfoMessage("Declaração Justiça Gratuita do cliente: " 
-				+declaracaoJusticaGratuitaPJ.getClientePessoaJuridica().getNomeContratante()
-				+", salva com sucesso!");
+				+ declaracaoJusticaGratuitaPJ.getClientePessoaJuridica().getNomeContratante()
+				+ ", com CÓDIGO: "
+				+ declaracaoJusticaGratuitaPJ.getId()
+				+ ", salva com sucesso!");
 		limpar();
 	}
 	

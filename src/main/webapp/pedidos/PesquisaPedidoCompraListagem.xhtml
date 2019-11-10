@@ -5,11 +5,11 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="titulo">Pesquisa: pedido com item de compra</ui:define>
+	<ui:define name="titulo">JusSystem</ui:define>
 
 	<ui:define name="corpo">
 		<h:form id="frmPesquisa">
-			<h1>Pesquisa Pedido de Compra Detalhado</h1>
+			<h1>Pesquisa pedido de compra detalhado</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
 
@@ -46,10 +46,12 @@
 				<p:outputLabel value="Data de criação" />
 				<h:panelGroup>
 					<p:calendar size="10" pattern="dd/MM/yyyy"
-						value="#{pesquisaPedidoBean.filtro.dataCriacaoDe}" />
+						value="#{pesquisaPedidoBean.filtro.dataCriacaoDe}" 
+						navigator="true" locale="pt"/>
 					a
 					<p:calendar size="10" pattern="dd/MM/yyyy"
-						value="#{pesquisaPedidoBean.filtro.dataCriacaoAte}" />
+						value="#{pesquisaPedidoBean.filtro.dataCriacaoAte}" 
+						navigator="true" locale="pt"/>
 				</h:panelGroup>
 
 				<p:outputLabel value="Usuário" for="usuario" />

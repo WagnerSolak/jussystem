@@ -16,7 +16,7 @@
 
 		<h:form>
 
-			<h1>#{cadastroDeclaracaoJusticaGratuitaPFBean.editando ? 'Edição de Cadastro de Processo de pessoa física' : 'Novo Cadastro de Processo de pessoa física'}</h1>
+			<h1>#{cadastroDeclaracaoJusticaGratuitaPFBean.editando ? 'Edição de cadastro de processo de pessoa física' : 'Novo cadastro de processo de pessoa física'}</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
 
@@ -37,7 +37,7 @@
 				<p:commandButton value="Cancelar" action="#{cancelamentoProcessoPFBean.cancelarProcesso}"
 				process="@this" update="@form" disabled="#{cadastroProcessoPFBean.processoPF.naoCancelavel}"/>
 				<p:separator/>
-				<p:button value="Cadastro Cliente" outcome="/pessoas/CadastroClientePessoaFisica" />
+				<p:button value="Cadastrar Cliente" outcome="/pessoas/CadastroClientePessoaFisica" />
 					<p:separator/>
 					<h:outputLink value="https://honorarios.oabpr.org.br/tabela-de-honorarios" >Ir para: Tabela OAB</h:outputLink>
 					<p:separator/>
@@ -103,10 +103,11 @@
 				</p:selectOneRadio>
 				</h:panelGroup>
 
-				<p:outputLabel value="Valor Total *" for="vlTotal" />
+				<p:outputLabel value="Valor Total" for="vlTotal" />
 				<p:inputText value="#{cadastroProcessoPFBean.processoPF.valorTotal}"
 					id="vlTotal" size="20" styleClass="moeda"
-					disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}">
+					disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}"
+					required="true" requiredMessage="Valor Total * deve ser informado!">
 					<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 
 					<p:ajax event="change" process="@this" update="vlLiquido"
@@ -146,10 +147,11 @@
 	</h:panelGroup>
 	
 	
-				<p:outputLabel value="Percentual *" for="percentual" />
+				<p:outputLabel value="Percentual" for="percentual" />
 				<p:inputText value="#{cadastroProcessoPFBean.processoPF.percentual}"
 					id="percentual" size="20"
-					disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}">
+					disabled="#{cadastroProcessoPFBean.processoPF.naoAlteravel}"
+					required="true" requiredMessage="Percentual * deve ser informado!">
 					<p:ajax event="change" process="@this"
 						update="vlLiquido valorRecebeCliente valorRecebe"
 						listener="#{cadastroProcessoPFBean.recalcularProcesso}" />

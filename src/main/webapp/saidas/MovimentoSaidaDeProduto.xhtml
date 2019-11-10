@@ -17,7 +17,7 @@
 
 
 		<h:form id="formulario">
-			<h1>Movimento Saída de Produto</h1>
+			<h1>Movimento saída de produto</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
 
@@ -25,10 +25,10 @@
 
 				<p:toolbarGroup align="right">
 				
-				<p:button value="Pesquisa Movimento Saída de Produto"
+				<p:button value="Pesquisa movimento saída de produto"
 						outcome="/saidas/PesquisaMovimentoSaidaDeProduto" />
 						<p:separator />
-					<p:button value="Pesquisa de Produto"
+					<p:button value="Pesquisa Produto"
 						outcome="/produtos/PesquisaProdutos" />
 				</p:toolbarGroup>
 			</p:toolbar>
@@ -92,12 +92,14 @@
 
 
 
-					<h:outputLabel value="Motivo Saída Produto *" for="mot" />
+					<h:outputLabel value="Motivo Saída Produto" for="mot" />
 					<h:panelGroup>
-						<p:selectOneMenu id="mot"
+						<p:selectOneMenu id="mot" 
 							value="#{movimentoSaidaProdutoBean.movimentoSaidaProduto.motivoSaida}"
 							converter="#{motivoSaidaProdutoConverter}" filter="true"
-							filterMatchMode="contains">
+							filterMatchMode="contains"
+							required="true"
+							requiredMessage="Motivo Saída Produto * deve ser informado!">
 							<f:selectItem itemLabel="Selecione um motivo..."
 								noSelectionOption="true" />
 							<f:selectItems

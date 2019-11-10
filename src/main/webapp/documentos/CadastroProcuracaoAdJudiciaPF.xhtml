@@ -20,7 +20,7 @@
 
 		<h:form>
 
-			<h1>#{cadastroProcuracaoAdJudiciaPFBean.editando ? 'Edição de Procuração Ad Judicia de Pessoa Física' : 'Nova Procuração Ad Judicia de Pessoa Física'}</h1>
+			<h1>#{cadastroProcuracaoAdJudiciaPFBean.editando ? 'Edição de procuração ad judicia de pessoa física' : 'Nova procuração ad judicia de pessoa física'}</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
 
@@ -33,6 +33,8 @@
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">
+				<p:button value="Imprimir" outcome="/relatorios/RelatorioProcuracaoAdJudiciaPF"/>
+				<p:separator/>
 					<p:button value="Pesquisar Procuração" 
 					outcome="/documentos/PesquisaProcuracaoAdJudiciaPF" />
 				</p:toolbarGroup>

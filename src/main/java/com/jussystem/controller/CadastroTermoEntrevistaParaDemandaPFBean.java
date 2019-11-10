@@ -43,6 +43,8 @@ public class CadastroTermoEntrevistaParaDemandaPFBean implements Serializable {
 			termoEntrevistaParaDemandaPF = cadastroTermoEntrevistaParaDemandaService.salvar(termoEntrevistaParaDemandaPF);
 			FacesUtil.addInfoMessage("Entrevista do cliente: " 
 						+ termoEntrevistaParaDemandaPF.getClientePessoaFisica().getNomePessoa()
+						+ ", com CÓDIGO: "
+						+ termoEntrevistaParaDemandaPF.getId()
 						+", salva com sucesso!");
 			limpar();
 		} catch (NegocioException e) {

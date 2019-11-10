@@ -5,12 +5,38 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
-	<ui:define name="titulo">Pesquisa: processos</ui:define>
+	<ui:define name="titulo">JusSystem</ui:define>
 
 	<ui:define name="corpo">
+	
+		
+		<style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+     
+    .ui-datatable {
+        margin-bottom: 25px
+    }
+     
+    .ui-datatable .ui-datatable-footer {
+        text-align:left;
+    }
+     
+    .ui-datalist ul {
+        padding: 0 0 0 10px;
+        margin: 5px 0;
+    }
+     
+    .ui-datatable .ui-button-icon-only .ui-button-text {
+        padding: 0;
+        line-height: 1.2;
+    }
+</style>
+
 		<h:form id="frm">
 
-			<h1>Pesquisa Processos de Pessoa Jurídico</h1>
+			<h1>Pesquisa processos de pessoa jurídica</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
 
@@ -67,7 +93,7 @@
 						value="#{pesquisaProcessoPJBean.filtro.dataProcessoAte}" />
 				</h:panelGroup>
 				
-				<p:outputLabel value="Pessoa" for="pessoa" />
+				<p:outputLabel value="Nome Contratante" for="pessoa" />
 				
 					<p:inputText id="pessoa" size="32"
 						value="#{pesquisaProcessoPJBean.filtro.nomePessoa}" />

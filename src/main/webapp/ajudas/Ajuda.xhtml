@@ -98,9 +98,9 @@
 				<p:tab title="Cadastro de Processo">
 				<h:panelGrid columns="2" cellpadding="10">
 				<h:outputText 
-							value="Mensagem do sistema -> Já existe um processo com a descrição informada!"/><br/>
+							value="Mensagem do sistema -> Este número de processo já foi utilizado no sistema!"/><br/>
 				<h:outputText 
-							value="Causa/Solução  -> Você pode estar tentando gravar um profissão com uma descrição já salva
+							value="Causa/Solução  -> Você pode estar tentando gravar um processo com o número  já salvo
 									anteriormente por algum usuário. Vá até pesquisar e verifique se existe o registro, e caso necessite na tela
 									de pesquisa existirá um botão para alterar o registro, e assim salvar a alteração desejada."
 									/>
@@ -195,6 +195,19 @@
 									
 			</h:panelGrid>
 			</p:tab>
+			
+			
+			<p:tab title="Movimento Saída de Produto">
+				<h:panelGrid columns="2" cellpadding="10">
+				<h:outputText 
+							value="Mensagem do sistema -> 	A quantidade de saída não pode ser maior que o estoque!"/><br/>
+							<h:outputText 
+							value="Causa/Solução  -> Você pode estar tentando infromar um valor no campo quantidade saída, maior que o estoque. No mesmo componente
+							existe um campo estoque que mostra a quantidade de produtos disponíveis em estoque, e assim informe o valor igual ou menor que o campo estoque!."/>
+			</h:panelGrid>
+			</p:tab>
+			
+		
 			
 			
 			</p:accordionPanel>

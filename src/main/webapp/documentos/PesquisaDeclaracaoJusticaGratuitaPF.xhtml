@@ -5,12 +5,35 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
-	<ui:define name="titulo">Pesquisa: Declarações Justiça Gratuita de Pessoa Física</ui:define>
+	<ui:define name="titulo">JusSystem</ui:define>
 
 	<ui:define name="corpo">
+		<style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+     
+    .ui-datatable {
+        margin-bottom: 25px
+    }
+     
+    .ui-datatable .ui-datatable-footer {
+        text-align:left;
+    }
+     
+    .ui-datalist ul {
+        padding: 0 0 0 10px;
+        margin: 5px 0;
+    }
+     
+    .ui-datatable .ui-button-icon-only .ui-button-text {
+        padding: 0;
+        line-height: 1.2;
+    }
+</style>
 		<h:form id="frm">
 
-			<h1>Pesquisa Declaração Justiça Gratuita de Pessoa Física</h1>
+			<h1>Pesquisa declaração justiça gratuita de pessoa física</h1>
 
 			<p:messages autoUpdate="true" closable="true" />
 
@@ -52,10 +75,12 @@
 				<p:outputLabel value="Data de criação" />
 				<h:panelGroup>
 					<p:calendar size="12" pattern="dd/MM/yyyy"
-						value="#{pesquisaDeclaracaoJusticaGratuitaPFBean.filtro.dataDocumentoDe}" />
+						value="#{pesquisaDeclaracaoJusticaGratuitaPFBean.filtro.dataDocumentoDe}" 
+						navigator="true" locale="pt"/>
 					a
 					<p:calendar size="12" pattern="dd/MM/yyyy"
-						value="#{pesquisaDeclaracaoJusticaGratuitaPFBean.filtro.dataDocumentoAte}" />
+						value="#{pesquisaDeclaracaoJusticaGratuitaPFBean.filtro.dataDocumentoAte}" 
+						navigator="true" locale="pt"/>
 				</h:panelGroup>
 
 				

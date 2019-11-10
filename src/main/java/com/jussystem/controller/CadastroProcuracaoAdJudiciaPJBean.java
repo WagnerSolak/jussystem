@@ -44,8 +44,10 @@ public class CadastroProcuracaoAdJudiciaPJBean implements Serializable {
 	public void salvar() {
 		procuracaoAdJudiciaPJ = cadastroProcuracaoAdJudiciaPJService.salvar(procuracaoAdJudiciaPJ);
 		FacesUtil.addInfoMessage("Procuração do cliente: "
-				+ procuracaoAdJudiciaPJ.getClientePessoaJuridica()
-						.getNomeContratante() + ", salva com sucesso!");
+				+ procuracaoAdJudiciaPJ.getClientePessoaJuridica().getNomeContratante()
+				+", com CÓDIGO: "
+				+ procuracaoAdJudiciaPJ.getId()
+				+ ", salva com sucesso!");
 		limpar();
 	}
 

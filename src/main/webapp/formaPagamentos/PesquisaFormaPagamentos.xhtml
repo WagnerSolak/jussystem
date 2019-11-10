@@ -5,9 +5,34 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="titulo">Pesquisa: formas de pagamentos</ui:define>
+	<ui:define name="titulo">JusSystem</ui:define>
 
 	<ui:define name="corpo">
+	
+		<style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+     
+    .ui-datatable {
+        margin-bottom: 25px
+    }
+     
+    .ui-datatable .ui-datatable-footer {
+        text-align:left;
+    }
+     
+    .ui-datalist ul {
+        padding: 0 0 0 10px;
+        margin: 5px 0;
+    }
+     
+    .ui-datatable .ui-button-icon-only .ui-button-text {
+        padding: 0;
+        line-height: 1.2;
+    }
+</style>
+
 		<h:form id="frmPesquisa">
 			<h1>Pesquisa formas de pagamentos</h1>
 
@@ -21,7 +46,7 @@
 				</p:toolbarGroup>
 
 				<p:toolbarGroup align="right">
-					<p:button value="Nova forma"
+					<p:button value="Nova forma de pagamento"
 						outcome="/formaPagamentos/CadastroFormaPagamento" />
 				</p:toolbarGroup>
 			</p:toolbar>
