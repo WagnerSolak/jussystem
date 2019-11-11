@@ -136,7 +136,7 @@ public class TermoEntrevistaParaDemandaPF implements Serializable {
 	
 	@CNPJ(groups = JuridicaGroups.class)
 	@CPF(groups = FisicaGroups.class)
-	@Column(length = 14)
+	@Column(length = 20)
 	public String getDocumentoReceitaFederalReu() {
 		return documentoReceitaFederalReu;
 	}

@@ -26,6 +26,7 @@ public class CadastroUsuarioBean implements Serializable{
 	
 	private Usuario usuario;
 	
+	
 	private DualListModel<Grupo> listaGrupos;
 	
 	@Inject
@@ -96,5 +97,7 @@ public class CadastroUsuarioBean implements Serializable{
 	public boolean isEditando(){
 		return usuario.getId() != null;
 	}
+	
+	
 	
 }

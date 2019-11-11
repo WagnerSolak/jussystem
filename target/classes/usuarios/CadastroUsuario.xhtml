@@ -49,21 +49,26 @@
 				<p:outputLabel for="email" value="E-mail" />
 				<p:inputText id="email" required="true" size="80" maxlength="80"
 					value="#{cadastroUsuarioBean.usuario.email}" />
-
+				
+				
 				<p:outputLabel for="senhaUm" value="Senha" />
-				<p:password id="senhaUm" required="true" feedback="true" size="20"
-					maxlength="12" value="#{cadastroUsuarioBean.usuario.senha}"
+				<p:password id="senhaUm" feedback="true" size="27"
+					maxlength="20" value="#{cadastroUsuarioBean.usuario.senha}"
 					validatorMessage="A senha deve possuir no mínimo 6 caracteres!"
-					weakLabel="Fraca" goodLabel="Bom" strongLabel="Forte">
-					<f:validateLength minimum="6" maximum="12" />
+					weakLabel="Fraca" goodLabel="Bom" strongLabel="Forte"
+					placeholder="Preencher somente se quiser alterar">
+					<f:validateLength minimum="6" maximum="18" 
+					disabled="#{cadastroUsuarioBean.usuario.usuarioEdicao}"/>
 				</p:password>
 
 				<p:outputLabel for="senhaDois" value="Confirma Senha" />
-				<p:password id="senhaDois" size="20" maxlength="20"
+				<p:password id="senhaDois" size="27" maxlength="20"
 					value="#{cadastroUsuarioBean.usuario.confirmaSenha}"
 					validatorMessage="A senha deve possuir no mínimo 6 caracteres!"
-					weakLabel="Fraca" goodLabel="Bom" strongLabel="Forte">
-					<f:validateLength minimum="6" maximum="12" />
+					weakLabel="Fraca" goodLabel="Bom" strongLabel="Forte"
+					placeholder="Preencher somente se quiser alterar">
+					<f:validateLength minimum="6" maximum="18" 
+					disabled="#{cadastroUsuarioBean.usuario.usuarioEdicao}"/>
 				</p:password>
 				
 				

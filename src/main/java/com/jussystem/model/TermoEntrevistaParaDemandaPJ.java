@@ -136,7 +136,7 @@ public class TermoEntrevistaParaDemandaPJ implements Serializable {
 
 	@CNPJ(groups = JuridicaGroups.class)
 	@CPF(groups = FisicaGroups.class)
-	@Column(length = 14)
+	@Column(length = 20)
 	public String getDocumentoReceitaFederalReu() {
 		return documentoReceitaFederalReu;
 	}
@@ -214,6 +214,9 @@ public class TermoEntrevistaParaDemandaPJ implements Serializable {
 
 	@Column(precision = 10, scale = 2)
 	public BigDecimal getValorVerbaRecisoria() {
+		if(valorVerbaRecisoria == null){
+			return BigDecimal.ZERO;
+		}
 		return valorVerbaRecisoria;
 	}
 
@@ -358,6 +361,9 @@ public class TermoEntrevistaParaDemandaPJ implements Serializable {
 
 	@Column(precision = 10, scale = 2)
 	public BigDecimal getCestaBasica() {
+		if(cestaBasica == null){
+			return BigDecimal.ZERO;
+		}
 		return cestaBasica;
 	}
 

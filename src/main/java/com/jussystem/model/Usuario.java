@@ -37,8 +37,7 @@ public class Usuario implements Serializable{
 	private List<Grupo>grupos = new ArrayList<>();
 	private String confirmaSenha;
 	
-	@Transient
-	private String senhaSemCriptografia;
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -140,12 +139,11 @@ public class Usuario implements Serializable{
 		return true;
 	}
 	
-	
-	public String getSenhaSemCriptografia() {
-		return senhaSemCriptografia;
+
+	@Transient
+	public boolean isUsuarioEdicao() {
+		return getId() != null;
 	}
-	public void setSenhaSemCriptografia(String senhaSemCriptografia) {
-		this.senhaSemCriptografia = senhaSemCriptografia;
-	}
+
 	
 }

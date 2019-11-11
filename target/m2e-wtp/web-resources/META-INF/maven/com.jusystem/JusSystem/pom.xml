@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jusystem</groupId>
@@ -12,21 +11,21 @@
 	</properties>
 
 	<dependencies>
-	
-		<!-- shiro-core para autenticação-->
-	<dependency>
-	    <groupId>org.apache.shiro</groupId>
-	    <artifactId>shiro-core</artifactId>
-	    <version>1.2.4</version>
-	</dependency>
-		
-	
-	<!-- Usado para geração de arquivos Excel -->
+
+		<!-- shiro-core para autenticação -->
 		<dependency>
-		    <groupId>org.apache.poi</groupId>
-		    <artifactId>poi</artifactId>
-		    <version>3.11</version>
-		    <scope>compile</scope>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+
+
+		<!-- Usado para geração de arquivos Excel -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.11</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<!-- Implementacao após erro por alterar dependecias jsf/hibernate -->
@@ -105,7 +104,7 @@
 			<scope>compile</scope>
 		</dependency>
 
-	
+
 		<!-- PrimeFaces (biblioteca de componentes) -->
 		<dependency>
 			<groupId>org.primefaces</groupId>
@@ -231,7 +230,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-
+	
 	</dependencies>
 
 	<build>
