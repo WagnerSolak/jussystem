@@ -23,7 +23,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
+
 
 import com.jussystem.validation.OnlyNumbers;
 

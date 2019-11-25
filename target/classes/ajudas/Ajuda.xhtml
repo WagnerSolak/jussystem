@@ -40,30 +40,7 @@
 				</h:panelGrid>
 			</p:tab>
 			
-			<p:tab title="Cadastro de Pedido de Compra">
-					<h:panelGrid columns="2" cellpadding="10">
-
-					<h:outputText
-							value="Mensagem do sistema -> Já existe um item com o nome informado! "/><br/>
-					<h:outputText 
-							value="Causa/Solução 	   -> Você pode estar tentando adicionar um item, mas este já foi informado
-								   anteriormente, procure o mesmo na tabela e altere a quantidade se quiser alterar a quantidade deste produto."
-								   />
-					<h:outputText 
-							value="Mensagem do sistema -> O pedido deve possuir pelo menos um item! "/><br/>
-					<h:outputText 
-							value="Causa/Solução       -> Você pode estar tentando gravar um pedido sem produto, verifique se não possui item, e
-								   informe um item ao menos para gravar este pedido."
-								   />
-					<h:outputText 
-					    	value="Mensagem do sistema -> O valor total do pedido não pode ser negativo!"/><br/>
-					<h:outputText 
-							value="Causa/Solução       -> Você pode estar tentando gravar um pedido onde o valor de desconto, por exemplo, 
-   								   é maior que o valor total do pedido.	"
-   								   />
-   					</h:panelGrid>
-			</p:tab>
-
+			
 				
 				
 				<p:tab title="Cadastro de Usuário">
@@ -120,28 +97,9 @@
 				</h:panelGrid>
 				</p:tab>
 				
-				<p:tab title="Cadastro de Forma de Pagamento">
-				<h:panelGrid columns="2" cellpadding="10">
-				<h:outputText 
-							value="Mensagem do sistema -> 	Já existe um Forma de pagamento com esta descrição cadastrada!"/><br/>
-				<h:outputText 
-							value="Causa/Solução  -> Você pode estar tentando gravar uma forma de pagamento com uma descrição já salva
-									anteriormente por algum usuário. Vá até pesquisar e verifique se existe o registro, e caso necessite na tela
-									de pesquisa existirá um botão para alterar o registro, e assim salvar a alteração desejada."
-									/>
-			</h:panelGrid>
-			</p:tab>
+				
 			
-			<p:tab title="Cadastro de Fornecedor">
-				<h:panelGrid columns="2" cellpadding="10">
-				<h:outputText 
-							value="Mensagem do sistema -> Já existe um fornecedor com este nome cadastrado no sistema!"/><br/>
-							<h:outputText 
-							value="Causa/Solução  -> Você pode estar tentando gravar um fornecedor com uma descrição já salva
-									anteriormente por algum usuário. Vá até pesquisar e verifique se existe o registro, e caso necessite na tela
-									de pesquisa existirá um botão para alterar o registro, e assim salvar a alteração desejada."/>
-			</h:panelGrid>
-			</p:tab>
+			
 			
 			
 			<p:tab title="Cadastro de Cargo">
@@ -156,17 +114,7 @@
 			</h:panelGrid>
 			</p:tab>
 			
-			<p:tab title="Cadastro de Motivo de Saída de Produto">
-				<h:panelGrid columns="2" cellpadding="10">
-				<h:outputText 
-							value="Mensagem do sistema -> Já existe um motivo com a descrição informada!"/><br/>
-			<h:outputText 
-							value="Causa/Solução  -> Você pode estar tentando gravar um motivo saída de produto com uma descrição já salva
-									anteriormente por algum usuário. Vá até pesquisar e verifique se existe o registro, e caso necessite na tela
-									de pesquisa existirá um botão para alterar o registro, e assim salvar a alteração desejada."
-									/>
-			</h:panelGrid>
-			</p:tab>
+			
 			
 			<p:tab title="Mensagens de erro genéricas">
 				<h:panelGrid columns="2" cellpadding="10">
@@ -196,19 +144,7 @@
 			</h:panelGrid>
 			</p:tab>
 			
-			
-			<p:tab title="Movimento Saída de Produto">
-				<h:panelGrid columns="2" cellpadding="10">
-				<h:outputText 
-							value="Mensagem do sistema -> 	A quantidade de saída não pode ser maior que o estoque!"/><br/>
-							<h:outputText 
-							value="Causa/Solução  -> Você pode estar tentando infromar um valor no campo quantidade saída, maior que o estoque. No mesmo componente
-							existe um campo estoque que mostra a quantidade de produtos disponíveis em estoque, e assim informe o valor igual ou menor que o campo estoque!."/>
-			</h:panelGrid>
-			</p:tab>
-			
 		
-			
 			
 			</p:accordionPanel>
 

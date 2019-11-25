@@ -41,15 +41,15 @@ public class GraficoPedidosCriadosBean {
 	
 	public void preRender() {
 		this.model = new LineChartModel();
-		this.model.setTitle("Pedidos criados");
+		//this.model.setTitle("Pedidos criados");
 		this.model.setLegendPosition("e");
 		this.model.setAnimate(true);
 		
 		this.model.getAxes().put(AxisType.X, new CategoryAxis());
 		
 		
-		adicionarSerie("Todos os pedidos", null);
-		adicionarSerie("Meus pedidos", usuarioLogado.getUsuario());
+		adicionarSerie("", null);
+		adicionarSerie("", usuarioLogado.getUsuario());
 	}
 	
 	private void adicionarSerie(String rotulo, Usuario criadoPor) {

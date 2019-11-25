@@ -125,18 +125,7 @@
 						</p:submenu>
 						<p:separator />
 
-						<p:submenu label="Fornecedor">
-							<p:menuitem value="Cadastro de Fornecedor" icon="ui-icon-plus"
-								outcome="/fornecedores/CadastroFornecedor" />
-							<p:separator />
-							<p:menuitem value="Pesquisa de Fornecedor" icon="ui-icon-search"
-								outcome="/fornecedores/PesquisaFornecedores" />
-								<p:separator/>
-							<p:menuitem value="Relatório Contato do Fornecedor" icon="ui-icon-document"
-							outcome="/relatorios/RelatorioContatoFornecedor"/>
-
-						</p:submenu>
-						<p:separator />
+						
 
 						<p:submenu label="Usuário">
 							<p:menuitem value="Cadastro de Usuário" icon="ui-icon-plus"
@@ -147,75 +136,15 @@
 						</p:submenu>
 						<p:separator />
 
-						<p:submenu label="Produto">
-							<p:menuitem value="Cadastro de Produto" icon="ui-icon-plus"
-								outcome="/produtos/CadastroProduto" />
-							<p:separator />
-							<p:menuitem value="Pesquisa de Produto" icon="ui-icon-search"
-								outcome="/produtos/PesquisaProdutos" />
-							<p:separator />
-							<p:menuitem value="Cadastro Motivo Saída de Produto" icon="ui-icon-plus"
-								outcome="/saidas/MotivoSaidaProduto" />
-							<p:separator /> 
-							<p:menuitem value="Pesquisa Motivo Saída de Produto" icon="ui-icon-search"
-								outcome="/saidas/PesquisaMotivoSaidaProdutos" />
 						</p:submenu>
-						<p:separator />
-
-						<p:submenu label="Forma Pagamento">
-							<p:menuitem value="Cadastro de Forma Pagamento" icon="ui-icon-plus"
-								outcome="/formaPagamentos/CadastroFormaPagamento" />
-							<p:separator />
-							<p:menuitem value="Pesquisa de Forma Pagamento" icon="ui-icon-search"
-								outcome="/formaPagamentos/PesquisaFormaPagamentos" />
-						</p:submenu>
-					</p:submenu>
 
 
 					<p:submenu label="Movimentos">
-						<p:submenu label="Pedido de Compra">
-							<p:menuitem value="Cadastro de Pedido de Compra" icon="ui-icon-plus"
-								outcome="/pedidos/CadastroPedido"  />
-							<p:separator />
-
-							<p:menuitem value="Pesquisa de Pedido de Compra" 
-								icon="ui-icon-search" outcome="/pedidos/PesquisaPedidos" />
-							<p:separator />
-							
-							<p:menuitem value="Pesquisa de Pedido de Compra Detalhado" icon="ui-icon-search"
-								outcome="/pedidos/PesquisaPedidoCompraListagem" />
-							<p:separator />
-
-							<p:menuitem value="Relatório de Pedidos Emitidos por Data"
-								outcome="/relatorios/RelatorioPedidosEmitidos"
-								icon="ui-icon-document" />
-							<p:separator />
-							
-						</p:submenu>
-
-						<p:submenu label="Fornecedor">
-							<p:menuitem value="Ativa/Inativa Fornecedor"
-								outcome="/inativacoes/InativaFornecedor" icon="ui-icon-refresh" />
-							<p:separator />
-						</p:submenu>
 						
 						<p:submenu label="Usuário">
 							<p:menuitem value="Ativa/Inativa Usuário"
 								outcome="/inativacoes/InativaUsuario" icon="ui-icon-refresh" />
 							<p:separator />
-						</p:submenu>
-
-						
-						<p:submenu label="Produto">
-							<p:menuitem value="Movimento Saída de Produto"
-								outcome="/saidas/MovimentoSaidaDeProduto" icon="ui-icon-refresh" />
-								<p:separator />
-						     <p:menuitem value="Pesquisa Movimento Saída de Produto"
-								outcome="/saidas/PesquisaMovimentoSaidaDeProduto" icon="ui-icon-search"/>
-								<p:separator />
-							 <p:menuitem value="Cancelamento Movimento Saída de Produto"
-								outcome="/saidas/CancelamentoMovimentoSaidaDeProduto" icon="ui-icon-refresh" />
-						
 						</p:submenu>
 
 					</p:submenu>
