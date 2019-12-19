@@ -37,7 +37,7 @@ public class ProcessoPJ implements Serializable {
 	private BigDecimal valorLiquido = BigDecimal.ZERO;
 	private Date dataEntrada;
 
-	@Max(value = 35)
+	@Max(value = 95)
 	private BigDecimal percentual = BigDecimal.ZERO;
 
 	private BigDecimal valorRecebimentoCliente = BigDecimal.ZERO;

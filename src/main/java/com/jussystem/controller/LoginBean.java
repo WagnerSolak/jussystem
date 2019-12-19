@@ -35,13 +35,24 @@ public class LoginBean implements Serializable{
 	public void login() throws ServletException, IOException {
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/Login.xhtml");
+		
+		System.out.println("dispatcher " +dispatcher);
+		
 		dispatcher.forward(request, response);
 		
+		System.out.println("Request "  +request);
+		System.out.println("Response " +response);
+		
 		facesContext.responseComplete();
+		
+		
 	}
 	
 	public void preRender() {
 		if("true".equals(request.getParameter("invalid"))){
+			
+			System.out.println("Request do getParameter " +request);
+			
 			FacesUtil.addErrorMessage("Usuário ou senha inválidos!");
 		}
 	}

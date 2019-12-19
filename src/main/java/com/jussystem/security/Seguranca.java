@@ -22,11 +22,14 @@ public class Seguranca {
 		
 		UsuarioSistema usuarioLogado = getUsuarioLogado();
 		
+		System.out.println("usuarioLogado "+usuarioLogado);
+		
 		if(usuarioLogado != null) {
 			nome = usuarioLogado.getUsuario().getNome();
 		}
 		
 		return nome;
+		
 	}
 
 	@Produces

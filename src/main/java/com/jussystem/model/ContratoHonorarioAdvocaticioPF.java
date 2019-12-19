@@ -21,14 +21,14 @@ import javax.validation.constraints.Max;
 public class ContratoHonorarioAdvocaticioPF implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long id;
 	private Date dataDocumento;
 	private BigDecimal salariosMinimo;
-		
+
 	@Max(value = 35)
 	private BigDecimal percentual;
-	
+
 	private ClientePessoaFisica clientePessoaFisica;
 
 	@Id
@@ -53,20 +53,24 @@ public class ContratoHonorarioAdvocaticioPF implements Serializable {
 
 	@Column(precision = 10, scale = 1)
 	public BigDecimal getSalariosMinimo() {
-		return salariosMinimo;
+		return salariosMinimo;		
 	}
 
 	public void setSalariosMinimo(BigDecimal salariosMinimo) {
 		this.salariosMinimo = salariosMinimo;
 	}
-	
+
 	@Transient
-	public String getSalariosMinimoStr(){
-		DecimalFormat df = new DecimalFormat("##.##");
-		return df.format(salariosMinimo);
+	public String getSalariosMinimoStr() {
+		if (salariosMinimo == null) {
+			return "0";
+		} else {
+			DecimalFormat df = new DecimalFormat("##.##");
+			return df.format(salariosMinimo);
+		}
 	}
 
-	@Column(nullable = false,precision = 5, scale = 2)
+	@Column(nullable = false, precision = 5, scale = 2)
 	public BigDecimal getPercentual() {
 		return percentual;
 	}
@@ -76,19 +80,18 @@ public class ContratoHonorarioAdvocaticioPF implements Serializable {
 	}
 
 	@Transient
-	public String getPercentualStr(){
-			DecimalFormat df = new DecimalFormat("##.##");
-			return df.format(percentual);
-		
+	public String getPercentualStr() {
+		DecimalFormat df = new DecimalFormat("##.##");
+		return df.format(percentual);
+
 	}
-	
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false, name = "clientePessoaFisica_id")
 	public ClientePessoaFisica getClientePessoaFisica() {
 		return clientePessoaFisica;
 	}
-	
+
 	public void setClientePessoaFisica(ClientePessoaFisica clientePessoaFisica) {
 		this.clientePessoaFisica = clientePessoaFisica;
 	}
@@ -117,8 +120,5 @@ public class ContratoHonorarioAdvocaticioPF implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
+
 }

@@ -109,7 +109,7 @@
 				</p:column>
 
 				<p:column headerText="Data do Documento"
-					style="text-align: left; width: 100px"
+					style="text-align: center; width: 100px"
 					sortBy="#{contratoHonorarioAdvocaticioPJ.dataDocumento}">
 					<h:outputText value="#{contratoHonorarioAdvocaticioPJ.dataDocumento}" >
 					<f:convertDateTime pattern="dd/MM/yyyy" />
@@ -117,13 +117,13 @@
 				</p:column>
 				
 				<p:column headerText="Qtde. Salário(s)"
-					style="text-align: left; width: 60px">
+					style="text-align: center; width: 60px">
 					<h:outputText value="#{contratoHonorarioAdvocaticioPJ.salariosMinimoStr}" />
 				</p:column>
 				
 				
 				<p:column headerText="Percentual"
-					style="text-align: left; width: 50px">
+					style="text-align: center; width: 50px">
 					<h:outputText value="#{contratoHonorarioAdvocaticioPJ.percentualStr} %" >
 					<f:convertNumber type="currency" />
 					</h:outputText>

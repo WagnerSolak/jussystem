@@ -120,8 +120,8 @@ public class ClientePessoaFisica implements Serializable{
 		this.cpf = cpf;
 	}
 	
-	@NotBlank
-	@Column(nullable = false, length = 10)
+	
+	@Column(length = 10)
 	public String getCtps() {
 		return ctps;
 	}
@@ -130,8 +130,8 @@ public class ClientePessoaFisica implements Serializable{
 		this.ctps = ctps;
 	}
 	
-	@NotBlank
-	@Column(nullable = false, length = 8)
+	
+	@Column(length = 8)
 	public String getSerieCtps() {
 		return serieCtps;
 	}

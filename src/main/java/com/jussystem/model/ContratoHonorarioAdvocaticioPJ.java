@@ -21,14 +21,14 @@ import javax.validation.constraints.Max;
 public class ContratoHonorarioAdvocaticioPJ implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long id;
 	private Date dataDocumento;
 	private BigDecimal salariosMinimo;
-		
+
 	@Max(value = 35)
 	private BigDecimal percentual;
-	
+
 	private ClientePessoaJuridica clientePessoaJuridica;
 
 	@Id
@@ -53,20 +53,26 @@ public class ContratoHonorarioAdvocaticioPJ implements Serializable {
 
 	@Column(precision = 10, scale = 1)
 	public BigDecimal getSalariosMinimo() {
-		return salariosMinimo;
+			return salariosMinimo;
+		
 	}
 
 	public void setSalariosMinimo(BigDecimal salariosMinimo) {
 		this.salariosMinimo = salariosMinimo;
 	}
-	
+
 	@Transient
-	public String getSalariosMinimoStr(){
-		DecimalFormat df = new DecimalFormat("##.##");
-		return df.format(salariosMinimo);
+	public String getSalariosMinimoStr() {
+		if (salariosMinimo == null) {
+			return "0";
+		} else {
+			DecimalFormat df = new DecimalFormat("##.##");
+			return df.format(salariosMinimo);
+		}
+
 	}
 
-	@Column(nullable = false,precision = 5, scale = 2)
+	@Column(nullable = false, precision = 5, scale = 2)
 	public BigDecimal getPercentual() {
 		return percentual;
 	}
@@ -74,9 +80,9 @@ public class ContratoHonorarioAdvocaticioPJ implements Serializable {
 	public void setPercentual(BigDecimal percentual) {
 		this.percentual = percentual;
 	}
-	
+
 	@Transient
-	public String getPercentualStr(){
+	public String getPercentualStr() {
 		DecimalFormat df = new DecimalFormat("##.##");
 		return df.format(percentual);
 	}
@@ -85,7 +91,7 @@ public class ContratoHonorarioAdvocaticioPJ implements Serializable {
 			ClientePessoaJuridica clientePessoaJuridica) {
 		this.clientePessoaJuridica = clientePessoaJuridica;
 	}
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false, name = "clientePessoaJuridica_id")
 	public ClientePessoaJuridica getClientePessoaJuridica() {
@@ -116,7 +122,5 @@ public class ContratoHonorarioAdvocaticioPJ implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
+
 }

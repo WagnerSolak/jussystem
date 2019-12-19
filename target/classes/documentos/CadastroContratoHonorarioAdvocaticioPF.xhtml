@@ -84,7 +84,8 @@
 					<p:inputText value="#{cadastroContratoHonorarioAdvocaticioPFBean.contratoHonorarioAdvocaticioPF.percentual}"
 					size="20" maxlength="10" id="percentual"
 					placeholder="Ex.: 20,00"
-					styleClass="moeda">
+					styleClass="moeda"
+					required="true" requiredMessage="O campo Percentual deve ser informado!">
 					<f:convertNumber maxFractionDigits="2" minFractionDigits="2"  locale="pt" />
 					</p:inputText>
 

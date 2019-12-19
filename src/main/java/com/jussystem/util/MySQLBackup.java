@@ -17,13 +17,13 @@ public class MySQLBackup {
 
 	    "C:" + SEPARATOR +
 
-	    "dev" + SEPARATOR +
+	    "Users" + SEPARATOR +
 
-	    "EasyPHP-DevServer-14.1VC11" + SEPARATOR +
+	    "Lurdinha" + SEPARATOR +
 
-	    "binaries" + SEPARATOR +
+	    "jussystem" + SEPARATOR +
 	    
-	    "mysql" + SEPARATOR +
+	    "apache-tomcat-8.0.32" + SEPARATOR +
 
 	    "bin" + SEPARATOR;
 

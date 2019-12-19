@@ -52,7 +52,7 @@ public class Cargos implements Serializable{
 	
 	@SuppressWarnings("unchecked")
 	public List<Cargo>filtradas(CargoFilter filtro){
-		Session session = manager.unwrap(Session.class);
+		Session session = (Session) manager;
 		Criteria criteria = session.createCriteria(Cargo.class);
 		
 		if (filtro.getNumeroDe() != null) {
